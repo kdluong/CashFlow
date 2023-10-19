@@ -9,6 +9,7 @@ const BackButton = () => {
     return (
         <IconSmall name={'chevron-back-sharp'} color={'white'} backgroundColor={accentColor} />
     );
+    
 };
 
 export default BackButton; 
