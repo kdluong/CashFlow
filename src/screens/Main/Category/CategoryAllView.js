@@ -85,6 +85,8 @@ const CategoryAllView = ({ navigation }) => {
 
                 <Text style={{ ...globalStyles.subHeader('white'), alignSelf: "center" }}>Top Categories</Text>
 
+                <View />
+
                 <View style={{ gap: scale(15), width: scale(120) }}>
 
                     {
