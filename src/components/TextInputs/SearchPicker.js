@@ -38,7 +38,7 @@ const SearchPicker = ({ setFilter, setSort, option, border, size }) => {
                     onChangeText={setFilter}
                     placeholder={placeholder}
                     loading={null}
-                    border={border}
+                    //border={border}
                 />
             </View>
 

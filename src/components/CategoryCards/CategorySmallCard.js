@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import { styles } from "../../styles/Styles";
+import globalStyles from "../../styles/styles";
 import React from "react";
 import { UserContext } from "../../supabase/ViewModel";
 import { scale } from "react-native-size-matters";
@@ -20,12 +20,12 @@ const CategorySmallCard = ({ category_id, percentage }) => {
 
             <View style={{ flexDirection: 'row', alignItems: "center", gap: scale(5) }}>
                 <View style={{ height: scale(15), width: scale(15), backgroundColor: category?.color, borderRadius: 100 }} />
-                <Text style={styles.subHeader('white')}>{category?.name}</Text>
+                <Text style={globalStyles.subHeader('white')}>{category?.name}</Text>
             </View>
 
             {/* Percent */}
 
-            <Text style={styles.body('white')}>{percentage}%</Text>
+            <Text style={globalStyles.body('white')}>{percentage}%</Text>
 
         </View>
     );

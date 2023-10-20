@@ -2,12 +2,12 @@ import React from "react";
 import { SafeAreaView, Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { UserContext } from "../../../../supabase/ViewModel";
-import { styles } from "../../../../styles/Styles";
 import { colors, icons, backgroundColor, green, accentColor } from "../../../../constants/constants";
 import CustomTextInput from "../../../../components/TextInputs/CustomTextInput";
-import { scale, moderateScale } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 import BackButton from "../../../../components/Buttons/BackButton";
 import CustomScrollView from "../../../../components/CustomViews/CustomScrollView";
+import globalStyles from "../../../../styles/styles";
 
 const NewCategoryView = ({ navigation, route }) => {
 
@@ -165,7 +165,7 @@ const NewCategoryView = ({ navigation, route }) => {
                         <BackButton />
                     </TouchableOpacity>
 
-                    <Text style={styles.header('white')}>{isUpdate ? "Edit" : "New"} Category</Text>
+                    <Text style={globalStyles.header('white')}>{isUpdate ? "Edit" : "New"} Category</Text>
 
                     {/* Icon & Loading */}
 
@@ -199,14 +199,14 @@ const NewCategoryView = ({ navigation, route }) => {
                 {/* Info */}
 
                 {!isUpdate &&
-                    <Text style={styles.body('#d3d3d3')}>
+                    <Text style={globalStyles.body('#d3d3d3')}>
                         Keep track of your finances by entering a new category name, choosing a color, and selecting an icon.
                     </Text>
                 }
 
                 {/* Text Input */}
 
-                <Text style={styles.subHeader('white')}>Choose a Name</Text>
+                <Text style={globalStyles.subHeader('white')}>Choose a Name</Text>
 
                 <CustomTextInput
                     value={name}
@@ -217,13 +217,13 @@ const NewCategoryView = ({ navigation, route }) => {
 
                 {/* Color List */}
 
-                <Text style={styles.subHeader('white')}>Choose a Color</Text>
+                <Text style={globalStyles.subHeader('white')}>Choose a Color</Text>
 
                 <ColorList />
 
                 {/* Icon List */}
 
-                <Text style={styles.subHeader('white')}>Choose an Icon</Text>
+                <Text style={globalStyles.subHeader('white')}>Choose an Icon</Text>
 
                 <IconList />
 
@@ -253,7 +253,7 @@ const NewCategoryView = ({ navigation, route }) => {
                             ?
                             <ActivityIndicator color={'white'} />
                             :
-                            <Text style={styles.subHeader('white')}>Delete Category</Text>
+                            <Text style={globalStyles.subHeader('white')}>Delete Category</Text>
                         }
 
                     </TouchableOpacity>

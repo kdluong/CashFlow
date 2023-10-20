@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, TouchableOpacity, RefreshControl } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { styles } from "../../../styles/Styles";
+import globalStyles from "../../../styles/styles";
 import { UserContext } from "../../../supabase/ViewModel";
 import TransactionMediumCard from "../../../components/TransactionCards/TransactionMediumCard";
 import SearchPicker from "../../../components/TextInputs/SearchPicker";
@@ -83,7 +83,7 @@ const TransactionAllView = ({ navigation }) => {
                     {/* Name & Icon */}
 
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(5) }}>
-                        <Text style={styles.header('white')}>Transactions</Text>
+                        <Text style={globalStyles.header('white')}>Transactions</Text>
                         <Ionicons name="receipt" size={scale(16)} color={'white'} />
                     </View>
 
@@ -120,7 +120,7 @@ const TransactionAllView = ({ navigation }) => {
     const renderEmptyComponent = () => {
         return (
             < View style={{ height: '250%', alignItems: 'center', justifyContent: 'flex-end' }}>
-                <Text style={styles.body('white')}>No Transactions</Text>
+                <Text style={globalStyles.body('white')}>No Transactions</Text>
             </View >
         );
     };

@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, RefreshControl } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { UserContext } from "../../../../supabase/ViewModel";
 import CategoryFullCard from "../../../../components/CategoryCards/CategoryFullCard";
-import { styles } from "../../../../styles/Styles";
+import globalStyles from "../../../../styles/styles";
 import SearchPicker from "../../../../components/TextInputs/SearchPicker";
 import { scale } from 'react-native-size-matters';
 import BackButton from "../../../../components/Buttons/BackButton";
@@ -77,7 +77,7 @@ const ChooseCategoryView = ({ navigation, route }) => {
                         <BackButton />
                     </TouchableOpacity>
 
-                    <Text style={styles.header('white')}>Select a Category</Text>
+                    <Text style={globalStyles.header('white')}>Select a Category</Text>
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('NewCategoryView', { category_id: null })}
@@ -117,7 +117,7 @@ const ChooseCategoryView = ({ navigation, route }) => {
     const renderEmptyComponent = () => {
         return (
             < View style={{ height: '210%', alignItems: 'center', justifyContent: 'flex-end' }}>
-                <Text style={styles.body('white')}>No Categories</Text>
+                <Text style={globalStyles.body('white')}>No Categories</Text>
             </View >
         );
     };

@@ -1,6 +1,6 @@
 import { Text, View, TouchableOpacity } from "react-native";
 import React from "react";
-import { styles } from "../../../styles/Styles";
+import globalStyles from "../../../styles/styles";
 import { signUpWithEmail } from "../../../supabase/supabaseFunctions";
 import CustomTextInput from "../../../components/TextInputs/CustomTextInput";
 import CustomPasswordInput from "../../../components/TextInputs/CustomPasswordInput";
@@ -62,7 +62,7 @@ const RegisterView = ({ navigation }) => {
 
                 <View style={{ gap: scale(10), paddingHorizontal: scale(10) }}>
 
-                    <Text style={styles.header('white')}>Sign Up</Text>
+                    <Text style={globalStyles.header('white')}>Sign Up</Text>
 
                     <CustomTextInput
                         value={first}
@@ -103,7 +103,7 @@ const RegisterView = ({ navigation }) => {
                         style={{ alignSelf: 'center' }}
                         onPress={() => navigation.goBack()}
                     >
-                        <Text style={styles.body('white')}>Already have an account? <Text style={styles.body(green)}>Sign in.</Text></Text>
+                        <Text style={globalStyles.body('white')}>Already have an account? <Text style={globalStyles.body(green)}>Sign in.</Text></Text>
                     </TouchableOpacity>
 
                 </View>
@@ -127,7 +127,7 @@ const RegisterView = ({ navigation }) => {
                 }}
                 onPress={() => signUpWithEmail(email, password)}
             >
-                <Text style={styles.subHeader('black')}>Sign Up</Text>
+                <Text style={globalStyles.subHeader('black')}>Sign Up</Text>
             </TouchableOpacity>
 
         </View >

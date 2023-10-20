@@ -1,6 +1,5 @@
-import { View, SafeAreaView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Dimensions, ScrollView } from "react-native";
+import { Dimensions, ScrollView } from "react-native";
 import { scale } from 'react-native-size-matters';
-import React from "react";
 
 const CustomScrollView = ({ children, style, refreshControl }) => {
 

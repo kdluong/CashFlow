@@ -5,7 +5,6 @@ import { Image } from "expo-image";
 import { UserContext } from "../../../../supabase/ViewModel";
 import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { styles } from "../../../../styles/Styles";
 import CustomTextInput from "../../../../components/TextInputs/CustomTextInput";
 import CameraView from "./CameraView";
 import * as ImagePicker from 'expo-image-picker';
@@ -15,6 +14,7 @@ import BackButton from "../../../../components/Buttons/BackButton";
 import CustomView from "../../../../components/CustomViews/CustomView";
 import IconLarge from "../../../../components/Icons/IconLarge";
 import { backgroundColor, green } from "../../../../constants/constants";
+import globalStyles from "../../../../styles/styles";
 
 const NewTransactionFinishView = ({ navigation, route }: { navigation: any, route: any }) => {
 
@@ -148,7 +148,7 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any, rout
                         <BackButton />
                     </TouchableOpacity>
 
-                    <Text style={styles.header('white')}>Confirm Transaction</Text>
+                    <Text style={globalStyles.header('red')}>Confirm Transaction</Text>
 
                     {/* Complete & Loading */}
 
@@ -248,8 +248,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any, rout
                         <IconLarge name={category?.icon} color={'white'} backgroundColor={category?.color} />
 
                         <View >
-                            <Text style={styles.subHeader('black')}>{name == '' ? 'Transaction Name' : name}</Text>
-                            <Text style={styles.body('gray')}>{category?.name}</Text>
+                            <Text style={globalStyles.subHeader('black')}>{name == '' ? 'Transaction Name' : name}</Text>
+                            <Text style={globalStyles.body('gray')}>{category?.name}</Text>
                         </View>
 
                     </View>
@@ -257,8 +257,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any, rout
                     {/* Total & Date */}
 
                     <View style={{ alignItems: 'flex-end' }}>
-                        <Text style={styles.subHeader('black')}>- ${total}</Text>
-                        <Text style={styles.body('gray')}>{getDateLong(currentDate)} @ {getTime(currentDate)}</Text>
+                        <Text style={globalStyles.subHeader('black')}>- ${total}</Text>
+                        <Text style={globalStyles.body('gray')}>{getDateLong(currentDate)} @ {getTime(currentDate)}</Text>
                     </View>
 
                 </View>

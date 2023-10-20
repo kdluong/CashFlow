@@ -1,7 +1,7 @@
 import { Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { Image } from "expo-image";
-import { styles } from "../../../styles/Styles";
+import globalStyles from "../../../styles/styles";
 import { signInWithEmail } from "../../../supabase/supabaseFunctions";
 import CustomTextInput from "../../../components/TextInputs/CustomTextInput";
 import CustomPasswordInput from "../../../components/TextInputs/CustomPasswordInput";
@@ -42,7 +42,7 @@ const LogInView = ({ navigation }) => {
                     {/* Logo */}
 
                     <View style={{ alignItems: 'center', flexDirection: "row" }}>
-                        <Text style={styles.logo}>CASHFLOW</Text>
+                        <Text style={globalStyles.logo}>CASHFLOW</Text>
                         <Image
                             style={{ height: scale(40), width: scale(40), marginLeft: scale(5), marginBottom: scale(10) }}
                             source={require('../../../../assets/logoClear.png')}
@@ -51,7 +51,7 @@ const LogInView = ({ navigation }) => {
 
                     {/* Slogan */}
 
-                    <Text style={styles.body('white')}>Money management, redefined.</Text>
+                    <Text style={globalStyles.body('white')}>Money management, redefined.</Text>
 
                 </View>
 
@@ -59,7 +59,7 @@ const LogInView = ({ navigation }) => {
 
                 <View style={{ gap: scale(10), paddingHorizontal: scale(10) }}>
 
-                    <Text style={styles.header('white')}>Log In</Text>
+                    <Text style={globalStyles.header('white')}>Log In</Text>
 
                     <CustomTextInput
                         value={email}
@@ -79,7 +79,7 @@ const LogInView = ({ navigation }) => {
                         style={{ alignSelf: 'center' }}
                         onPress={() => navigation.navigate('Register')}
                     >
-                        <Text style={styles.body('white')}>Don't have an account? <Text style={styles.body(green)}>Sign up.</Text></Text>
+                        <Text style={globalStyles.body('white')}>Don't have an account? <Text style={globalStyles.body(green)}>Sign up.</Text></Text>
                     </TouchableOpacity>
 
 
@@ -106,7 +106,7 @@ const LogInView = ({ navigation }) => {
                 }}
                 onPress={() => signInWithEmail(email, password)}
             >
-                <Text style={styles.subHeader('black')}>Log In</Text>
+                <Text style={globalStyles.subHeader('black')}>Log In</Text>
             </TouchableOpacity>
 
         </View>

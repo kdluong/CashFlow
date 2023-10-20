@@ -1,6 +1,5 @@
 import { View, SafeAreaView, Dimensions, FlatList } from "react-native";
 import { scale } from 'react-native-size-matters';
-import React from "react";
 
 const CustomFlatListView = (props) => {
 

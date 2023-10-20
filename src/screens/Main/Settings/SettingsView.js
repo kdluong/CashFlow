@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Image } from "expo-image";
 import { UserContext } from "../../../supabase/ViewModel";
 import React from "react";
-import { styles } from "../../../styles/Styles";
+import globalStyles from "../../../styles/styles";
 import { scale } from 'react-native-size-matters';
 import OpenDrawerButton from "../../../components/Buttons/OpenDrawerButton";
 import CustomView from "../../../components/CustomViews/CustomView";
@@ -26,7 +26,7 @@ const SettingsView = ({ navigation }) => {
 
                 {/* Name & Icon */}
 
-                <Text style={styles.header('white')}>Account Settings</Text>
+                <Text style={globalStyles.header('white')}>Account Settings</Text>
 
                 {/* New Category */}
 
@@ -48,8 +48,8 @@ const SettingsView = ({ navigation }) => {
                     />
 
                     <View style={{ alignItems: 'center', gap: scale(5) }}>
-                        <Text style={styles.header('white')}>{user?.first_name} {user?.last_name}</Text>
-                        <Text style={styles.body('#d3d3d3')}>Member since {monthNames[startDate.getMonth()]} {startDate.getFullYear()}</Text>
+                        <Text style={globalStyles.header('white')}>{user?.first_name} {user?.last_name}</Text>
+                        <Text style={globalStyles.body('#d3d3d3')}>Member since {monthNames[startDate.getMonth()]} {startDate.getFullYear()}</Text>
                     </View>
 
                 </View>
@@ -62,21 +62,21 @@ const SettingsView = ({ navigation }) => {
                         onPress={() => navigation.navigate('EditProfileView')}
                         style={{ height: scale(40), backgroundColor: accentColor, borderRadius: scale(10), justifyContent: 'center', alignItems: "center" }}
                     >
-                        <Text style={styles.subHeader('white')}>Edit Profile</Text>
+                        <Text style={globalStyles.subHeader('white')}>Edit Profile</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('EditAccountView', { option: 'email' })}
                         style={{ height: scale(40), backgroundColor: accentColor, borderRadius: scale(10), justifyContent: 'center', alignItems: "center" }}
                     >
-                        <Text style={styles.subHeader('white')}>Change Email</Text>
+                        <Text style={globalStyles.subHeader('white')}>Change Email</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('EditAccountView', { option: 'password' })}
                         style={{ height: scale(40), backgroundColor: accentColor, borderRadius: scale(10), justifyContent: 'center', alignItems: "center" }}
                     >
-                        <Text style={styles.subHeader('white')}>Change Password</Text>
+                        <Text style={globalStyles.subHeader('white')}>Change Password</Text>
                     </TouchableOpacity>
 
                 </View>

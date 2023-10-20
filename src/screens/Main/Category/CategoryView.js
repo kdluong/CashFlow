@@ -3,7 +3,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from "react";
 import { UserContext } from "../../../supabase/ViewModel";
 import { CustomSwitchSelector } from "../../../components/SwitchSelector/CustomSwitchSelector";
-import { styles } from "../../../styles/Styles";
+import globalStyles from "../../../styles/styles";
 import { switchOptions, backgroundColor } from "../../../constants/constants";
 import { scale } from 'react-native-size-matters';
 import TransactionSmallCard from "../../../components/TransactionCards/TransactionSmallCard";
@@ -73,7 +73,7 @@ const CategoryView = ({ navigation, route }) => {
                         {/* Name */}
 
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={styles.header('white')}>{category?.name} </Text>
+                            <Text style={globalStyles.header('white')}>{category?.name} </Text>
                             <Ionicons name={category?.icon} size={scale(16)} color={'white'} />
                         </View>
 
@@ -111,10 +111,10 @@ const CategoryView = ({ navigation, route }) => {
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ fontFamily: 'BebasReg', fontSize: scale(47), color: category?.color }}>$</Text>
-                        <Text style={styles.logo}>{total} </Text>
+                        <Text style={globalStyles.logo}>{total} </Text>
                     </View>
 
-                    <Text style={styles.body('white')}>{description} Spendings</Text>
+                    <Text style={globalStyles.body('white')}>{description} Spendings</Text>
 
                 </View>
 
@@ -126,7 +126,7 @@ const CategoryView = ({ navigation, route }) => {
 
                     <View style={{ flexDirection: 'row', justifyContent: "space-between", alignItems: 'center' }}>
 
-                        <Text style={styles.header('black')}>Transactions</Text>
+                        <Text style={globalStyles.header('black')}>Transactions</Text>
 
                         <TouchableOpacity
                             onPress={() => navigation.navigate('SharedStack', {
@@ -179,7 +179,7 @@ const CategoryView = ({ navigation, route }) => {
     const renderEmptyComponent = () => {
         return (
             <View style={{ height: '35%', alignItems: 'center', justifyContent: 'flex-end', backgroundColor: 'white' }}>
-                <Text style={styles.body('black')}>No Transactions</Text>
+                <Text style={globalStyles.body('black')}>No Transactions</Text>
             </View>
         );
     };

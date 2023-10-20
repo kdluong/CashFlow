@@ -1,6 +1,5 @@
 import { Text, View } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { styles } from "../../styles/Styles";
+import globalStyles from "../../styles/styles";
 import React from "react";
 import { UserContext } from "../../supabase/ViewModel";
 import { scale } from 'react-native-size-matters';
@@ -38,7 +37,7 @@ const CategoryFullCard = ({ category_id }) => {
 
             <IconSmall name={category?.icon} color={category?.color} backgroundColor={'white'} />
 
-            <Text style={styles.header('white')}>{category?.name}</Text>
+            <Text style={globalStyles.header('white')}>{category?.name}</Text>
 
             <View style={{ width: scale(35) }} />
 

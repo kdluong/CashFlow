@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Dimensions } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from "react";
-import { styles } from "../../../../styles/Styles";
+import globalStyles from "../../../../styles/styles";
 import { scale } from 'react-native-size-matters';
 import { UserContext } from "../../../../supabase/ViewModel";
 import BackButton from "../../../../components/Buttons/BackButton";
@@ -123,7 +123,7 @@ const NewTransactionStartView = ({ navigation, route }) => {
                         elevation: 1,
                     }}
                 >
-                    <Text style={styles.subHeader('white')}>Next </Text>
+                    <Text style={globalStyles.subHeader('white')}>Next </Text>
                     <Ionicons name="arrow-forward-sharp" size={scale(15)} color={'white'} />
                 </TouchableOpacity>
 
@@ -202,10 +202,10 @@ const NewTransactionStartView = ({ navigation, route }) => {
 
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ fontFamily: 'BebasReg', fontSize: scale(47), color: (category == null ? '#d3d3d3' : category.color) }}>$</Text>
-                    <Text style={styles.logo}>{total == 0 ? '0.00' : total} </Text>
+                    <Text style={globalStyles.logo}>{total == 0 ? '0.00' : total} </Text>
                 </View>
 
-                <Text style={styles.body('white')}>Enter an Amount</Text>
+                <Text style={globalStyles.body('white')}>Enter an Amount</Text>
 
             </View>
 
@@ -237,7 +237,7 @@ const NewTransactionStartView = ({ navigation, route }) => {
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 
                                 <View style={{ width: scale(15) }} />
-                                <Text style={styles.subHeader('white')}>Select a Category</Text>
+                                <Text style={globalStyles.subHeader('white')}>Select a Category</Text>
                                 <Ionicons name="chevron-forward-sharp" size={scale(15)} color={'white'} />
 
                             </View>
@@ -246,7 +246,7 @@ const NewTransactionStartView = ({ navigation, route }) => {
 
                                 <IconSmall name={category?.icon} color={category?.color} backgroundColor={'white'} />
 
-                                <Text style={styles.header('white')}>{category?.name}</Text>
+                                <Text style={globalStyles.header('white')}>{category?.name}</Text>
 
                                 <View style={{ width: scale(35), alignItems: 'flex-end' }}>
                                     <Ionicons name="chevron-forward-sharp" size={scale(15)} color={isConstant ? category?.color : 'white'} />

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity, Text, ActivityIndicator, SafeAreaView } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { styles } from "../../../styles/Styles";
+import globalStyles from "../../../styles/styles";
 import { UserContext } from "../../../supabase/ViewModel";
 import { Image } from "expo-image";
 import * as ImagePicker from 'expo-image-picker';
@@ -84,7 +84,7 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
                         <BackButton />
                     </TouchableOpacity>
 
-                    <Text style={styles.header('white')}>Edit Profile</Text>
+                    <Text style={globalStyles.header('white')}>Edit Profile</Text>
 
                     {/* Complete */}
 

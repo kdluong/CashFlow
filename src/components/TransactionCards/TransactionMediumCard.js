@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "expo-image";
 import { View, Text, ActivityIndicator } from "react-native";
-import { styles } from "../../styles/Styles";
+import globalStyles from "../../styles/styles";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { getDate } from "../../functions/functions";
 import { UserContext } from "../../supabase/ViewModel";
@@ -80,7 +80,7 @@ const TransactionMediumCard = ({ transaction_id }) => {
 
           <Text
             style={{
-              ...styles.body('white'),
+              ...globalStyles.body('white'),
               textShadowColor: 'black',
               textShadowOffset: { width: 0.2, height: 0.2 },
               textShadowRadius: 2,
@@ -106,7 +106,7 @@ const TransactionMediumCard = ({ transaction_id }) => {
 
           <Text
             style={{
-              ...styles.subHeader('white'),
+              ...globalStyles.subHeader('white'),
               textShadowColor: 'black',
               textShadowOffset: { width: 0.2, height: 0.2 },
               textShadowRadius: 2,
@@ -119,7 +119,7 @@ const TransactionMediumCard = ({ transaction_id }) => {
 
           <Text
             style={{
-              ...styles.header('white'),
+              ...globalStyles.header('white'),
               textShadowColor: 'black',
               textShadowOffset: { width: 0.2, height: 0.2 },
               textShadowRadius: 2,

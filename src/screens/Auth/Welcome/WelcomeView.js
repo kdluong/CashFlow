@@ -1,8 +1,8 @@
 import { View, TouchableOpacity, Text } from "react-native";
 import { Image } from "expo-image";
 import { scale } from 'react-native-size-matters';
-import { styles } from "../../../styles/Styles";
 import { green } from "../../../constants/constants";
+import globalStyles from "../../../styles/styles";
 
 const WelcomeView = ({ navigation }) => {
 
@@ -12,7 +12,7 @@ const WelcomeView = ({ navigation }) => {
             {/* Logo */}
 
             <View style={{ alignItems: 'center', flexDirection: "row" }}>
-                <Text style={styles.logo}>CASHFLOW</Text>
+                <Text style={globalStyles.logo}>CASHFLOW</Text>
                 <Image
                     style={{ height: scale(40), width: scale(40), marginLeft: scale(5), marginBottom: scale(10) }}
                     source={require('../../../../assets/logo.png')}
@@ -21,7 +21,7 @@ const WelcomeView = ({ navigation }) => {
 
             {/* Slogan */}
 
-            <Text style={styles.body('white')}>Money management, redefined.</Text>
+            <Text style={globalStyles.body('white')}>Money management, redefined.</Text>
 
             {/* gif */}
 
@@ -44,7 +44,7 @@ const WelcomeView = ({ navigation }) => {
                 }}
                 onPress={() => navigation.navigate('Login')}
             >
-                <Text style={styles.subHeader('white')}>Let's go!</Text>
+                <Text style={globalStyles.subHeader('white')}>Let's go!</Text>
             </TouchableOpacity>
 
         </View>

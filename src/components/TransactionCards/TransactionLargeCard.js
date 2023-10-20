@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, ActivityIndicator, SafeAreaView } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import { Image } from "expo-image";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { getDate, getDateLong, getTime } from "../../functions/functions";
-import { styles } from "../../styles/Styles";
+import globalStyles from "../../styles/styles";
 import { UserContext } from "../../supabase/ViewModel";
 import { scale } from 'react-native-size-matters';
 import CustomView from "../CustomViews/CustomView";
@@ -73,8 +73,8 @@ const TransactionLargeCard = ({ transaction_id, children }) => {
                         <IconLarge name={category?.icon} color={'white'} backgroundColor={category?.color} />
 
                         <View >
-                            <Text style={styles.subHeader('black')}>{transaction?.name}</Text>
-                            <Text style={styles.body('gray')}>{category?.name}</Text>
+                            <Text style={globalStyles.subHeader('black')}>{transaction?.name}</Text>
+                            <Text style={globalStyles.body('gray')}>{category?.name}</Text>
                         </View>
 
                     </View>
@@ -82,8 +82,8 @@ const TransactionLargeCard = ({ transaction_id, children }) => {
                     {/* Total & Date */}
 
                     <View style={{ alignItems: 'flex-end' }}>
-                        <Text style={styles.subHeader('black')}>- ${transaction?.total?.toFixed(2)}</Text>
-                        <Text style={styles.body('gray')}>{getDateLong(transaction?.date)} @ {getTime(transaction?.date)}</Text>
+                        <Text style={globalStyles.subHeader('black')}>- ${transaction?.total?.toFixed(2)}</Text>
+                        <Text style={globalStyles.body('gray')}>{getDateLong(transaction?.date)} @ {getTime(transaction?.date)}</Text>
                     </View>
 
                 </View>

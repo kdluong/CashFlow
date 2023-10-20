@@ -4,7 +4,7 @@ import { UserContext } from "../../../supabase/ViewModel";
 import React from "react";
 import { CustomSwitchSelector } from "../../../components/SwitchSelector/CustomSwitchSelector";
 import { PieChart } from "react-native-gifted-charts";
-import { styles } from "../../../styles/Styles";
+import globalStyles from "../../../styles/styles";
 import { scale } from 'react-native-size-matters';
 import CategoryMediumCard from "../../../components/CategoryCards/CategoryMediumCard";
 import CategorySmallCard from "../../../components/CategoryCards/CategorySmallCard";
@@ -40,7 +40,7 @@ const CategoryAllView = ({ navigation }) => {
                         innerCircleColor={backgroundColor}
                         centerLabelComponent={() => {
                             return (
-                                <Text style={styles.header('white')} numberOfLines={1}>${total}</Text>
+                                <Text style={globalStyles.header('white')} numberOfLines={1}>${total}</Text>
                             );
                         }}
                     />
@@ -109,7 +109,7 @@ const CategoryAllView = ({ navigation }) => {
                         {/* Name & Icon */}
 
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(5) }}>
-                            <Text style={styles.header('white')}>Categories</Text>
+                            <Text style={globalStyles.header('white')}>Categories</Text>
                             <Ionicons name="pie-chart" size={scale(16)} color={'white'} />
                         </View>
 
@@ -141,7 +141,7 @@ const CategoryAllView = ({ navigation }) => {
 
                 <View style={{ gap: scale(10) }}>
 
-                    <Text style={styles.header('white')}>Spending Distribution</Text>
+                    <Text style={globalStyles.header('white')}>Spending Distribution</Text>
 
                     {categories != null &&
                         <PieChartDistribution />
@@ -153,7 +153,7 @@ const CategoryAllView = ({ navigation }) => {
 
                 <View style={{ gap: scale(10) }}>
 
-                    <Text style={styles.header('white')}>All Categories</Text>
+                    <Text style={globalStyles.header('white')}>All Categories</Text>
 
                     <SearchPicker
                         setFilter={setFilter}
@@ -182,7 +182,7 @@ const CategoryAllView = ({ navigation }) => {
     const renderEmptyComponent = () => {
         return (
             <View style={{ height: '35%', alignItems: 'center', justifyContent: 'flex-end' }}>
-                <Text style={styles.body('white')}>No Categories</Text>
+                <Text style={globalStyles.body('white')}>No Categories</Text>
             </View>
         );
     };

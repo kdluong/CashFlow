@@ -1,9 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { styles } from "../../styles/Styles";
+import globalStyles from "../../styles/styles";
 import { UserContext } from "../../supabase/ViewModel";
-import { moderateScale, scale } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 import IconSmall from "../Icons/IconSmall";
 
 const CategoryMediumCard = ({ category_id, total }) => {
@@ -45,7 +44,7 @@ const CategoryMediumCard = ({ category_id, total }) => {
                 <IconSmall name={category?.icon} color={category?.color} backgroundColor={'white'} />
 
                 <Text style={{
-                    ...styles.body('white'), shadowColor: "#000",
+                    ...globalStyles.body('white'), shadowColor: "#000",
                     shadowOffset: {
                         width: 0,
                         height: 12,
@@ -61,7 +60,7 @@ const CategoryMediumCard = ({ category_id, total }) => {
             {/* Name */}
 
             <Text style={{
-                ...styles.subHeader('white'), shadowColor: "#000",
+                ...globalStyles.subHeader('white'), shadowColor: "#000",
                 shadowOffset: {
                     width: 0,
                     height: 12,

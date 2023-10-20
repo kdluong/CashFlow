@@ -2,7 +2,7 @@ import React from "react";
 import { SafeAreaView, View, Text, TouchableOpacity, RefreshControl, Dimensions } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { UserContext } from "../../../supabase/ViewModel";
-import { styles } from "../../../styles/Styles";
+import globalStyles from "../../../styles/styles";
 import { scale } from 'react-native-size-matters';
 import { Image } from "expo-image";
 import TransactionSmallCard from "../../../components/TransactionCards/TransactionSmallCard";
@@ -26,7 +26,7 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
             myTransactions?.length == 0
                 ?
                 <View style={{ alignItems: "center", justifyContent: 'center', height: scale(130) }}>
-                    <Text style={styles.body('black')}>No Transactions</Text>
+                    <Text style={globalStyles.body('black')}>No Transactions</Text>
                 </View>
                 :
                 <View>
@@ -87,7 +87,7 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
             }
 
             return (
-                <Text style={styles.body('black')}>{month} ${parseFloat(total).toFixed(2)}</Text>
+                <Text style={globalStyles.body('black')}>{month} ${parseFloat(total).toFixed(2)}</Text>
             );
         }
         else {
@@ -121,7 +121,7 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
                 {/* Logo */}
 
                 <View style={{ alignItems: 'center', flexDirection: "row" }}>
-                    <Text style={styles.logo}>CASHFLOW</Text>
+                    <Text style={globalStyles.logo}>CASHFLOW</Text>
                     <Image
                         style={{ height: scale(40), width: scale(40), marginLeft: scale(5), marginBottom: scale(10) }}
                         source={require('../../../../assets/logoClear.png')}
@@ -130,7 +130,7 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
 
                 {/* Slogan */}
 
-                <Text style={styles.body('white')}>Money management, redefined.</Text>
+                <Text style={globalStyles.body('white')}>Money management, redefined.</Text>
 
             </View>
         );
@@ -191,10 +191,10 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
 
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={{ fontFamily: 'BebasReg', fontSize: scale(47), color: green }}>$</Text>
-                            <Text style={styles.logo}>{spendingDistribution?.year?.total} </Text>
+                            <Text style={globalStyles.logo}>{spendingDistribution?.year?.total} </Text>
                         </View>
 
-                        <Text style={styles.body('white')}>Yearly Spendings</Text>
+                        <Text style={globalStyles.body('white')}>Yearly Spendings</Text>
 
                     </View>
 
@@ -220,7 +220,7 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
                                 }}
                             >
                                 <Ionicons name="receipt-sharp" size={scale(16)} color={'white'} />
-                                <Text style={styles.subHeader('white')}>Transactions</Text>
+                                <Text style={globalStyles.subHeader('white')}>Transactions</Text>
 
                             </TouchableOpacity>
 
@@ -238,7 +238,7 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
                                 }}
                             >
                                 <Ionicons name="pie-chart-sharp" size={scale(16)} color={'white'} />
-                                <Text style={styles.subHeader('white')}>Categories</Text>
+                                <Text style={globalStyles.subHeader('white')}>Categories</Text>
                             </TouchableOpacity>
 
                         </View>
@@ -262,7 +262,7 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
                         >
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={styles.header('black')}>Overview</Text>
+                                <Text style={globalStyles.header('black')}>Overview</Text>
                                 <RenderMonthlyOverview />
                             </View>
 
@@ -283,9 +283,9 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
                                     frontColor={green}
                                     barBorderRadius={scale(5)}
                                     noOfSections={2}
-                                    xAxisLabelTextStyle={{ ...styles.body('gray'), alignSelf: 'center' }}
+                                    xAxisLabelTextStyle={{ ...globalStyles.body('gray'), alignSelf: 'center' }}
                                     xAxisThickness={0}
-                                    yAxisTextStyle={{ ...styles.body('gray'), alignSelf: 'center' }}
+                                    yAxisTextStyle={{ ...globalStyles.body('gray'), alignSelf: 'center' }}
                                     yAxisLabelPrefix={'$'}
                                     yAxisThickness={0}
                                     scrollToEnd
@@ -317,10 +317,10 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingBottom: scale(10) }}>
 
-                                <Text style={styles.header('black')}>Recent Transactions</Text>
+                                <Text style={globalStyles.header('black')}>Recent Transactions</Text>
 
                                 <TouchableOpacity onPress={() => { navigation.jumpTo('TransactionStack') }}>
-                                    <Text style={styles.body('gray')}>More</Text>
+                                    <Text style={globalStyles.body('gray')}>More</Text>
                                 </TouchableOpacity>
 
                             </View>
@@ -367,7 +367,7 @@ const DashboardView = ({ navigation }: { navigation: any }) => {
                         }
                     })}
                 >
-                    <Text style={styles.subHeader('black')}>New Transaction</Text>
+                    <Text style={globalStyles.subHeader('black')}>New Transaction</Text>
 
                     <Ionicons name={'add-sharp'} size={scale(16)} color={'black'} />
 

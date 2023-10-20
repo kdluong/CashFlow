@@ -1,14 +1,14 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
+import { createDrawerNavigator, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ScaledSheet, ms, scale, vs, verticalScale, moderateScale } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 import { SafeAreaView, View, Text } from "react-native";
 import { Image } from "expo-image";
-import { styles } from "../../styles/Styles";
+import globalStyles from "../../styles/styles";
 import { UserContext } from "../../supabase/ViewModel";
 import React from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { signOut } from "../../supabase/supabaseFunctions";
+import { backgroundColor, accentColor, green } from "../../constants/constants";
 
 import DashboardView from "./Dashboard/DashboardView";
 
@@ -28,13 +28,6 @@ import CameraView from "./Transaction/NewTransaction/CameraView";
 import NewTransactionStartView from "./Transaction/NewTransaction/NewTransactionStartView";
 import NewTransactionFinishView from "./Transaction/NewTransaction/NewTransactionFinishView";
 import ChooseCategoryView from "./Transaction/NewTransaction/ChooseCategoryView";
-
-const backgroundColor = '#17181a';
-const accentColor = '#343338';
-const percentColor = '#1e1d22';
-const innerCircleColor = '#111111';
-const searchColor = '#343338';
-const green = '#32d584';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -161,7 +154,7 @@ const MainStack = () => {
             screenOptions={{
                 swipeEnabled: false,
                 headerShown: false,
-                drawerLabelStyle: { fontFamily: 'BebasBold', fontSize: moderateScale(18) },
+                drawerLabelStyle: { fontFamily: 'BebasBold', fontSize: scale(18) },
                 drawerInactiveTintColor: 'white',
                 drawerActiveTintColor: green,
                 drawerActiveBackgroundColor: accentColor,
@@ -186,8 +179,8 @@ const MainStack = () => {
 
 
                                 <View>
-                                    <Text style={styles.header('white')}>{user?.first_name} {user?.last_name}</Text>
-                                    <Text style={styles.body('#d3d3d3')}>{session?.user?.email}</Text>
+                                    <Text style={globalStyles.header('white')}>{user?.first_name} {user?.last_name}</Text>
+                                    <Text style={globalStyles.body('#d3d3d3')}>{session?.user?.email}</Text>
                                 </View>
                             </View>
 
@@ -207,7 +200,7 @@ const MainStack = () => {
 
                             <DrawerItem
                                 label={"Sign Out"} onPress={() => signOut()}
-                                labelStyle={styles.subHeader('white')}
+                                labelStyle={globalStyles.subHeader('white')}
                                 icon={() => <Ionicons name="exit-outline" size={scale(18)} color={'white'} />}
                             />
 

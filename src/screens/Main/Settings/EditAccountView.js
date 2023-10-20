@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { styles } from "../../../styles/Styles";
+import globalStyles from "../../../styles/styles";
 import { changeEmail, changePassword } from "../../../supabase/supabaseFunctions";
 import CustomTextInput from "../../../components/TextInputs/CustomTextInput";
 import { scale } from 'react-native-size-matters';
@@ -73,7 +73,7 @@ const EditAccountView = ({ navigation, route }) => {
                         <BackButton />
                     </TouchableOpacity >
 
-                    <Text style={styles.header('white')}>{option != 'password' ? "Change Email" : "Change Password"}</Text>
+                    <Text style={globalStyles.header('white')}>{option != 'password' ? "Change Email" : "Change Password"}</Text>
 
                     {/* Complete */}
 

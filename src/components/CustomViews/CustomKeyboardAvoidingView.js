@@ -1,6 +1,5 @@
 import { View, SafeAreaView, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Dimensions } from "react-native";
 import { scale } from 'react-native-size-matters';
-import React from "react";
 
 const CustomKeyboardAvoidingView = ({ children, style }) => {
 
