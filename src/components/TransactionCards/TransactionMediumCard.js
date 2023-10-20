@@ -51,8 +51,9 @@ const TransactionMediumCard = ({ transaction_id }) => {
         style={{
           flex: 1,
           backgroundColor: category?.color,
-          opacity: 0.85
+          opacity: 0.9
         }}
+        //blurRadius={0.05}
         key={new Date()}
         onLoadEnd={() => setLoading(false)}
       />
@@ -79,57 +80,54 @@ const TransactionMediumCard = ({ transaction_id }) => {
 
           <Text
             style={{
-              ...styles.body('white'), shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 12,
-              },
-              shadowOpacity: 0.58,
-              shadowRadius: 16.00,
-
-              elevation: 24,
+              ...styles.body('white'),
+              textShadowColor: 'black',
+              textShadowOffset: { width: 0.2, height: 0.2 },
+              textShadowRadius: 2,
             }}
             numberOfLines={1}
-          >- ${transaction?.total?.toFixed(2)}
+          >
+            {getDate(transaction?.date)}
           </Text>
 
         </View>
 
         {/* Loading */}
 
-        {loading && transaction?.image != null && <ActivityIndicator size={'small'} color={'black'} />}
+        {loading && transaction?.image != null && <ActivityIndicator size={'small'} color={'white'} />}
 
-        {/* Name, Category, & Total */}
+        {/* Name & Total */}
 
-        <View >
+        <View
+          style={{
 
-          <Text style={{
-            ...styles.subHeader('white'),
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 12,
-            },
-            shadowOpacity: 0.58,
-            shadowRadius: 16.00,
+          }}
+        >
 
-            elevation: 24,
-          }} numberOfLines={1} >{transaction?.name}</Text>
+          <Text
+            style={{
+              ...styles.subHeader('white'),
+              textShadowColor: 'black',
+              textShadowOffset: { width: 0.2, height: 0.2 },
+              textShadowRadius: 2,
 
-          <Text style={{
-            ...styles.body('#f3f3f3'),
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 12,
-            },
-            shadowOpacity: 0.58,
-            shadowRadius: 16.00,
+            }}
+            numberOfLines={1}
+          >
+            {transaction?.name}
+          </Text>
 
-            elevation: 24,
-          }} numberOfLines={1} >{getDate(transaction?.date)}</Text>
-
-
+          <Text
+            style={{
+              ...styles.header('white'),
+              textShadowColor: 'black',
+              textShadowOffset: { width: 0.2, height: 0.2 },
+              textShadowRadius: 2,
+            }}
+            numberOfLines={1}
+          >
+            ${transaction?.total?.toFixed(2)}
+          </Text>
 
         </View>
 
