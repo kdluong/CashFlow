@@ -20,12 +20,12 @@ const CategorySmallCard = ({ category_id, percentage }) => {
 
             <View style={{ flexDirection: 'row', alignItems: "center", gap: scale(5) }}>
                 <View style={{ height: scale(15), width: scale(15), backgroundColor: category?.color, borderRadius: 100 }} />
-                <Text style={globalStyles.subHeader('white')}>{category?.name}</Text>
+                <Text style={globalStyles.body('white')}>{category?.name}</Text>
             </View>
 
             {/* Percent */}
 
-            <Text style={globalStyles.body('white')}>{percentage}%</Text>
+            <Text style={globalStyles.body('#a3a3a3')}>{percentage}%</Text>
 
         </View>
     );

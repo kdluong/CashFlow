@@ -9,7 +9,7 @@ import { scale } from 'react-native-size-matters';
 import CategoryMediumCard from "../../../components/CategoryCards/CategoryMediumCard";
 import CategorySmallCard from "../../../components/CategoryCards/CategorySmallCard";
 import SearchPicker from "../../../components/TextInputs/SearchPicker";
-import { switchOptions, backgroundColor, green } from "../../../constants/constants";
+import { switchOptions, backgroundColor, green, accentColor } from "../../../constants/constants";
 import OpenDrawerButton from "../../../components/Buttons/OpenDrawerButton";
 import CustomFlatListView from "../../../components/CustomViews/CustomFlatListView";
 
@@ -23,42 +23,84 @@ const CategoryAllView = ({ navigation }) => {
     const [categories, setCategories] = React.useState([]);
     const [refresh, setRefresh] = React.useState(false);
 
-    const PieChartDistribution = () => {
+    const SpendingDistribution = () => {
+
+        const copiedArray = [...categories];
 
         return (
-            <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-around', }}>
+            <View
+                style={{
+                    gap: scale(15),
+                    backgroundColor: accentColor,
+                    padding: scale(15),
+                    borderRadius: scale(10),
+                    shadowColor: "#000",
+                    shadowOffset: { width: 0, height: 5, },
+                    shadowOpacity: 0.34,
+                    shadowRadius: 6.27,
+                    elevation: 10,
+                }}
+            >
 
-                {/* Pie Chart */}
+                <Text style={{ ...globalStyles.subHeader('white'), alignSelf: "center" }}>Spending Distribution</Text>
 
-                <View style={{ overflow: 'hidden', marginBottom: scale(-14) }}>
+                <View style={{ marginBottom: scale(-10), marginRight: scale(-13) }}>
                     <PieChart
-                        data={total == 0 ? [{ value: 1, color: 'white' }] : categories.sort((a, b) => a.value > b.value ? -1 : 1)}
-                        radius={scale(70)}
-                        innerRadius={scale(50)}
+                        data={total == 0 ? [{ value: 1, color: 'white' }] : copiedArray}
+                        radius={scale(60)}
+                        innerRadius={scale(40)}
                         strokeWidth={scale(2)}
-                        strokeColor={backgroundColor}
-                        innerCircleColor={backgroundColor}
+                        strokeColor={accentColor}
+                        innerCircleColor={accentColor}
                         centerLabelComponent={() => {
                             return (
-                                <Text style={globalStyles.header('white')} numberOfLines={1}>${total}</Text>
+                                <Text style={globalStyles.subHeader('white')} numberOfLines={1}>${total}</Text>
                             );
                         }}
                     />
                 </View>
 
-                {/* Top Categories */}
+            </View>
+        );
+    };
 
-                <View style={{ gap: scale(15), width: scale(130) }}>
+    const TopCategories = () => {
+
+        const copiedArray = [...categories];
+
+        return (
+            <View
+                style={{
+                    backgroundColor: accentColor,
+                    justifyContent: "space-between",
+                    padding: scale(15),
+                    borderRadius: scale(10),
+                    shadowColor: "#000",
+                    shadowOffset: { width: 0, height: 5 },
+                    shadowOpacity: 0.34,
+                    shadowRadius: 6.27,
+                    elevation: 10,
+                }}
+            >
+
+                <Text style={{ ...globalStyles.subHeader('white'), alignSelf: "center" }}>Top Categories</Text>
+
+                <View style={{ gap: scale(15), width: scale(120) }}>
 
                     {
-                        categories?.filter(a => a.value != 0).splice(0, 3).map((category, index) =>
-                            <View key={index}>
+                        copiedArray?.filter(a => a.value != 0).splice(0, 4).map((category, index) =>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('CategoryView', { category_id: category?.id, startGraph: switchOptions.findIndex((item) => item?.label == selectedGraph) })}
+                                key={index}
+                            >
                                 <CategorySmallCard category_id={category?.id} percentage={((parseFloat(category?.value) / parseFloat(total)) * 100).toFixed(0)} />
-                            </View>
+                            </TouchableOpacity>
                         )
                     }
 
                 </View>
+
+                <View />
 
             </View>
         );
@@ -82,11 +124,11 @@ const CategoryAllView = ({ navigation }) => {
             case "Z-A":
                 return (a?.name > b?.name)
                 break;
-            case "$$-$":
-                return (a?.value > b?.value)
+            case "$-$$":
+                return (a?.value < b?.value)
                 break;
             default:
-                return (a?.value < b?.value)
+
         }
     };
 
@@ -137,23 +179,25 @@ const CategoryAllView = ({ navigation }) => {
 
                 </View>
 
-                {/* Pie Chart */}
+                {/* Category Analytics */}
 
-                <View style={{ gap: scale(10) }}>
+                <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
 
-                    <Text style={globalStyles.header('white')}>Spending Distribution</Text>
+                    {/* Spending Distribution */}
 
-                    {categories != null &&
-                        <PieChartDistribution />
-                    }
+                    <SpendingDistribution />
+
+                    {/* Top Categories */}
+
+                    <TopCategories />
 
                 </View>
 
-                {/* Categories Header & Search */}
+                {/* Search  & Categories */}
 
                 <View style={{ gap: scale(10) }}>
 
-                    <Text style={globalStyles.header('white')}>All Categories</Text>
+                    {/* <Text style={globalStyles.header('white')}>All Categories</Text> */}
 
                     <SearchPicker
                         setFilter={setFilter}
@@ -198,21 +242,43 @@ const CategoryAllView = ({ navigation }) => {
     };
 
     React.useEffect(() => {
+
+        let copiedArray = [];
+
         switch (selectedGraph) {
             case "1W":
-                setCategories(spendingDistribution?.week?.categories);
+
+                copiedArray = [...spendingDistribution?.week?.categories];
+                copiedArray.sort((a, b) => a.value > b.value ? -1 : 1);
+
+                setCategories(copiedArray);
                 setTotal(spendingDistribution?.week?.total);
+
                 break;
             case "1M":
-                setCategories(spendingDistribution?.month?.categories);
+
+                copiedArray = [...spendingDistribution?.month?.categories];
+                copiedArray.sort((a, b) => a.value > b.value ? -1 : 1);
+
+                setCategories(copiedArray);
                 setTotal(spendingDistribution?.month?.total);
+
                 break;
             case "1Y":
-                setCategories(spendingDistribution?.year?.categories);
+
+                copiedArray = [...spendingDistribution?.year?.categories];
+                copiedArray.sort((a, b) => a.value > b.value ? -1 : 1);
+
+                setCategories(copiedArray);
                 setTotal(spendingDistribution?.year?.total);
+
                 break;
             default:
-                setCategories(spendingDistribution?.all?.categories);
+
+                copiedArray = [...spendingDistribution?.all?.categories];
+                copiedArray.sort((a, b) => a.value > b.value ? -1 : 1);
+
+                setCategories(copiedArray);
                 setTotal(spendingDistribution?.all?.total);
         }
     }, [selectedGraph, spendingDistribution]);

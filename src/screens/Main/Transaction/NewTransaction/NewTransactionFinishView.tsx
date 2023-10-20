@@ -148,7 +148,7 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any, rout
                         <BackButton />
                     </TouchableOpacity>
 
-                    <Text style={globalStyles.header('red')}>Confirm Transaction</Text>
+                    <Text style={globalStyles.header('white')}>Confirm Transaction</Text>
 
                     {/* Complete & Loading */}
 

@@ -64,6 +64,9 @@ export const icons = [
     'ellipsis-horizontal-sharp',
 ];
 
-export const backgroundColor = '#17181a';
+// export const backgroundColor = '#17181a';
+// export const accentColor = '#343338';
 export const green = '#32d584';
-export const accentColor = '#343338';
+
+export const backgroundColor = '#1a1a1a';
+export const accentColor = '#282828';
