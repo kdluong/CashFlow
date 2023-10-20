@@ -14,7 +14,7 @@
     "assetBundlePatterns": [
       "assets/*"
     ],
-    "plugins": ["expo-apple-authentication"],
+    "plugins": [],
     "ios": {
       "supportsTablet": true,
       "usesAppleSignIn": true
