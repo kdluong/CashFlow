@@ -11,20 +11,15 @@ import { signOut } from "../../supabase/supabaseFunctions";
 import { backgroundColor, accentColor, green } from "../../constants/constants";
 
 import DashboardView from "./Dashboard/DashboardView";
-
 import TransactionAllView from "./Transaction/TransactionAllView";
 import TransactionView from "./Transaction/TransactionView";
-
 import CategoryAllView from "./Category/CategoryAllView";
 import CategoryView from "./Category/CategoryView";
-
 import SettingsView from "./Settings/SettingsView";
-
 import NewCategoryView from "./Category/NewCategory/NewCategoryView";
 import EditAccountView from "./Settings/EditAccountView";
 import EditProfileView from "./Settings/EditProfileView";
 import CameraView from "./Transaction/NewTransaction/CameraView";
-
 import NewTransactionStartView from "./Transaction/NewTransaction/NewTransactionStartView";
 import NewTransactionFinishView from "./Transaction/NewTransaction/NewTransactionFinishView";
 import ChooseCategoryView from "./Transaction/NewTransaction/ChooseCategoryView";
@@ -145,16 +140,14 @@ const SharedStack = () => {
 
 const MainStack = () => {
 
-    const { user, session, getTransactions, getUser } = React.useContext(UserContext);
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const startDate = new Date(session.user.email_confirmed_at);
+    const { user, session } = React.useContext(UserContext);
 
     return (
         <Drawer.Navigator
             screenOptions={{
                 swipeEnabled: false,
                 headerShown: false,
-                drawerLabelStyle: { fontFamily: 'BebasBold', fontSize: scale(18) },
+                drawerLabelStyle: { fontFamily: 'BebasBold', fontSize: scale(16) },
                 drawerInactiveTintColor: 'white',
                 drawerActiveTintColor: green,
                 drawerActiveBackgroundColor: accentColor,
