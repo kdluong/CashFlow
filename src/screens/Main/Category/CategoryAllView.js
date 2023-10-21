@@ -48,13 +48,16 @@ const CategoryAllView = ({ navigation }) => {
                     <PieChart
                         data={total == 0 ? [{ value: 1, color: 'white' }] : copiedArray}
                         radius={scale(60)}
-                        innerRadius={scale(40)}
-                        strokeWidth={scale(2)}
+                        innerRadius={scale(42)}
+                        strokeWidth={scale(1)}
                         strokeColor={accentColor}
                         innerCircleColor={accentColor}
                         centerLabelComponent={() => {
                             return (
-                                <Text style={globalStyles.subHeader('white')} numberOfLines={1}>${total}</Text>
+                                <View style={{ flexDirection: 'row', alignItems: "center" }}>
+                                    <Text style={{ fontFamily: 'BebasReg', fontSize: scale(15), color: "white" }}>$</Text>
+                                    <Text style={{ ...globalStyles.subHeader('white') }} numberOfLines={1}>{total}</Text>
+                                </View>
                             );
                         }}
                     />
@@ -72,7 +75,8 @@ const CategoryAllView = ({ navigation }) => {
             <View
                 style={{
                     backgroundColor: accentColor,
-                    justifyContent: "space-between",
+                    gap: scale(10),
+                    //justifyContent: "space-between",
                     padding: scale(15),
                     borderRadius: scale(10),
                     shadowColor: "#000",
@@ -85,9 +89,7 @@ const CategoryAllView = ({ navigation }) => {
 
                 <Text style={{ ...globalStyles.subHeader('white'), alignSelf: "center" }}>Top Categories</Text>
 
-                <View />
-
-                <View style={{ gap: scale(15), width: scale(120) }}>
+                <View style={{ gap: scale(8), width: scale(120) }}>
 
                     {
                         copiedArray?.filter(a => a.value != 0).splice(0, 4).map((category, index) =>
@@ -102,7 +104,7 @@ const CategoryAllView = ({ navigation }) => {
 
                 </View>
 
-                <View />
+                {/* <View /> */}
 
             </View>
         );
