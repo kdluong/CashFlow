@@ -102,7 +102,6 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
                             </TouchableOpacity>
                     }
 
-
                 </View>
 
                 {/* Edit Profile */}

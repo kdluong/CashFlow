@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, ActivityIndicator } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { UserContext } from "../../../supabase/ViewModel";
 import TransactionLargeCard from "../../../components/TransactionCards/TransactionLargeCard";
@@ -65,12 +65,18 @@ const TransactionView = ({ navigation, route }) => {
                         <IconSmall name={'create'} color={'white'} backgroundColor={accentColor} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity
-                        disabled={deleteLoading}
-                        onPress={() => handleDelete()}
-                    >
-                        <IconSmall name={'trash'} color={'white'} backgroundColor={'black'} />
-                    </TouchableOpacity>
+                    {
+                        deleteLoading
+                            ?
+                            <ActivityIndicator color={'white'} style={{ width: scale(35) }} />
+                            :
+                            <TouchableOpacity
+                                disabled={deleteLoading}
+                                onPress={() => handleDelete()}
+                            >
+                                <IconSmall name={'trash'} color={'white'} backgroundColor={'black'} />
+                            </TouchableOpacity>
+                    }
 
                 </View>
 

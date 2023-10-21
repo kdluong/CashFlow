@@ -179,18 +179,22 @@ const NewCategoryView = ({ navigation, route }) => {
                                 disabled={name == '' || selectedColor == '' || selectedIcon == '' || deleteLoading}
                                 style={{ width: scale(35), alignItems: "flex-end" }}
                             >
-                                <Ionicons name="checkmark-done-sharp" size={scale(22)} color={
+                                <Ionicons
+                                    name="checkmark-done-sharp"
+                                    size={scale(22)}
+                                    color={
 
-                                    deleteLoading
-                                        ?
-                                        backgroundColor
-                                        :
-                                        name == '' || selectedColor == '' || selectedIcon == ''
+                                        deleteLoading
                                             ?
-                                            'gray'
+                                            backgroundColor
                                             :
-                                            green
-                                } />
+                                            name == '' || selectedColor == '' || selectedIcon == ''
+                                                ?
+                                                'gray'
+                                                :
+                                                green
+                                    }
+                                />
                             </TouchableOpacity>
                     }
 
