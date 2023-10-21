@@ -1,10 +1,11 @@
 import { View, SafeAreaView, Dimensions, FlatList } from "react-native";
 import { scale } from 'react-native-size-matters';
+import { backgroundColor } from "../../constants/constants";
 
 const CustomFlatListView = (props) => {
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#17181a' }}>
+        <View style={{ flex: 1, backgroundColor: backgroundColor }}>
 
             <SafeAreaView />
 
