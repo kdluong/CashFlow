@@ -46,7 +46,7 @@ const NewTransactionStartView = ({ navigation, route }) => {
                     style={{
                         backgroundColor: 'white',
                         width: scale(90),
-                        height: scale(50),
+                        height: scale(48),
                         alignItems: 'center',
                         justifyContent: 'center',
                         marginVertical: (Dimensions.get('screen').height < 700 ? scale(4) : scale(15)),
@@ -64,13 +64,13 @@ const NewTransactionStartView = ({ navigation, route }) => {
                     height: (Dimensions.get('screen').height < 700 ? scale(320) : scale(405)),
                     backgroundColor: 'white',
                     borderRadius: scale(15),
-                    padding: scale(18),
+                    padding: scale(20),
                 }}
             >
 
                 {/* Number Pad */}
 
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', flexWrap: "wrap" }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', flexWrap: "wrap", marginHorizontal: scale(-7) }}>
 
                     {NumberButton(1)}
                     {NumberButton(2)}
@@ -83,7 +83,7 @@ const NewTransactionStartView = ({ navigation, route }) => {
                     {NumberButton(9)}
 
                     <View style={{
-                        width: scale(90), height: scale(50), marginVertical: (Dimensions.get('screen').height < 700 ? scale(4) : scale(15)),
+                        width: scale(90), height: scale(48), marginVertical: (Dimensions.get('screen').height < 700 ? scale(4) : scale(15)),
                     }} />
 
                     {NumberButton(0)}
@@ -92,7 +92,7 @@ const NewTransactionStartView = ({ navigation, route }) => {
                         style={{
                             backgroundColor: 'white',
                             width: scale(90),
-                            height: scale(50),
+                            height: scale(48),
                             alignItems: 'center',
                             justifyContent: 'center',
                             marginVertical: (Dimensions.get('screen').height < 700 ? scale(4) : scale(15)),
@@ -110,20 +110,24 @@ const NewTransactionStartView = ({ navigation, route }) => {
                 <TouchableOpacity
                     onPress={() => { handleNext() }}
                     style={{
-                        paddingVertical: scale(13),
-                        borderRadius: 40,
+                        height: scale(43),
+                        marginHorizontal: scale(10),
+                        borderRadius: 100,
                         backgroundColor: 'black',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexDirection: 'row',
                         shadowColor: "#000",
-                        shadowOffset: { width: 0, height: 1 },
-                        shadowOpacity: 0.18,
-                        shadowRadius: 1.00,
-                        elevation: 1,
+                        shadowOffset: {
+                            width: 0,
+                            height: 1,
+                        },
+                        shadowOpacity: 0.22,
+                        shadowRadius: 2.22,
+                        elevation: 3,
                     }}
                 >
-                    <Text style={globalStyles.subHeader('white')}>Next </Text>
+                    <Text style={globalStyles.subHeader('white')}>Next</Text>
                     <Ionicons name="arrow-forward-sharp" size={scale(15)} color={'white'} />
                 </TouchableOpacity>
 
