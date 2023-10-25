@@ -1,12 +1,8 @@
 import { accentColor } from '../../constants/constants';
 import IconSmall from '../Icons/IconSmall';
 
-const BackButton = () => {
+function BackButton() {
+  return <IconSmall name="chevron-back-sharp" color="white" backgroundColor={accentColor} />;
+}
 
-    return (
-        <IconSmall name={'chevron-back-sharp'} color={'white'} backgroundColor={accentColor} />
-    );
-    
-};
-
-export default BackButton; 
+export default BackButton;

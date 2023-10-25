@@ -1,27 +1,24 @@
-import React from "react";
-import { Image } from "expo-image";
-import { View, Text, ActivityIndicator } from "react-native";
-import globalStyles from "../../styles/styles";
+import React from 'react';
+import { Image } from 'expo-image';
+import { View, Text, ActivityIndicator } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { getDate } from "../../functions/functions";
-import { UserContext } from "../../supabase/ViewModel";
 import { scale } from 'react-native-size-matters';
-import IconSmall from "../Icons/IconSmall";
+import globalStyles from '../../styles/styles';
+import { getDate } from '../../functions/functions';
+import { UserContext } from '../../supabase/ViewModel';
+import IconSmall from '../Icons/IconSmall';
 
-const TransactionMediumCard = ({ transaction_id }) => {
-
+function TransactionMediumCard({ transaction_id }) {
   const { transactions, categories, fetchTransaction } = React.useContext(UserContext);
   const [transaction, setTransaction] = React.useState(null);
   const [category, setCategory] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-
-    var data = fetchTransaction(transaction_id)
+    const data = fetchTransaction(transaction_id);
 
     setTransaction(data?.transaction);
     setCategory(data?.category);
-
   }, [transactions, categories]);
 
   return (
@@ -33,17 +30,16 @@ const TransactionMediumCard = ({ transaction_id }) => {
         marginBottom: scale(15),
         width: scale(148),
         height: scale(190),
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: {
           width: 0,
           height: 12,
         },
         shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+        shadowRadius: 16.0,
         elevation: 24,
       }}
     >
-
       {/* Transaction Image */}
 
       <Image
@@ -51,17 +47,24 @@ const TransactionMediumCard = ({ transaction_id }) => {
         style={{
           flex: 1,
           backgroundColor: category?.color,
-          opacity: 0.9
+          opacity: 0.9,
         }}
-        //blurRadius={0.05}
+        // blurRadius={0.05}
         key={new Date()}
         onLoadEnd={() => setLoading(false)}
       />
 
       {/* Transaction Info */}
 
-      <View style={{ padding: scale(10), justifyContent: 'space-between', height: '100%', width: '100%', position: 'absolute' }}>
-
+      <View
+        style={{
+          padding: scale(10),
+          justifyContent: 'space-between',
+          height: '100%',
+          width: '100%',
+          position: 'absolute',
+        }}
+      >
         {/* Logo & Date */}
 
         <View
@@ -71,10 +74,9 @@ const TransactionMediumCard = ({ transaction_id }) => {
             flexDirection: 'row',
           }}
         >
-
           {/* Logo */}
 
-          <IconSmall name={category?.icon} color={'white'} backgroundColor={category?.color} />
+          <IconSmall name={category?.icon} color="white" backgroundColor={category?.color} />
 
           {/* Date */}
 
@@ -89,28 +91,21 @@ const TransactionMediumCard = ({ transaction_id }) => {
           >
             {getDate(transaction?.date)}
           </Text>
-
         </View>
 
         {/* Loading */}
 
-        {loading && transaction?.image != null && <ActivityIndicator size={'small'} color={'white'} />}
+        {loading && transaction?.image != null && <ActivityIndicator size="small" color="white" />}
 
         {/* Name & Total */}
 
-        <View
-          style={{
-
-          }}
-        >
-
+        <View style={{}}>
           <Text
             style={{
               ...globalStyles.subHeader('white'),
               textShadowColor: 'black',
               textShadowOffset: { width: 0.2, height: 0.2 },
               textShadowRadius: 2,
-
             }}
             numberOfLines={1}
           >
@@ -128,14 +123,10 @@ const TransactionMediumCard = ({ transaction_id }) => {
           >
             ${transaction?.total?.toFixed(2)}
           </Text>
-
         </View>
-
       </View>
-
     </View>
   );
-};
-
+}
 
 export default TransactionMediumCard;

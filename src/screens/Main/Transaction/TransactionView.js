@@ -1,89 +1,74 @@
-import React from "react";
-import { View, TouchableOpacity, ActivityIndicator } from "react-native";
+import React from 'react';
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { UserContext } from "../../../supabase/ViewModel";
-import TransactionLargeCard from "../../../components/TransactionCards/TransactionLargeCard";
-import { scale } from "react-native-size-matters";
-import BackButton from "../../../components/Buttons/BackButton";
-import CustomView from "../../../components/CustomViews/CustomView";
-import { backgroundColor, accentColor } from "../../../constants/constants";
-import IconSmall from "../../../components/Icons/IconSmall";
+import { scale } from 'react-native-size-matters';
+import { UserContext } from '../../../supabase/ViewModel';
+import TransactionLargeCard from '../../../components/TransactionCards/TransactionLargeCard';
+import BackButton from '../../../components/Buttons/BackButton';
+import CustomView from '../../../components/CustomViews/CustomView';
+import { backgroundColor, accentColor } from '../../../constants/constants';
+import IconSmall from '../../../components/Icons/IconSmall';
 
-const TransactionView = ({ navigation, route }) => {
+function TransactionView({ navigation, route }) {
+  const { transaction_id } = route.params;
+  const { fetchTransaction, deleteTransaction, transactions } = React.useContext(UserContext);
+  const [transaction, setTransaction] = React.useState();
+  const [category, setCategory] = React.useState();
+  const [deleteLoading, setDeleteLoading] = React.useState(false);
 
-    const { transaction_id } = route.params;
-    const { fetchTransaction, deleteTransaction, transactions } = React.useContext(UserContext);
-    const [transaction, setTransaction] = React.useState();
-    const [category, setCategory] = React.useState();
-    const [deleteLoading, setDeleteLoading] = React.useState(false);
+  React.useEffect(() => {
+    const data = fetchTransaction(transaction_id);
 
-    React.useEffect(() => {
+    setTransaction(data?.transaction);
+    setCategory(data?.category);
+  }, [transactions]);
 
-        var data = fetchTransaction(transaction_id);
+  async function handleDelete() {
+    setDeleteLoading(true);
+    await deleteTransaction(transaction.id, true);
+    setDeleteLoading(false);
 
-        setTransaction(data?.transaction);
-        setCategory(data?.category);
+    navigation.goBack();
+  }
 
-    }, [transactions])
+  return (
+    <TransactionLargeCard transaction_id={transaction_id}>
+      {/* Header */}
 
-    async function handleDelete() {
-        setDeleteLoading(true);
-        await deleteTransaction(transaction.id, true);
-        setDeleteLoading(false);
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        {/* Back Button */}
 
-        navigation.goBack()
-    };
+        <TouchableOpacity disabled={deleteLoading} onPress={() => navigation.goBack()}>
+          <BackButton />
+        </TouchableOpacity>
 
-    return (
-        <TransactionLargeCard transaction_id={transaction_id} >
+        {/* Edit & Delete Buttons */}
 
-            {/* Header */}
+        <View style={{ flexDirection: 'row', gap: scale(5) }}>
+          <TouchableOpacity
+            disabled={deleteLoading}
+            onPress={() =>
+              navigation.navigate('NewTransactionStartView', {
+                transaction_id: transaction?.id,
+                category_id: null,
+                returnScreen: null,
+              })
+            }
+          >
+            <IconSmall name="create" color="white" backgroundColor={accentColor} />
+          </TouchableOpacity>
 
-            <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center' }}>
-
-                {/* Back Button */}
-
-                <TouchableOpacity
-                    disabled={deleteLoading}
-                    onPress={() => navigation.goBack()}
-                >
-                    <BackButton />
-                </TouchableOpacity>
-
-                {/* Edit & Delete Buttons */}
-
-                <View style={{ flexDirection: 'row', gap: scale(5) }}>
-
-                    <TouchableOpacity
-                        disabled={deleteLoading}
-                        onPress={() => navigation.navigate('NewTransactionStartView', {
-                            transaction_id: transaction?.id,
-                            category_id: null,
-                            returnScreen: null,
-                        })}
-                    >
-                        <IconSmall name={'create'} color={'white'} backgroundColor={accentColor} />
-                    </TouchableOpacity>
-
-                    {
-                        deleteLoading
-                            ?
-                            <ActivityIndicator color={'white'} style={{ width: scale(35) }} />
-                            :
-                            <TouchableOpacity
-                                disabled={deleteLoading}
-                                onPress={() => handleDelete()}
-                            >
-                                <IconSmall name={'trash'} color={'white'} backgroundColor={'black'} />
-                            </TouchableOpacity>
-                    }
-
-                </View>
-
-            </View>
-
-        </TransactionLargeCard>
-    );
-};
+          {deleteLoading ? (
+            <ActivityIndicator color="white" style={{ width: scale(35) }} />
+          ) : (
+            <TouchableOpacity disabled={deleteLoading} onPress={() => handleDelete()}>
+              <IconSmall name="trash" color="white" backgroundColor="black" />
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
+    </TransactionLargeCard>
+  );
+}
 
 export default TransactionView;

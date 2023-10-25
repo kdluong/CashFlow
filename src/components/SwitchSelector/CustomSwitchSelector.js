@@ -1,40 +1,39 @@
-import SwitchSelector from "react-native-switch-selector";
+import SwitchSelector from 'react-native-switch-selector';
 import { scale } from 'react-native-size-matters';
-import { accentColor } from "../../constants/constants";
+import { accentColor } from '../../constants/constants';
 
 export function CustomSwitchSelector({ handlePress, categoryColor, startIndex }) {
+  const switchOptions = [
+    { label: '1W', value: '1W' },
+    { label: '1M', value: '1M' },
+    { label: '1Y', value: '1Y' },
+    { label: 'ALL', value: 'ALL' },
+  ];
 
-    const switchOptions = [
-        { label: "1W", value: "1W" },
-        { label: "1M", value: "1M" },
-        { label: "1Y", value: "1Y" },
-        { label: "ALL", value: "ALL" }
-    ];
+  let color = 'white';
+  let index = 2;
 
-    var color = 'white';
-    var index = 2;
+  if (categoryColor != undefined) {
+    color = categoryColor;
+  }
 
-    if (categoryColor != undefined) {
-        color = categoryColor;
-    }
+  if (startIndex != undefined) {
+    index = startIndex;
+  }
 
-    if (startIndex != undefined) {
-        index = startIndex;
-    }
-
-    return (
-        <SwitchSelector
-            options={switchOptions}
-            borderRadius={5}
-            initial={index}
-            textColor={'gray'}
-            selectedColor={'black'}
-            buttonColor={color}
-            backgroundColor={accentColor}
-            fontSize={scale(10)}
-            bold
-            onPress={handlePress}
-            height={scale(33)}
-        />
-    );
+  return (
+    <SwitchSelector
+      options={switchOptions}
+      borderRadius={5}
+      initial={index}
+      textColor="gray"
+      selectedColor="black"
+      buttonColor={color}
+      backgroundColor={accentColor}
+      fontSize={scale(10)}
+      bold
+      onPress={handlePress}
+      height={scale(33)}
+    />
+  );
 }
