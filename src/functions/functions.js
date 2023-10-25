@@ -1,4 +1,4 @@
-import { daysOfWeek, monthNamesShort } from '../constants/constants';
+import { monthNamesShort } from '../constants/constants';
 
 export function getDate(transactionDate) {
   const formattedDate = new Date(transactionDate);
