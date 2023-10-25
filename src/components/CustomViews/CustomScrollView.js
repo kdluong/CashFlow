@@ -1,3 +1,4 @@
+import React from 'react';
 import { Dimensions, ScrollView } from 'react-native';
 import { scale } from 'react-native-size-matters';
 

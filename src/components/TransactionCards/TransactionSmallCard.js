@@ -3,7 +3,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
 import { getDate } from '../../functions/functions';
-import globalStyles from '../../styles/styles';
+import globalStyles from '../../styles/styles.ts';
 import { UserContext } from '../../supabase/ViewModel';
 import IconLarge from '../Icons/IconLarge';
 
@@ -48,7 +48,10 @@ function TransactionSmallCard({ transaction_id }) {
 
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(5) }}>
         <View style={{ alignItems: 'flex-end' }}>
-          <Text style={globalStyles.subHeader('black')}>- ${transaction?.total?.toFixed(2)}</Text>
+          <Text style={globalStyles.subHeader('black')}>
+            - $
+            {transaction?.total?.toFixed(2)}
+          </Text>
           <Text style={globalStyles.body('gray')}>{getDate(transaction?.date)}</Text>
         </View>
 

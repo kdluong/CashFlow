@@ -1,11 +1,13 @@
-import { Text, View, TouchableOpacity, TextInput, RefreshControl } from 'react-native';
+import {
+  Text, View, TouchableOpacity, RefreshControl,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
 import { UserContext } from '../../../supabase/ViewModel';
-import { CustomSwitchSelector } from '../../../components/SwitchSelector/CustomSwitchSelector';
-import globalStyles from '../../../styles/styles';
-import { switchOptions, backgroundColor } from '../../../constants/constants';
+import CustomSwitchSelector from '../../../components/SwitchSelector/CustomSwitchSelector';
+import globalStyles from '../../../styles/styles.ts';
+import { switchOptions } from '../../../constants/constants';
 import TransactionSmallCard from '../../../components/TransactionCards/TransactionSmallCard';
 import SearchPicker from '../../../components/TextInputs/SearchPicker';
 import BackButton from '../../../components/Buttons/BackButton';
@@ -13,8 +15,9 @@ import CustomFlatListView from '../../../components/CustomViews/CustomFlatListVi
 
 function CategoryView({ navigation, route }) {
   const { category_id, startGraph } = route.params;
-  const { fetchCategory, calculateCategoryDistribution, categories, transactions, getAll } =
-    React.useContext(UserContext);
+  const {
+    fetchCategory, calculateCategoryDistribution, categories, transactions, getAll,
+  } = React.useContext(UserContext);
   const [selectedGraph, setSelectedGraph] = React.useState(switchOptions[startGraph]?.label);
   const [refresh, setRefresh] = React.useState(false);
   const [category, setCategory] = React.useState();
@@ -68,7 +71,10 @@ function CategoryView({ navigation, route }) {
           {/* Name */}
 
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={globalStyles.header('white')}>{category?.name} </Text>
+            <Text style={globalStyles.header('white')}>
+              {category?.name}
+              {' '}
+            </Text>
             <Ionicons name={category?.icon} size={scale(16)} color="white" />
           </View>
 
@@ -105,10 +111,17 @@ function CategoryView({ navigation, route }) {
           <Text style={{ fontFamily: 'BebasReg', fontSize: scale(47), color: category?.color }}>
             $
           </Text>
-          <Text style={globalStyles.logo}>{total} </Text>
+          <Text style={globalStyles.logo}>
+            {total}
+            {' '}
+          </Text>
         </View>
 
-        <Text style={globalStyles.body('white')}>{description} Spendings</Text>
+        <Text style={globalStyles.body('white')}>
+          {description}
+          {' '}
+          Spendings
+        </Text>
       </View>
 
       {/* Transactions Header & Search */}
@@ -132,16 +145,14 @@ function CategoryView({ navigation, route }) {
           <Text style={globalStyles.header('black')}>Transactions</Text>
 
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('SharedStack', {
-                screen: 'NewTransactionStartView',
-                params: {
-                  transaction_id: null,
-                  category_id,
-                  returnScreen: 'CategoryView',
-                },
-              })
-            }
+            onPress={() => navigation.navigate('SharedStack', {
+              screen: 'NewTransactionStartView',
+              params: {
+                transaction_id: null,
+                category_id,
+                returnScreen: 'CategoryView',
+              },
+            })}
           >
             <Ionicons name="add-circle-sharp" size={scale(25)} color={category?.color} />
           </TouchableOpacity>
@@ -163,12 +174,10 @@ function CategoryView({ navigation, route }) {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={{ paddingHorizontal: scale(20), backgroundColor: 'white' }}
-      onPress={() =>
-        navigation.navigate('SharedStack', {
-          screen: 'TransactionView',
-          params: { transaction_id: item.id },
-        })
-      }
+      onPress={() => navigation.navigate('SharedStack', {
+        screen: 'TransactionView',
+        params: { transaction_id: item.id },
+      })}
       key={item.id}
       activeOpacity={0.96}
     >
@@ -190,7 +199,7 @@ function CategoryView({ navigation, route }) {
   );
 
   const renderRefresh = () => (
-    <RefreshControl refreshing={refresh} onRefresh={handleRefresh} tintColor="white" />
+    <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh} tintColor="white" />
   );
 
   const renderFooter = () => <View style={{ height: '200%', backgroundColor: 'white' }} />;

@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { Image } from 'expo-image';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
-import { getDate, getDateLong, getTime } from '../../functions/functions';
-import globalStyles from '../../styles/styles';
+import { getDateLong, getTime } from '../../functions/functions';
+import globalStyles from '../../styles/styles.ts';
 import { UserContext } from '../../supabase/ViewModel';
 import CustomView from '../CustomViews/CustomView';
 import IconLarge from '../Icons/IconLarge';
@@ -76,9 +75,15 @@ function TransactionLargeCard({ transaction_id, children }) {
           {/* Total & Date */}
 
           <View style={{ alignItems: 'flex-end' }}>
-            <Text style={globalStyles.subHeader('black')}>- ${transaction?.total?.toFixed(2)}</Text>
+            <Text style={globalStyles.subHeader('black')}>
+              - $
+              {transaction?.total?.toFixed(2)}
+            </Text>
             <Text style={globalStyles.body('gray')}>
-              {getDateLong(transaction?.date)} @{getTime(transaction?.date)}
+              {getDateLong(transaction?.date)}
+              {' '}
+              @
+              {getTime(transaction?.date)}
             </Text>
           </View>
         </View>

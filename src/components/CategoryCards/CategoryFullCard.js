@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
-import globalStyles from '../../styles/styles';
+import globalStyles from '../../styles/styles.ts';
 import { UserContext } from '../../supabase/ViewModel';
 import IconSmall from '../Icons/IconSmall';
 

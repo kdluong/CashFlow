@@ -77,7 +77,7 @@ function LogInView({ navigation }) {
           >
             <Text style={globalStyles.body('white')}>
               Don't have an account?
-              <Text style={globalStyles.body(green)}>Sign up.</Text>
+              <Text style={globalStyles.body(green)}> Sign up.</Text>
             </Text>
           </TouchableOpacity>
         </View>

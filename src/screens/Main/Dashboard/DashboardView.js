@@ -25,8 +25,9 @@ import OpenDrawerButton from '../../../components/Buttons/OpenDrawerButton';
 import CustomScrollView from '../../../components/CustomViews/CustomScrollView';
 
 function DashboardView({ navigation }) {
-  const { user, transactions, spendingDistribution, chartData, getUser, getAll } =
-    React.useContext(UserContext);
+  const {
+    user, transactions, spendingDistribution, chartData, getUser, getAll,
+  } = React.useContext(UserContext);
   const [currentMonth, setCurrentMonth] = React.useState(null);
   const [currentTotal, setCurrentTotal] = React.useState(null);
   const [refresh, setRefresh] = React.useState(false);
@@ -45,12 +46,10 @@ function DashboardView({ navigation }) {
           .slice(0, 5)
           .map((transaction, index) => (
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('SharedStack', {
-                  screen: 'TransactionView',
-                  params: { transaction_id: transaction.id },
-                })
-              }
+              onPress={() => navigation.navigate('SharedStack', {
+                screen: 'TransactionView',
+                params: { transaction_id: transaction.id },
+              })}
               key={index}
             >
               <TransactionSmallCard transaction_id={transaction.id} />
@@ -97,7 +96,10 @@ function DashboardView({ navigation }) {
 
       return (
         <Text style={globalStyles.body('black')}>
-          {month} ${parseFloat(total).toFixed(2)}
+          {month}
+          {' '}
+          $
+          {parseFloat(total).toFixed(2)}
         </Text>
       );
     }
@@ -211,7 +213,10 @@ function DashboardView({ navigation }) {
         <View style={{ alignItems: 'center', paddingVertical: scale(40) }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={{ fontFamily: 'BebasReg', fontSize: scale(47), color: green }}>$</Text>
-            <Text style={globalStyles.logo}>{spendingDistribution?.year?.total} </Text>
+            <Text style={globalStyles.logo}>
+              {spendingDistribution?.year?.total}
+              {' '}
+            </Text>
           </View>
 
           <Text style={globalStyles.body('white')}>Yearly Spendings</Text>
@@ -383,16 +388,14 @@ function DashboardView({ navigation }) {
           shadowRadius: 2.62,
           elevation: 4,
         }}
-        onPress={() =>
-          navigation.navigate('SharedStack', {
-            screen: 'NewTransactionStartView',
-            params: {
-              transaction_id: null,
-              category_id: null,
-              returnScreen: 'DashboardView',
-            },
-          })
-        }
+        onPress={() => navigation.navigate('SharedStack', {
+          screen: 'NewTransactionStartView',
+          params: {
+            transaction_id: null,
+            category_id: null,
+            returnScreen: 'DashboardView',
+          },
+        })}
       >
         <Text style={globalStyles.subHeader('black')}>New Transaction</Text>
 

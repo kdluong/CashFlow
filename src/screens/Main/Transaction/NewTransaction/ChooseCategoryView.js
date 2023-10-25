@@ -1,5 +1,7 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, RefreshControl } from 'react-native';
+import {
+  Text, View, TouchableOpacity, RefreshControl,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 import { UserContext } from '../../../../supabase/ViewModel';

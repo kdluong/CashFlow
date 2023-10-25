@@ -1,7 +1,5 @@
-import React from 'react';
-import { Session } from '@supabase/supabase-js';
 import { Alert } from 'react-native';
-import { supabase } from './supabase';
+import { supabase } from './supabase.ts';
 
 export async function signUpWithEmail(email, password, first, last) {
   const { data, error: authError } = await supabase.auth.signUp({
@@ -30,7 +28,7 @@ export async function signUpWithEmail(email, password, first, last) {
 export async function signInWithEmail(email, password) {
   // setLoading(true)
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -42,15 +40,14 @@ export async function signInWithEmail(email, password) {
 
 export async function signOut() {
   const { error } = await supabase.auth.signOut();
+
+  if (error) Alert.alert(error.message);
 }
 
 export async function changeEmail(email) {
-  const { data, error } = await supabase.auth.updateUser({ email });
-
-  console.log(email);
+  const { error } = await supabase.auth.updateUser({ email });
 
   if (error) {
-    console.log(error);
     Alert.alert('Error', error.message.substring(error.message.lastIndexOf(': ') + 1));
   } else {
     Alert.alert('Request Sent.', 'Check your email for a confirmation link.');
@@ -58,10 +55,9 @@ export async function changeEmail(email) {
 }
 
 export async function changePassword(password) {
-  const { data, error } = await supabase.auth.updateUser({ password });
+  const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {
-    console.log(error);
     Alert.alert('Error', error.message.substring(error.message.lastIndexOf(': ') + 1));
   } else {
     Alert.alert('Password Successfully Changed.');

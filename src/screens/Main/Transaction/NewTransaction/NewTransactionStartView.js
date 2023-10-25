@@ -1,4 +1,6 @@
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  View, Text, TouchableOpacity, Dimensions,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
@@ -207,7 +209,10 @@ function NewTransactionStartView({ navigation, route }) {
           >
             $
           </Text>
-          <Text style={globalStyles.logo}>{total == 0 ? '0.00' : total} </Text>
+          <Text style={globalStyles.logo}>
+            {total == 0 ? '0.00' : total}
+            {' '}
+          </Text>
         </View>
 
         <Text style={globalStyles.body('white')}>Enter an Amount</Text>
@@ -232,11 +237,9 @@ function NewTransactionStartView({ navigation, route }) {
             elevation: 1,
           }}
           disabled={isConstant}
-          onPress={() =>
-            navigation.navigate('ChooseCategoryView', {
-              category_id: category == null ? null : category?.id,
-            })
-          }
+          onPress={() => navigation.navigate('ChooseCategoryView', {
+            category_id: category == null ? null : category?.id,
+          })}
         >
           {category == null ? (
             <View

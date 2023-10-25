@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   SafeAreaView,
@@ -5,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { scale } from 'react-native-size-matters';
 

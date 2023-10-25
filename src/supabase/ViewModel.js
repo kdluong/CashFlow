@@ -292,7 +292,7 @@ function ViewModel(props) {
 
         if (transactionImage != null) {
           const key = transactionImage.substring(
-            transactionImage.lastIndexOf('transactions/') + 13
+            transactionImage.lastIndexOf('transactions/') + 13,
           );
           url = null;
 
@@ -371,7 +371,7 @@ function ViewModel(props) {
         // extract uuid & image key
 
         const key = transaction.image.substring(
-          transaction.image.lastIndexOf('transactions/') + 13
+          transaction.image.lastIndexOf('transactions/') + 13,
         );
 
         const { data, error } = await supabase.storage.from('transactions').remove([key]);
@@ -519,7 +519,7 @@ function ViewModel(props) {
         let index = -1;
 
         index = tempSpendingDistribution?.week?.categories?.findIndex(
-          (category) => category.id == category_id
+          (category) => category.id == category_id,
         );
 
         if (index > -1) {
@@ -528,7 +528,7 @@ function ViewModel(props) {
         }
 
         index = tempSpendingDistribution?.month?.categories?.findIndex(
-          (category) => category.id == category_id
+          (category) => category.id == category_id,
         );
 
         if (index > -1) {
@@ -537,7 +537,7 @@ function ViewModel(props) {
         }
 
         index = tempSpendingDistribution?.year?.categories?.findIndex(
-          (category) => category.id == category_id
+          (category) => category.id == category_id,
         );
 
         if (index > -1) {
@@ -546,7 +546,7 @@ function ViewModel(props) {
         }
 
         index = tempSpendingDistribution?.all?.categories?.findIndex(
-          (category) => category.id == category_id
+          (category) => category.id == category_id,
         );
 
         if (index > -1) {
@@ -740,7 +740,7 @@ function ViewModel(props) {
     myTransactions?.map((transaction) => {
       transactionDate = new Date(transaction.date);
       index = myCategories?.findIndex(
-        (currCategoory) => currCategoory.id == transaction.category_id
+        (currCategoory) => currCategoory.id == transaction.category_id,
       );
 
       if (index > -1) {
@@ -749,9 +749,9 @@ function ViewModel(props) {
         if (transactionDate.getFullYear() == currentDate.getFullYear()) {
           if (transactionDate.getMonth() == currentDate.getMonth()) {
             if (
-              tempDate < 0 ||
-              (transactionDate.getDate() > tempDate &&
-                transactionDate.getDate() <= currentDate.getDate())
+              tempDate < 0
+              || (transactionDate.getDate() > tempDate
+                && transactionDate.getDate() <= currentDate.getDate())
             ) {
               getWeekTransactions(transaction, tempCategory);
             }
@@ -798,9 +798,9 @@ function ViewModel(props) {
         if (transactionDate.getFullYear() == currentDate.getFullYear()) {
           if (transactionDate.getMonth() == currentDate.getMonth()) {
             if (
-              tempDate < 0 ||
-              (transactionDate.getDate() > tempDate &&
-                transactionDate.getDate() <= currentDate.getDate())
+              tempDate < 0
+              || (transactionDate.getDate() > tempDate
+                && transactionDate.getDate() <= currentDate.getDate())
             ) {
               // week
 

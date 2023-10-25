@@ -1,26 +1,22 @@
 import React from 'react';
 import { View, TouchableOpacity, ActivityIndicator } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 import { UserContext } from '../../../supabase/ViewModel';
 import TransactionLargeCard from '../../../components/TransactionCards/TransactionLargeCard';
 import BackButton from '../../../components/Buttons/BackButton';
-import CustomView from '../../../components/CustomViews/CustomView';
-import { backgroundColor, accentColor } from '../../../constants/constants';
+import { accentColor } from '../../../constants/constants';
 import IconSmall from '../../../components/Icons/IconSmall';
 
 function TransactionView({ navigation, route }) {
   const { transaction_id } = route.params;
   const { fetchTransaction, deleteTransaction, transactions } = React.useContext(UserContext);
   const [transaction, setTransaction] = React.useState();
-  const [category, setCategory] = React.useState();
   const [deleteLoading, setDeleteLoading] = React.useState(false);
 
   React.useEffect(() => {
     const data = fetchTransaction(transaction_id);
 
     setTransaction(data?.transaction);
-    setCategory(data?.category);
   }, [transactions]);
 
   async function handleDelete() {
@@ -47,13 +43,11 @@ function TransactionView({ navigation, route }) {
         <View style={{ flexDirection: 'row', gap: scale(5) }}>
           <TouchableOpacity
             disabled={deleteLoading}
-            onPress={() =>
-              navigation.navigate('NewTransactionStartView', {
-                transaction_id: transaction?.id,
-                category_id: null,
-                returnScreen: null,
-              })
-            }
+            onPress={() => navigation.navigate('NewTransactionStartView', {
+              transaction_id: transaction?.id,
+              category_id: null,
+              returnScreen: null,
+            })}
           >
             <IconSmall name="create" color="white" backgroundColor={accentColor} />
           </TouchableOpacity>

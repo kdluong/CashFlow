@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+import {
+  View, TouchableOpacity, Text, ActivityIndicator,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 import globalStyles from '../../../styles/styles';

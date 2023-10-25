@@ -56,11 +56,15 @@ function SettingsView({ navigation }) {
 
           <View style={{ alignItems: 'center', gap: scale(5) }}>
             <Text style={globalStyles.header('white')}>
-              {user?.first_name} {user?.last_name}
+              {user?.first_name}
+              {' '}
+              {user?.last_name}
             </Text>
             <Text style={globalStyles.body('#d3d3d3')}>
               Member since
-              {monthNames[startDate.getMonth()]} {startDate.getFullYear()}
+              {monthNames[startDate.getMonth()]}
+              {' '}
+              {startDate.getFullYear()}
             </Text>
           </View>
         </View>

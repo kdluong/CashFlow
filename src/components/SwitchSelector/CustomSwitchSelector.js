@@ -1,8 +1,9 @@
+import React from 'react';
 import SwitchSelector from 'react-native-switch-selector';
 import { scale } from 'react-native-size-matters';
 import { accentColor } from '../../constants/constants';
 
-export function CustomSwitchSelector({ handlePress, categoryColor, startIndex }) {
+function CustomSwitchSelector({ handlePress, categoryColor, startIndex }) {
   const switchOptions = [
     { label: '1W', value: '1W' },
     { label: '1M', value: '1M' },
@@ -13,11 +14,11 @@ export function CustomSwitchSelector({ handlePress, categoryColor, startIndex })
   let color = 'white';
   let index = 2;
 
-  if (categoryColor != undefined) {
+  if (categoryColor !== undefined) {
     color = categoryColor;
   }
 
-  if (startIndex != undefined) {
+  if (startIndex !== undefined) {
     index = startIndex;
   }
 
@@ -37,3 +38,5 @@ export function CustomSwitchSelector({ handlePress, categoryColor, startIndex })
     />
   );
 }
+
+export default CustomSwitchSelector;

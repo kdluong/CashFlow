@@ -1,3 +1,4 @@
+import React from 'react';
 import { accentColor } from '../../constants/constants';
 import IconSmall from '../Icons/IconSmall';
 

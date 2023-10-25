@@ -1,9 +1,8 @@
 import React from 'react';
 import { Image } from 'expo-image';
 import { View, Text, ActivityIndicator } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
-import globalStyles from '../../styles/styles';
+import globalStyles from '../../styles/styles.ts';
 import { getDate } from '../../functions/functions';
 import { UserContext } from '../../supabase/ViewModel';
 import IconSmall from '../Icons/IconSmall';
@@ -121,7 +120,8 @@ function TransactionMediumCard({ transaction_id }) {
             }}
             numberOfLines={1}
           >
-            ${transaction?.total?.toFixed(2)}
+            $
+            {transaction?.total?.toFixed(2)}
           </Text>
         </View>
       </View>

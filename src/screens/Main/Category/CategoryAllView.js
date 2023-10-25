@@ -1,15 +1,19 @@
-import { Text, TouchableOpacity, View, RefreshControl } from 'react-native';
+import {
+  Text, TouchableOpacity, View, RefreshControl,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { PieChart } from 'react-native-gifted-charts';
 import { scale } from 'react-native-size-matters';
 import { UserContext } from '../../../supabase/ViewModel';
-import { CustomSwitchSelector } from '../../../components/SwitchSelector/CustomSwitchSelector';
+import CustomSwitchSelector from '../../../components/SwitchSelector/CustomSwitchSelector';
 import globalStyles from '../../../styles/styles';
 import CategoryMediumCard from '../../../components/CategoryCards/CategoryMediumCard';
 import CategorySmallCard from '../../../components/CategoryCards/CategorySmallCard';
 import SearchPicker from '../../../components/TextInputs/SearchPicker';
-import { switchOptions, backgroundColor, green, accentColor } from '../../../constants/constants';
+import {
+  switchOptions, backgroundColor, green, accentColor,
+} from '../../../constants/constants';
 import OpenDrawerButton from '../../../components/Buttons/OpenDrawerButton';
 import CustomFlatListView from '../../../components/CustomViews/CustomFlatListView';
 
@@ -92,12 +96,10 @@ function CategoryAllView({ navigation }) {
             .splice(0, 4)
             .map((category, index) => (
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('CategoryView', {
-                    category_id: category?.id,
-                    startGraph: switchOptions.findIndex((item) => item?.label == selectedGraph),
-                  })
-                }
+                onPress={() => navigation.navigate('CategoryView', {
+                  category_id: category?.id,
+                  startGraph: switchOptions.findIndex((item) => item?.label == selectedGraph),
+                })}
                 key={index}
               >
                 <CategorySmallCard
@@ -160,14 +162,12 @@ function CategoryAllView({ navigation }) {
           {/* New Category */}
 
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('SharedStack', {
-                screen: 'NewCategoryView',
-                params: {
-                  category_id: null,
-                },
-              })
-            }
+            onPress={() => navigation.navigate('SharedStack', {
+              screen: 'NewCategoryView',
+              params: {
+                category_id: null,
+              },
+            })}
           >
             <Ionicons name="add" size={scale(25)} color={green} />
           </TouchableOpacity>
@@ -212,12 +212,10 @@ function CategoryAllView({ navigation }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('CategoryView', {
-          category_id: item?.id,
-          startGraph: switchOptions.findIndex((item) => item?.label == selectedGraph),
-        })
-      }
+      onPress={() => navigation.navigate('CategoryView', {
+        category_id: item?.id,
+        startGraph: switchOptions.findIndex((item) => item?.label == selectedGraph),
+      })}
       key={item?.id}
     >
       <CategoryMediumCard category_id={item?.id} total={item?.value} />

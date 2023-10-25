@@ -106,7 +106,7 @@ function RegisterView({ navigation }) {
           <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => navigation.goBack()}>
             <Text style={globalStyles.body('white')}>
               Already have an account?
-              <Text style={globalStyles.body(green)}>Sign in.</Text>
+              <Text style={globalStyles.body(green)}> Sign in.</Text>
             </Text>
           </TouchableOpacity>
         </View>

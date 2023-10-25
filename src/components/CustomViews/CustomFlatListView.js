@@ -1,4 +1,7 @@
-import { View, SafeAreaView, Dimensions, FlatList } from 'react-native';
+import React from 'react';
+import {
+  View, SafeAreaView, Dimensions, FlatList,
+} from 'react-native';
 import { scale } from 'react-native-size-matters';
 import { backgroundColor } from '../../constants/constants';
 
@@ -14,6 +17,7 @@ function CustomFlatListView(props) {
           paddingBottom: Dimensions.get('screen').height < 700 ? scale(5) : scale(15),
           paddingTop: Dimensions.get('screen').height < 700 ? scale(10) : scale(5),
         }}
+        /* eslint-disable react/jsx-props-no-spreading */
         {...props}
       />
     </View>

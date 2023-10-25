@@ -3,7 +3,9 @@ import { TextInput, View, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 
-function CustomPasswordInput({ value, onChangeText, placeholder, loading }) {
+function CustomPasswordInput({
+  value, onChangeText, placeholder, loading,
+}) {
   const [showPass, setShowPass] = React.useState(false);
 
   return (

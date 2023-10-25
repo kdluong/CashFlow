@@ -1,5 +1,7 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, RefreshControl } from 'react-native';
+import {
+  Text, View, TouchableOpacity, RefreshControl,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 import globalStyles from '../../../styles/styles';
@@ -35,12 +37,10 @@ function TransactionAllView({ navigation }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('SharedStack', {
-          screen: 'TransactionView',
-          params: { transaction_id: item.id },
-        })
-      }
+      onPress={() => navigation.navigate('SharedStack', {
+        screen: 'TransactionView',
+        params: { transaction_id: item.id },
+      })}
       key={item.id}
     >
       <TransactionMediumCard transaction_id={item.id} />
@@ -78,16 +78,14 @@ function TransactionAllView({ navigation }) {
         {/* New Transaction */}
 
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('SharedStack', {
-              screen: 'NewTransactionStartView',
-              params: {
-                transaction_id: null,
-                category_id: null,
-                returnScreen: 'TransactionAllView',
-              },
-            })
-          }
+          onPress={() => navigation.navigate('SharedStack', {
+            screen: 'NewTransactionStartView',
+            params: {
+              transaction_id: null,
+              category_id: null,
+              returnScreen: 'TransactionAllView',
+            },
+          })}
         >
           <Ionicons name="add" size={scale(25)} color={green} />
         </TouchableOpacity>

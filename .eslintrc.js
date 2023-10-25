@@ -17,11 +17,24 @@ module.exports = {
       },
     },
   ],
+  plugins: [
+    'prettier',
+  ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  settings: {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   rules: {
-    "prettier/prettier": ["error"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": "off",
+    'prettier/prettier': 0,
+    'camelcase': 'off',
   },
 };

@@ -1,3 +1,4 @@
+import React from 'react';
 import { View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SelectList } from 'react-native-dropdown-select-list';
@@ -10,16 +11,18 @@ import {
 } from '../../constants/constants';
 import CustomTextInput from './CustomTextInput';
 
-function SearchPicker({ setFilter, setSort, option, border, size }) {
+function SearchPicker({
+  setFilter, setSort, option, size,
+}) {
   let placeholder = '';
   let sortOption = [];
   let height = 0;
 
-  if (option.toLowerCase() == 'transaction') {
+  if (option.toLowerCase() === 'transaction') {
     placeholder = 'Search for a transaction';
     sortOption = transactionSortOptions;
     height = 220;
-  } else if (option.toLowerCase() == 'category') {
+  } else if (option.toLowerCase() === 'category') {
     placeholder = 'Search for a category';
     sortOption = categorySortOptions;
     height = 150;
@@ -33,7 +36,7 @@ function SearchPicker({ setFilter, setSort, option, border, size }) {
     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
       {/* Text Input */}
 
-      <View style={{ width: size != undefined ? '72%' : '75%' }}>
+      <View style={{ width: size !== undefined ? '72%' : '75%' }}>
         <CustomTextInput
           value={null}
           onChangeText={setFilter}

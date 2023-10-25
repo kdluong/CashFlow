@@ -1,5 +1,7 @@
 import React from 'react';
-import { SafeAreaView, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  SafeAreaView, Text, View, TouchableOpacity, ActivityIndicator,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 import { UserContext } from '../../../../supabase/ViewModel';
@@ -17,8 +19,9 @@ import globalStyles from '../../../../styles/styles';
 
 function NewCategoryView({ navigation, route }) {
   const { category_id } = route.params;
-  const { categories, fetchCategory, createCategory, updateCategory, deleteCategory } =
-    React.useContext(UserContext);
+  const {
+    categories, fetchCategory, createCategory, updateCategory, deleteCategory,
+  } = React.useContext(UserContext);
 
   const [name, setName] = React.useState('');
   const [selectedColor, setSelectedColor] = React.useState('');
@@ -107,10 +110,10 @@ function NewCategoryView({ navigation, route }) {
 
   async function handleComplete() {
     if (
-      isUpdate &&
-      category?.name == name &&
-      category?.icon == selectedIcon &&
-      category?.color == selectedColor
+      isUpdate
+      && category?.name == name
+      && category?.icon == selectedIcon
+      && category?.color == selectedColor
     ) {
       navigation.goBack();
     } else {
@@ -180,7 +183,11 @@ function NewCategoryView({ navigation, route }) {
             <BackButton />
           </TouchableOpacity>
 
-          <Text style={globalStyles.header('white')}>{isUpdate ? 'Edit' : 'New'} Category</Text>
+          <Text style={globalStyles.header('white')}>
+            {isUpdate ? 'Edit' : 'New'}
+            {' '}
+            Category
+          </Text>
 
           {/* Icon & Loading */}
 
@@ -201,8 +208,8 @@ function NewCategoryView({ navigation, route }) {
                   deleteLoading
                     ? backgroundColor
                     : name == '' || selectedColor == '' || selectedIcon == ''
-                    ? 'gray'
-                    : green
+                      ? 'gray'
+                      : green
                 }
               />
             </TouchableOpacity>

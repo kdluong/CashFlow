@@ -1,4 +1,7 @@
-import { View, SafeAreaView, TouchableWithoutFeedback, Keyboard, Dimensions } from 'react-native';
+import React from 'react';
+import {
+  View, SafeAreaView, TouchableWithoutFeedback, Keyboard, Dimensions,
+} from 'react-native';
 import { scale } from 'react-native-size-matters';
 
 function CustomView({ children, style, backgroundColor }) {

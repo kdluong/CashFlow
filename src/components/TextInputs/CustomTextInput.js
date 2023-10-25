@@ -1,7 +1,10 @@
+import React from 'react';
 import { TextInput } from 'react-native';
 import { scale } from 'react-native-size-matters';
 
-function CustomTextInput({ value, onChangeText, placeholder, loading, border }) {
+function CustomTextInput({
+  value, onChangeText, placeholder, loading, border,
+}) {
   return (
     <TextInput
       value={value}
@@ -18,7 +21,7 @@ function CustomTextInput({ value, onChangeText, placeholder, loading, border }) 
         paddingRight: scale(3),
         backgroundColor: '#f3f3f3',
         borderColor: '#f0f0f0',
-        borderWidth: border == undefined ? scale(1.5) : 0,
+        borderWidth: border === undefined ? scale(1.5) : 0,
       }}
       onChangeText={onChangeText}
       clearButtonMode="while-editing"

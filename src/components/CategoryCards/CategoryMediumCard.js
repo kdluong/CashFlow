@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import globalStyles from '../../styles/styles';
+import globalStyles from '../../styles/styles.ts';
 import { UserContext } from '../../supabase/ViewModel';
 import IconSmall from '../Icons/IconSmall';
 
@@ -55,7 +55,8 @@ function CategoryMediumCard({ category_id, total }) {
           }}
           numberOfLines={1}
         >
-          - ${total.toFixed(2)}
+          - $
+          {total.toFixed(2)}
         </Text>
       </View>
 

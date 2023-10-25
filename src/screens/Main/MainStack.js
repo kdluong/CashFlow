@@ -126,7 +126,9 @@ function MainStack() {
 
               <View>
                 <Text style={globalStyles.header('white')}>
-                  {user?.first_name} {user?.last_name}
+                  {user?.first_name}
+                  {' '}
+                  {user?.last_name}
                 </Text>
                 <Text style={globalStyles.body('#d3d3d3')}>{session?.user?.email}</Text>
               </View>
