@@ -1,8 +1,11 @@
+import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Image } from 'expo-image';
 import { scale } from 'react-native-size-matters';
 import { green } from '../../../constants/constants';
-import globalStyles from '../../../styles/styles';
+import globalStyles from '../../../styles/styles.ts';
+import logo from '../../../../assets/logo.png';
+import flow from '../../../../assets/flow.gif';
 
 function WelcomeView({ navigation }) {
   return (
@@ -25,7 +28,7 @@ function WelcomeView({ navigation }) {
             marginLeft: scale(5),
             marginBottom: scale(10),
           }}
-          source={require('../../../../assets/logo.png')}
+          source={logo}
         />
       </View>
 
@@ -37,7 +40,7 @@ function WelcomeView({ navigation }) {
 
       <Image
         style={{ height: scale(250), width: scale(250), position: 'absolute' }}
-        source={require('../../../../assets/flow.gif')}
+        source={flow}
       />
 
       {/* Next Button */}
@@ -54,7 +57,7 @@ function WelcomeView({ navigation }) {
         }}
         onPress={() => navigation.navigate('Login')}
       >
-        <Text style={globalStyles.subHeader('white')}>Let's go!</Text>
+        <Text style={globalStyles.subHeader('white')}>Let&apos;s go!</Text>
       </TouchableOpacity>
     </View>
   );

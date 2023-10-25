@@ -7,8 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "eslint ./src/functions",
-    "lint:fix": "eslint ./src/functions --fix",
+    "lint": "eslint ./src/screens/Auth",
+    "lint:fix": "eslint ./src/screens/Auth --fix",
     "format": "prettier --write ./src"
   },
   "dependencies": {

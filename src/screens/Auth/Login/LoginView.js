@@ -2,13 +2,14 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Image } from 'expo-image';
 import { scale } from 'react-native-size-matters';
-import globalStyles from '../../../styles/styles';
+import globalStyles from '../../../styles/styles.ts';
 import { signInWithEmail } from '../../../supabase/supabaseFunctions';
 import CustomTextInput from '../../../components/TextInputs/CustomTextInput';
 import CustomPasswordInput from '../../../components/TextInputs/CustomPasswordInput';
 import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKeyboardAvoidingView';
 import BackButton from '../../../components/Buttons/BackButton';
 import { backgroundColor, green } from '../../../constants/constants';
+import logo from '../../../../assets/logoClear.png';
 
 function LogInView({ navigation }) {
   // const [email, setEmail] = React.useState('');
@@ -16,7 +17,7 @@ function LogInView({ navigation }) {
 
   const [email, setEmail] = React.useState('kluong264@gmail.com');
   const [password, setPassword] = React.useState('Incorect94544!');
-  const [showPass, setShowPass] = React.useState(false);
+  // const logo = require('../../../../assets/logoClear.png');
 
   return (
     <View style={{ flex: 1, backgroundColor }}>
@@ -43,7 +44,7 @@ function LogInView({ navigation }) {
                 marginLeft: scale(5),
                 marginBottom: scale(10),
               }}
-              source={require('../../../../assets/logoClear.png')}
+              source={logo}
             />
           </View>
 
@@ -76,7 +77,7 @@ function LogInView({ navigation }) {
             onPress={() => navigation.navigate('Register')}
           >
             <Text style={globalStyles.body('white')}>
-              Don't have an account?
+              Don&apos;t have an account?
               <Text style={globalStyles.body(green)}> Sign up.</Text>
             </Text>
           </TouchableOpacity>
@@ -91,7 +92,7 @@ function LogInView({ navigation }) {
 
       <TouchableOpacity
         style={{
-          backgroundColor: email != '' && password != '' ? green : 'white',
+          backgroundColor: email !== '' && password !== '' ? green : 'white',
           borderRadius: 100,
           paddingHorizontal: scale(20),
           paddingVertical: scale(13),

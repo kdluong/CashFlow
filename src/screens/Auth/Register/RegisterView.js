@@ -2,13 +2,14 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
 import { Image } from 'expo-image';
-import globalStyles from '../../../styles/styles';
+import globalStyles from '../../../styles/styles.ts';
 import { signUpWithEmail } from '../../../supabase/supabaseFunctions';
 import CustomTextInput from '../../../components/TextInputs/CustomTextInput';
 import CustomPasswordInput from '../../../components/TextInputs/CustomPasswordInput';
 import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKeyboardAvoidingView';
 import BackButton from '../../../components/Buttons/BackButton';
 import { backgroundColor, green } from '../../../constants/constants';
+import logo from '../../../../assets/logoClear.png';
 
 function RegisterView({ navigation }) {
   const [first, setFirst] = React.useState('');
@@ -22,8 +23,6 @@ function RegisterView({ navigation }) {
   // const [email, setEmail] = React.useState('kluong264@gmail.com');
   // const [password, setPassword] = React.useState('Incorect94544!');
   // const [confirmPass, setConfirmPass] = React.useState('Incorect94544!');
-
-  const [showPass, setShowPass] = React.useState(false);
 
   return (
     <View style={{ flex: 1, backgroundColor }}>
@@ -54,7 +53,7 @@ function RegisterView({ navigation }) {
                 marginLeft: scale(5),
                 marginBottom: scale(8),
               }}
-              source={require('../../../../assets/logoClear.png')}
+              source={logo}
             />
           </View>
 
@@ -118,7 +117,7 @@ function RegisterView({ navigation }) {
 
       <TouchableOpacity
         style={{
-          backgroundColor: email != '' && password != '' && confirmPass != '' ? green : 'white',
+          backgroundColor: email !== '' && password !== '' && confirmPass !== '' ? green : 'white',
           borderRadius: 100,
           paddingHorizontal: scale(20),
           paddingVertical: scale(13),

@@ -1,6 +1,5 @@
-import { SafeAreaView, Text } from 'react-native';
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import WelcomeView from './Welcome/WelcomeView';
 import LoginView from './Login/LoginView';
 import RegisterView from './Register/RegisterView';
