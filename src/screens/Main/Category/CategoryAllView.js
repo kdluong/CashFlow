@@ -31,6 +31,8 @@ const CategoryAllView = ({ navigation }) => {
             <View
                 style={{
                     gap: scale(15),
+                    width: '48%',
+                    alignItems: 'center',
                     backgroundColor: accentColor,
                     padding: scale(15),
                     borderRadius: scale(10),
@@ -42,26 +44,24 @@ const CategoryAllView = ({ navigation }) => {
                 }}
             >
 
-                <Text style={{ ...globalStyles.subHeader('white'), alignSelf: "center" }}>Spending Distribution</Text>
+                <Text style={{ ...globalStyles.subHeader('white') }}>Spending Distribution</Text>
 
-                <View style={{ marginBottom: scale(-10), marginRight: scale(-13) }}>
-                    <PieChart
-                        data={total == 0 ? [{ value: 1, color: 'white' }] : copiedArray}
-                        radius={scale(60)}
-                        innerRadius={scale(42)}
-                        strokeWidth={scale(1)}
-                        strokeColor={accentColor}
-                        innerCircleColor={accentColor}
-                        centerLabelComponent={() => {
-                            return (
-                                <View style={{ flexDirection: 'row', alignItems: "center" }}>
-                                    <Text style={{ fontFamily: 'BebasReg', fontSize: scale(15), color: "white" }}>$</Text>
-                                    <Text style={{ ...globalStyles.subHeader('white') }} numberOfLines={1}>{total}</Text>
-                                </View>
-                            );
-                        }}
-                    />
-                </View>
+                <PieChart
+                    data={total == 0 ? [{ value: 1, color: 'white' }] : copiedArray}
+                    radius={scale(60)}
+                    innerRadius={scale(42)}
+                    strokeWidth={scale(1)}
+                    strokeColor={accentColor}
+                    innerCircleColor={accentColor}
+                    centerLabelComponent={() => {
+                        return (
+                            <View style={{ flexDirection: 'row', alignItems: "center" }}>
+                                <Text style={{ fontFamily: 'BebasReg', fontSize: scale(15), color: "white" }}>$</Text>
+                                <Text style={{ ...globalStyles.subHeader('white') }} numberOfLines={1}>{total}</Text>
+                            </View>
+                        );
+                    }}
+                />
 
             </View>
         );
@@ -76,7 +76,8 @@ const CategoryAllView = ({ navigation }) => {
                 style={{
                     backgroundColor: accentColor,
                     gap: scale(10),
-                    //justifyContent: "space-between",
+                    width: '48%',
+                    alignItems: 'center',
                     padding: scale(15),
                     borderRadius: scale(10),
                     shadowColor: "#000",
