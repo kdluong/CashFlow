@@ -78,7 +78,7 @@ function TransactionLargeCard({ transaction_id, children }) {
           <View style={{ alignItems: 'flex-end' }}>
             <Text style={globalStyles.subHeader('black')}>- ${transaction?.total?.toFixed(2)}</Text>
             <Text style={globalStyles.body('gray')}>
-              {getDateLong(transaction?.date)} @ {getTime(transaction?.date)}
+              {getDateLong(transaction?.date)} @{getTime(transaction?.date)}
             </Text>
           </View>
         </View>
