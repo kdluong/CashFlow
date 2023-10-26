@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
-import globalStyles from '../../../styles/styles';
+import globalStyles from '../../../styles/styles.ts';
 import { UserContext } from '../../../supabase/ViewModel';
 import TransactionMediumCard from '../../../components/TransactionCards/TransactionMediumCard';
 import SearchPicker from '../../../components/TextInputs/SearchPicker';
@@ -56,7 +56,7 @@ function TransactionAllView({ navigation }) {
       setRefresh(false);
     }
 
-    return <RefreshControl refreshing={refresh} onRefresh={handleRefresh} tintColor="white" />;
+    return <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh()} tintColor="white" />;
   };
 
   const renderHeader = () => (
