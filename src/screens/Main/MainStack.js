@@ -5,7 +5,7 @@ import { SafeAreaView, View, Text } from 'react-native';
 import { Image } from 'expo-image';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import globalStyles from '../../styles/styles';
+import globalStyles from '../../styles/styles.ts';
 import { UserContext } from '../../supabase/ViewModel';
 import { signOut } from '../../supabase/supabaseFunctions';
 import { backgroundColor, accentColor, green } from '../../constants/constants';
@@ -18,14 +18,30 @@ import CategoryView from './Category/CategoryView';
 import SettingsView from './Settings/SettingsView';
 import NewCategoryView from './Category/NewCategory/NewCategoryView';
 import EditAccountView from './Settings/EditAccountView';
-import EditProfileView from './Settings/EditProfileView';
+import EditProfileView from './Settings/EditProfileView.tsx';
 import CameraView from './Transaction/NewTransaction/CameraView';
 import NewTransactionStartView from './Transaction/NewTransaction/NewTransactionStartView';
-import NewTransactionFinishView from './Transaction/NewTransaction/NewTransactionFinishView';
+import NewTransactionFinishView from './Transaction/NewTransaction/NewTransactionFinishView.tsx';
 import ChooseCategoryView from './Transaction/NewTransaction/ChooseCategoryView';
+
+import blankProfilePicture from '../../../assets/blankProfilePicture.png';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
+
+function SharedStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Group>
+        <Stack.Screen name="NewTransactionStartView" component={NewTransactionStartView} />
+        <Stack.Screen name="ChooseCategoryView" component={ChooseCategoryView} />
+        <Stack.Screen name="NewTransactionFinishView" component={NewTransactionFinishView} />
+      </Stack.Group>
+      <Stack.Screen name="TransactionView" component={TransactionView} />
+      <Stack.Screen name="NewCategoryView" component={NewCategoryView} />
+    </Stack.Navigator>
+  );
+}
 
 function DashboardStack() {
   return (
@@ -66,19 +82,76 @@ function SettingsStack() {
   );
 }
 
-function SharedStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Group>
-        <Stack.Screen name="NewTransactionStartView" component={NewTransactionStartView} />
-        <Stack.Screen name="ChooseCategoryView" component={ChooseCategoryView} />
-        <Stack.Screen name="NewTransactionFinishView" component={NewTransactionFinishView} />
-      </Stack.Group>
-      <Stack.Screen name="TransactionView" component={TransactionView} />
-      <Stack.Screen name="NewCategoryView" component={NewCategoryView} />
-    </Stack.Navigator>
-  );
-}
+const renderIcon = (name, color) => (
+  <Ionicons
+    name={color !== 'white' ? `${name}-sharp` : `${name}-outline`}
+    size={scale(18)}
+    color={color}
+  />
+);
+
+const renderDrawerContent = (props, user, session) => (
+  <SafeAreaView style={{ flex: 1, justifyContent: 'space-between', backgroundColor }}>
+    {/* Info & Screens */}
+
+    <View style={{ gap: scale(30), padding: scale(10) }}>
+      {/* Picture & Info */}
+
+      <View
+        style={{
+          gap: scale(10),
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingLeft: scale(10),
+        }}
+      >
+        <Image
+          source={
+            user?.image == null
+              ? blankProfilePicture
+              : user.image
+          }
+          style={{
+            height: scale(55),
+            width: scale(55),
+            borderRadius: 100,
+            borderWidth: scale(2.5),
+            borderColor: 'white',
+            alignSelf: 'center',
+          }}
+        />
+
+        <View>
+          <Text style={globalStyles.header('white')}>
+            {user?.first_name}
+            {' '}
+            {user?.last_name}
+          </Text>
+          <Text style={globalStyles.body('#d3d3d3')}>{session?.user?.email}</Text>
+        </View>
+      </View>
+
+      {/* Screens */}
+
+      <View>
+        <DrawerItemList {...props} />
+      </View>
+    </View>
+
+    {/* Sign Out */}
+
+    <View style={{ padding: scale(10) }}>
+      <View style={{ height: '1.5%', backgroundColor: accentColor }} />
+
+      <DrawerItem
+        label="Sign Out"
+        onPress={() => signOut()}
+        labelStyle={globalStyles.subHeader('white')}
+        icon={() => <Ionicons name="exit-outline" size={scale(18)} color="white" />}
+      />
+    </View>
+  </SafeAreaView>
+);
 
 function MainStack() {
   const { user, session } = React.useContext(UserContext);
@@ -93,81 +166,14 @@ function MainStack() {
         drawerActiveTintColor: green,
         drawerActiveBackgroundColor: accentColor,
       }}
-      drawerContent={(props) => (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'space-between', backgroundColor }}>
-          {/* Info & Screens */}
-
-          <View style={{ gap: scale(30), padding: scale(10) }}>
-            {/* Picture & Info */}
-
-            <View
-              style={{
-                gap: scale(10),
-                flexDirection: 'row',
-                alignItems: 'center',
-                paddingLeft: scale(10),
-              }}
-            >
-              <Image
-                source={
-                  user?.image == null
-                    ? require('../../../assets/blankProfilePicture.png')
-                    : user.image
-                }
-                style={{
-                  height: scale(55),
-                  width: scale(55),
-                  borderRadius: 100,
-                  borderWidth: scale(2.5),
-                  borderColor: 'white',
-                  alignSelf: 'center',
-                }}
-              />
-
-              <View>
-                <Text style={globalStyles.header('white')}>
-                  {user?.first_name}
-                  {' '}
-                  {user?.last_name}
-                </Text>
-                <Text style={globalStyles.body('#d3d3d3')}>{session?.user?.email}</Text>
-              </View>
-            </View>
-
-            {/* Screens */}
-
-            <View>
-              <DrawerItemList {...props} />
-            </View>
-          </View>
-
-          {/* Sign Out */}
-
-          <View style={{ padding: scale(10) }}>
-            <View style={{ height: '1.5%', backgroundColor: accentColor }} />
-
-            <DrawerItem
-              label="Sign Out"
-              onPress={() => signOut()}
-              labelStyle={globalStyles.subHeader('white')}
-              icon={() => <Ionicons name="exit-outline" size={scale(18)} color="white" />}
-            />
-          </View>
-        </SafeAreaView>
-      )}
+      drawerContent={(props) => renderDrawerContent(props, user, session)}
     >
       <Drawer.Screen
         name="DashboardStack"
         component={DashboardStack}
         options={{
           drawerLabel: 'Dashboard',
-          drawerIcon: ({ color }) => (
-            <Ionicons
-              name={color != 'white' ? 'bar-chart-sharp' : 'bar-chart-outline'}
-              size={scale(18)}
-              color={color}
-            />
-          ),
+          drawerIcon: ({ color }) => renderIcon('bar-chart', color),
         }}
       />
       <Drawer.Screen
@@ -175,13 +181,7 @@ function MainStack() {
         component={TransactionStack}
         options={{
           drawerLabel: 'Transactions',
-          drawerIcon: ({ color }) => (
-            <Ionicons
-              name={color != 'white' ? 'receipt-sharp' : 'receipt-outline'}
-              size={scale(18)}
-              color={color}
-            />
-          ),
+          drawerIcon: ({ color }) => renderIcon('receipt', color),
         }}
       />
       <Drawer.Screen
@@ -189,13 +189,7 @@ function MainStack() {
         component={CategoryStack}
         options={{
           drawerLabel: 'Categories',
-          drawerIcon: ({ color }) => (
-            <Ionicons
-              name={color != 'white' ? 'pie-chart-sharp' : 'pie-chart-outline'}
-              size={scale(18)}
-              color={color}
-            />
-          ),
+          drawerIcon: ({ color }) => renderIcon('pie-chart', color),
         }}
       />
       <Drawer.Screen
@@ -203,13 +197,7 @@ function MainStack() {
         component={SettingsStack}
         options={{
           drawerLabel: 'Account Settings',
-          drawerIcon: ({ color }) => (
-            <Ionicons
-              name={color != 'white' ? 'cog-sharp' : 'cog-outline'}
-              size={scale(18)}
-              color={color}
-            />
-          ),
+          drawerIcon: ({ color }) => renderIcon('cog', color),
         }}
       />
     </Drawer.Navigator>
