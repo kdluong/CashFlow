@@ -3,10 +3,11 @@ import { Image } from 'expo-image';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
 import { UserContext } from '../../../supabase/ViewModel';
-import globalStyles from '../../../styles/styles';
+import globalStyles from '../../../styles/styles.ts';
 import OpenDrawerButton from '../../../components/Buttons/OpenDrawerButton';
 import CustomView from '../../../components/CustomViews/CustomView';
 import { monthNames, backgroundColor, accentColor } from '../../../constants/constants';
+import blankProfilePicture from '../../../../assets/blankProfilePicture.png';
 
 function SettingsView({ navigation }) {
   const { user, session } = React.useContext(UserContext);
@@ -42,7 +43,7 @@ function SettingsView({ navigation }) {
           <Image
             source={
               user?.image == null
-                ? require('../../../../assets/blankProfilePicture.png')
+                ? blankProfilePicture
                 : user?.image
             }
             style={{

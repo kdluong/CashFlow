@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
-import globalStyles from '../../../styles/styles';
+import globalStyles from '../../../styles/styles.ts';
 import { changeEmail, changePassword } from '../../../supabase/supabaseFunctions';
 import CustomTextInput from '../../../components/TextInputs/CustomTextInput';
 import BackButton from '../../../components/Buttons/BackButton';
@@ -21,7 +21,7 @@ function EditAccountView({ navigation, route }) {
   async function handleComplete() {
     setLoading(true);
 
-    if (option == 'email') {
+    if (option === 'email') {
       await changeEmail(newValue);
     } else {
       await changePassword(newValue);
@@ -37,9 +37,9 @@ function EditAccountView({ navigation, route }) {
 
     if (newValue.length < 8) {
       valid = false;
-    } else if (option != 'password' && newValue == confirmEmail) {
+    } else if (option !== 'password' && newValue === confirmEmail) {
       valid = true;
-    } else if (newValue == confirmPassword) {
+    } else if (newValue === confirmPassword) {
       valid = true;
     }
 
@@ -65,7 +65,7 @@ function EditAccountView({ navigation, route }) {
           </TouchableOpacity>
 
           <Text style={globalStyles.header('white')}>
-            {option != 'password' ? 'Change Email' : 'Change Password'}
+            {option !== 'password' ? 'Change Email' : 'Change Password'}
           </Text>
 
           {/* Complete */}
@@ -93,11 +93,11 @@ function EditAccountView({ navigation, route }) {
           <CustomTextInput
             value={newValue}
             onChangeText={setNewValue}
-            placeholder={option == 'email' ? 'Enter a new email address' : 'Enter a new password'}
+            placeholder={option === 'email' ? 'Enter a new email address' : 'Enter a new password'}
             loading={loading}
           />
 
-          {option != 'password' && (
+          {option !== 'password' && (
             <CustomTextInput
               value={confirmEmail}
               onChangeText={setConfirmEmail}
@@ -106,7 +106,7 @@ function EditAccountView({ navigation, route }) {
             />
           )}
 
-          {option == 'password' && (
+          {option === 'password' && (
             <CustomTextInput
               value={confirmPassword}
               onChangeText={setConfirmPassword}
