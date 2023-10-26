@@ -12,8 +12,7 @@ import { scale } from 'react-native-size-matters';
 import { Image } from 'expo-image';
 import { BarChart } from 'react-native-gifted-charts';
 import { UserContext } from '../../../supabase/ViewModel';
-import globalStyles from '../../../styles/styles';
-import TransactionSmallCard from '../../../components/TransactionCards/TransactionSmallCard';
+import globalStyles from '../../../styles/styles.ts';
 import {
   monthNames,
   monthNamesShort,
@@ -23,6 +22,10 @@ import {
 } from '../../../constants/constants';
 import OpenDrawerButton from '../../../components/Buttons/OpenDrawerButton';
 import CustomScrollView from '../../../components/CustomViews/CustomScrollView';
+import logo from '../../../../assets/logoClear.png';
+import blankProfilePicture from '../../../../assets/blankProfilePicture.png';
+import TransactionList from '../../../components/TransactionList/TransactionList';
+import MonthlyOverview from '../../../components/MonthlyOverview/MonthlyOverview';
 
 function DashboardView({ navigation }) {
   const {
@@ -31,33 +34,32 @@ function DashboardView({ navigation }) {
   const [currentMonth, setCurrentMonth] = React.useState(null);
   const [currentTotal, setCurrentTotal] = React.useState(null);
   const [refresh, setRefresh] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
   const [myTransactions, setMyTransactions] = React.useState([]);
 
-  function TransactionList() {
-    return myTransactions?.length == 0 ? (
-      <View style={{ alignItems: 'center', justifyContent: 'center', height: scale(130) }}>
-        <Text style={globalStyles.body('black')}>No Transactions</Text>
-      </View>
-    ) : (
-      <View>
-        {myTransactions
-          ?.sort((a, b) => (a.date > b.date ? -1 : 1))
-          .slice(0, 5)
-          .map((transaction, index) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('SharedStack', {
-                screen: 'TransactionView',
-                params: { transaction_id: transaction.id },
-              })}
-              key={index}
-            >
-              <TransactionSmallCard transaction_id={transaction.id} />
-            </TouchableOpacity>
-          ))}
-      </View>
-    );
-  }
+  // function TransactionList() {
+  //   return myTransactions?.length === 0 ? (
+  //     <View style={{ alignItems: 'center', justifyContent: 'center', height: scale(130) }}>
+  //       <Text style={globalStyles.body('black')}>No Transactions</Text>
+  //     </View>
+  //   ) : (
+  //     <View>
+  //       {myTransactions
+  //         ?.sort((a, b) => (a.date > b.date ? -1 : 1))
+  //         .slice(0, 5)
+  //         .map((transaction) => (
+  //           <TouchableOpacity
+  //             onPress={() => navigation.navigate('SharedStack', {
+  //               screen: 'TransactionView',
+  //               params: { transaction_id: transaction.id },
+  //             })}
+  //             key={uuid()}
+  //           >
+  //             <TransactionSmallCard transaction_id={transaction.id} />
+  //           </TouchableOpacity>
+  //         ))}
+  //     </View>
+  //   );
+  // }
 
   async function handleRefresh() {
     setRefresh(true);
@@ -77,34 +79,34 @@ function DashboardView({ navigation }) {
     }
   }
 
-  function RenderMonthlyOverview() {
-    if (transactions != undefined && transactions?.length != 0) {
-      let month;
-      let total;
+  // function RenderMonthlyOverview() {
+  //   if (transactions !== undefined && transactions?.length !== 0) {
+  //     let month;
+  //     let total;
 
-      if (currentMonth == null && currentTotal == null) {
-        if (transactions?.length != 0) {
-          const index = monthNamesShort.indexOf(chartData?.at(-1)?.label);
+  //     if (currentMonth == null && currentTotal == null) {
+  //       if (transactions?.length !== 0) {
+  //         const index = monthNamesShort.indexOf(chartData?.at(-1)?.label);
 
-          month = monthNames[index];
-          total = chartData?.at(-1)?.value;
-        }
-      } else {
-        month = currentMonth;
-        total = currentTotal;
-      }
+  //         month = monthNames[index];
+  //         total = chartData?.at(-1)?.value;
+  //       }
+  //     } else {
+  //       month = currentMonth;
+  //       total = currentTotal;
+  //     }
 
-      return (
-        <Text style={globalStyles.body('black')}>
-          {month}
-          {' '}
-          $
-          {parseFloat(total).toFixed(2)}
-        </Text>
-      );
-    }
-    return <View />;
-  }
+  //     return (
+  //       <Text style={globalStyles.body('black')}>
+  //         {month}
+  //         {' '}
+  //         $
+  //         {parseFloat(total).toFixed(2)}
+  //       </Text>
+  //     );
+  //   }
+  //   return <View />;
+  // }
 
   React.useEffect(() => {
     handleRefresh();
@@ -113,14 +115,14 @@ function DashboardView({ navigation }) {
   React.useEffect(() => {
     const tempTransactions = [];
 
-    for (let index = 0; index < transactions?.length; index++) {
+    for (let index = 0; index < transactions?.length; index += 1) {
       tempTransactions.push(transactions[index]);
     }
 
     setMyTransactions(tempTransactions);
   }, [transactions]);
 
-  if (spendingDistribution == undefined) {
+  if (spendingDistribution === undefined) {
     // Loading Screen
 
     return (
@@ -129,7 +131,6 @@ function DashboardView({ navigation }) {
           alignItems: 'center',
           flex: 1,
           backgroundColor,
-          alignItems: 'center',
           justifyContent: 'center',
         }}
       >
@@ -144,7 +145,7 @@ function DashboardView({ navigation }) {
               marginLeft: scale(5),
               marginBottom: scale(10),
             }}
-            source={require('../../../../assets/logoClear.png')}
+            source={logo}
           />
         </View>
 
@@ -160,7 +161,7 @@ function DashboardView({ navigation }) {
 
       <CustomScrollView
         refreshControl={
-          <RefreshControl refreshing={refresh} onRefresh={handleRefresh} tintColor="white" />
+          <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh} tintColor="white" />
         }
       >
         {/* Header */}
@@ -184,7 +185,7 @@ function DashboardView({ navigation }) {
                   marginLeft: scale(2),
                   marginBottom: scale(4),
                 }}
-                source={require('../../../../assets/logoClear.png')}
+                source={logo}
               />
             </View>
           </View>
@@ -199,11 +200,9 @@ function DashboardView({ navigation }) {
               source={
                 user?.image != null
                   ? user.image
-                  : require('../../../../assets/blankProfilePicture.png')
+                  : blankProfilePicture
               }
               style={{ height: scale(45), width: scale(45), borderRadius: 100 }}
-              onLoadStart={() => setLoading(true)}
-              onLoadEnd={() => setLoading(false)}
             />
           </TouchableOpacity>
         </View>
@@ -287,7 +286,14 @@ function DashboardView({ navigation }) {
           >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={globalStyles.header('black')}>Overview</Text>
-              <RenderMonthlyOverview />
+
+              <MonthlyOverview
+                transactions={transactions}
+                currentMonth={currentMonth}
+                currentTotal={currentTotal}
+                chartData={chartData}
+              />
+
             </View>
 
             <View
@@ -358,7 +364,7 @@ function DashboardView({ navigation }) {
               </TouchableOpacity>
             </View>
 
-            <TransactionList />
+            <TransactionList myTransactions={myTransactions} navigation={navigation} />
           </View>
         </View>
       </CustomScrollView>
