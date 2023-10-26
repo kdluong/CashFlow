@@ -12,11 +12,12 @@ import TransactionSmallCard from '../../../components/TransactionCards/Transacti
 import SearchPicker from '../../../components/TextInputs/SearchPicker';
 import BackButton from '../../../components/Buttons/BackButton';
 import CustomFlatListView from '../../../components/CustomViews/CustomFlatListView';
+import { calculateCategoryDistribution } from '../../../functions/functions';
 
 function CategoryView({ navigation, route }) {
   const { category_id, startGraph } = route.params;
   const {
-    fetchCategory, calculateCategoryDistribution, categories, transactions, getAll,
+    fetchCategory, categories, transactions, getAll,
   } = React.useContext(UserContext);
   const [selectedGraph, setSelectedGraph] = React.useState(switchOptions[startGraph]?.label);
   const [refresh, setRefresh] = React.useState(false);
@@ -205,7 +206,7 @@ function CategoryView({ navigation, route }) {
   const renderFooter = () => <View style={{ height: '200%', backgroundColor: 'white' }} />;
 
   React.useEffect(() => {
-    const data = calculateCategoryDistribution(category_id);
+    const data = calculateCategoryDistribution(category_id, transactions);
 
     setCategory(fetchCategory(category_id));
 
