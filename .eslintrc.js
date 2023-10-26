@@ -38,5 +38,6 @@ module.exports = {
     'camelcase': 'off',
     'react/jsx-props-no-spreading': 'off',
     "no-shadow": "off",
+    "global-require": 0  
   },
 };
