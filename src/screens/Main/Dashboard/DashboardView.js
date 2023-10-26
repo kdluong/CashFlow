@@ -36,31 +36,6 @@ function DashboardView({ navigation }) {
   const [refresh, setRefresh] = React.useState(false);
   const [myTransactions, setMyTransactions] = React.useState([]);
 
-  // function TransactionList() {
-  //   return myTransactions?.length === 0 ? (
-  //     <View style={{ alignItems: 'center', justifyContent: 'center', height: scale(130) }}>
-  //       <Text style={globalStyles.body('black')}>No Transactions</Text>
-  //     </View>
-  //   ) : (
-  //     <View>
-  //       {myTransactions
-  //         ?.sort((a, b) => (a.date > b.date ? -1 : 1))
-  //         .slice(0, 5)
-  //         .map((transaction) => (
-  //           <TouchableOpacity
-  //             onPress={() => navigation.navigate('SharedStack', {
-  //               screen: 'TransactionView',
-  //               params: { transaction_id: transaction.id },
-  //             })}
-  //             key={uuid()}
-  //           >
-  //             <TransactionSmallCard transaction_id={transaction.id} />
-  //           </TouchableOpacity>
-  //         ))}
-  //     </View>
-  //   );
-  // }
-
   async function handleRefresh() {
     setRefresh(true);
 
@@ -78,35 +53,6 @@ function DashboardView({ navigation }) {
       setCurrentTotal(total);
     }
   }
-
-  // function RenderMonthlyOverview() {
-  //   if (transactions !== undefined && transactions?.length !== 0) {
-  //     let month;
-  //     let total;
-
-  //     if (currentMonth == null && currentTotal == null) {
-  //       if (transactions?.length !== 0) {
-  //         const index = monthNamesShort.indexOf(chartData?.at(-1)?.label);
-
-  //         month = monthNames[index];
-  //         total = chartData?.at(-1)?.value;
-  //       }
-  //     } else {
-  //       month = currentMonth;
-  //       total = currentTotal;
-  //     }
-
-  //     return (
-  //       <Text style={globalStyles.body('black')}>
-  //         {month}
-  //         {' '}
-  //         $
-  //         {parseFloat(total).toFixed(2)}
-  //       </Text>
-  //     );
-  //   }
-  //   return <View />;
-  // }
 
   React.useEffect(() => {
     handleRefresh();
@@ -302,6 +248,7 @@ function DashboardView({ navigation }) {
                 paddingBottom: scale(10),
                 marginLeft: scale(-3),
                 marginBottom: scale(-10),
+                marginRight: scale(-9),
               }}
             >
               <BarChart
@@ -309,7 +256,6 @@ function DashboardView({ navigation }) {
                 height={scale(70)}
                 barWidth={scale(15)}
                 spacing={scale(10.8)}
-                initialSpacing={scale(19)}
                 hideRules
                 frontColor={green}
                 barBorderRadius={scale(5)}
