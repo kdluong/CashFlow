@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 import { UserContext } from '../../../../supabase/ViewModel';
 import CategoryFullCard from '../../../../components/CategoryCards/CategoryFullCard';
-import globalStyles from '../../../../styles/styles';
+import globalStyles from '../../../../styles/styles.ts';
 import SearchPicker from '../../../../components/TextInputs/SearchPicker';
 import BackButton from '../../../../components/Buttons/BackButton';
 import CustomFlatListView from '../../../../components/CustomViews/CustomFlatListView';
@@ -30,7 +30,7 @@ function ChooseCategoryView({ navigation, route }) {
   }
 
   function handleClick(currCategory) {
-    if (selectedCategoryId == null || selectedCategoryId != currCategory?.id) {
+    if (selectedCategoryId == null || selectedCategoryId !== currCategory?.id) {
       navigation.navigate({
         name: 'NewTransactionStartView',
         params: { category_id: currCategory?.id },
@@ -53,7 +53,6 @@ function ChooseCategoryView({ navigation, route }) {
     switch (sort) {
       case 'A-Z':
         return a?.name < b?.name;
-        break;
       default:
         return a?.name > b?.name;
     }
@@ -99,7 +98,7 @@ function ChooseCategoryView({ navigation, route }) {
 
       <Ionicons
         name={
-          selectedCategoryId != null && selectedCategoryId == item.id
+          selectedCategoryId != null && selectedCategoryId === item.id
             ? 'checkmark-circle-sharp'
             : 'checkmark-circle-outline'
         }
@@ -116,7 +115,7 @@ function ChooseCategoryView({ navigation, route }) {
   );
 
   const renderRefresh = () => (
-    <RefreshControl refreshing={refresh} onRefresh={handleRefresh} tintColor="white" />
+    <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh} tintColor="white" />
   );
 
   React.useEffect(() => {

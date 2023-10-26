@@ -1,8 +1,11 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { TouchableOpacity, View } from 'react-native';
+import {
+  SafeAreaView, TouchableOpacity, View, Text,
+} from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import { scale } from 'react-native-size-matters';
+import globalStyles from '../../../../styles/styles.ts';
 
 function CameraView({ bottomSheetRef, setPicture, showCamera }) {
   const cameraRef = React.useRef();
@@ -21,6 +24,10 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
     setFlashMode((current) => (current === FlashMode.off ? FlashMode.on : FlashMode.off));
   }
 
+  function handleClose() {
+    bottomSheetRef.current.forceClose();
+  }
+
   async function takePicture() {
     setDisableCaptureButton(true); // hide buttons
 
@@ -31,10 +38,6 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
     handleClose();
   }
 
-  function handleClose() {
-    bottomSheetRef.current.forceClose();
-  }
-
   React.useEffect(() => {
     // check for permissions
 
@@ -43,6 +46,17 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
       setHasCameraPermission(cameraStatus.granted === 'granted');
     })();
   }, []);
+
+  if (!hasCameraPermission) {
+    return (
+      <SafeAreaView style={{
+        alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor: 'black',
+      }}
+      >
+        <Text style={globalStyles.body('white')}>No camera permission.</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <View>
@@ -91,7 +105,7 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
               disabled={type !== CameraType.back}
             >
               <Ionicons
-                name={flashMode == 'off' ? 'flash-off-sharp' : 'flash-sharp'}
+                name={flashMode === 'off' ? 'flash-off-sharp' : 'flash-sharp'}
                 size={scale(25)}
                 color={type === CameraType.back ? 'white' : 'black'}
               />

@@ -7,8 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "eslint ./src/screens/Main/Settings",
-    "lint:fix": "eslint ./src/screens/Main/Settings --fix",
+    "lint": "eslint ./src/screens/Main/Transaction/NewTransaction",
+    "lint:fix": "eslint ./src/screens/Main/Transaction/NewTransaction --fix",
     "format": "prettier --write ./src"
   },
   "dependencies": {
