@@ -37,5 +37,6 @@ module.exports = {
     'prettier/prettier': 0,
     'camelcase': 'off',
     'react/jsx-props-no-spreading': 'off',
+    "no-shadow": "off",
   },
 };

@@ -1,8 +1,7 @@
 import React from 'react';
 import AuthStack from './Auth/AuthStack';
 import { UserContext } from '../supabase/ViewModel';
-import { supabase } from '../supabase/supabase';
-
+import { supabase } from '../supabase/supabase.ts';
 import MainStack from './Main/MainStack';
 
 function AppNavigator() {
