@@ -7,8 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "eslint ./src/screens/Auth",
-    "lint:fix": "eslint ./src/screens/Auth --fix",
+    "lint": "eslint ./src/screens/Main/Category",
+    "lint:fix": "eslint ./src/screens/Main/Category --fix",
     "format": "prettier --write ./src"
   },
   "dependencies": {
@@ -38,7 +38,8 @@
     "react-native-size-matters": "^0.4.0",
     "react-native-switch-selector": "^2.3.0",
     "react-native-url-polyfill": "^2.0.0",
-    "react-native-vector-icons": "^10.0.0"
+    "react-native-vector-icons": "^10.0.0",
+    "react-uuid": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -26,7 +26,7 @@ function CategorySmallCard({ category_id, percentage }) {
         {/* Percent */}
 
         <Text style={{ fontFamily: 'BebasReg', fontSize: scale(12), color: 'gray' }}>
-          {percentage}
+          {Number.isNaN(parseFloat(percentage)) ? 0 : percentage}
           %
         </Text>
       </View>

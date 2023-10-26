@@ -1,21 +1,20 @@
 import React from 'react';
 import {
-  SafeAreaView, Text, View, TouchableOpacity, ActivityIndicator,
+  SafeAreaView, Text, View, TouchableOpacity, ActivityIndicator, Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 import { UserContext } from '../../../../supabase/ViewModel';
 import {
-  colors,
-  icons,
   backgroundColor,
   green,
-  accentColor,
 } from '../../../../constants/constants';
 import CustomTextInput from '../../../../components/TextInputs/CustomTextInput';
 import BackButton from '../../../../components/Buttons/BackButton';
 import CustomScrollView from '../../../../components/CustomViews/CustomScrollView';
-import globalStyles from '../../../../styles/styles';
+import globalStyles from '../../../../styles/styles.ts';
+import IconList from '../../../../components/Icons/IconList';
+import ColorList from '../../../../components/Icons/ColorList';
 
 function NewCategoryView({ navigation, route }) {
   const { category_id } = route.params;
@@ -33,95 +32,20 @@ function NewCategoryView({ navigation, route }) {
   const [loading, setLoading] = React.useState(false);
   const [deleteLoading, setDeleteLoading] = React.useState(false);
 
-  function ColorList() {
-    function handleColorClick(color) {
-      if (color == selectedColor) {
-        setSelectedColor('');
-      } else {
-        setSelectedColor(color);
-      }
-    }
-
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          gap: scale(10),
-        }}
-      >
-        {colors.map((color, index) => (
-          <TouchableOpacity
-            onPress={() => handleColorClick(color)}
-            style={{
-              height: scale(50),
-              width: scale(50),
-              borderRadius: 100,
-              backgroundColor: color,
-              borderColor: selectedColor == color ? green : '#1e1d22',
-              borderWidth: scale(3),
-            }}
-            key={index}
-            disabled={loading || deleteLoading}
-          />
-        ))}
-      </View>
-    );
-  }
-
-  function IconList() {
-    function handleIconClick(icon) {
-      if (icon == selectedIcon) {
-        setSelectedIcon('');
-      } else {
-        setSelectedIcon(icon);
-      }
-    }
-
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          gap: scale(10),
-        }}
-      >
-        {icons.map((icon, index) => (
-          <TouchableOpacity
-            onPress={() => handleIconClick(icon)}
-            style={{
-              padding: scale(15),
-              backgroundColor: accentColor,
-              borderRadius: scale(8),
-              borderWidth: scale(3),
-              borderColor: selectedIcon == icon ? green : '#1e1d22',
-            }}
-            key={index}
-            disabled={loading || deleteLoading}
-          >
-            <Ionicons name={icon} size={scale(25)} color="white" />
-          </TouchableOpacity>
-        ))}
-      </View>
-    );
-  }
-
   async function handleComplete() {
     if (
       isUpdate
-      && category?.name == name
-      && category?.icon == selectedIcon
-      && category?.color == selectedColor
+      && category?.name === name
+      && category?.icon === selectedIcon
+      && category?.color === selectedColor
     ) {
       navigation.goBack();
     } else {
       let exists = false;
 
-      if (!isUpdate || category?.name != name) {
-        for (let index = 0; index < categories.length; index++) {
-          if (categories[index].name == name) {
+      if (!isUpdate || category?.name !== name) {
+        for (let index = 0; index < categories.length; index += 1) {
+          if (categories[index].name === name) {
             exists = true;
             Alert.alert('Category name already in use.', '\nPlease choose another category name.');
             break;
@@ -151,6 +75,20 @@ function NewCategoryView({ navigation, route }) {
     setDeleteLoading(false);
 
     navigation.pop(2);
+  }
+
+  function handleCompleteColor() {
+    let completeColor = backgroundColor;
+
+    if (!deleteLoading) {
+      if (name === '' || selectedColor === '' || selectedIcon === '') {
+        completeColor = 'gray';
+      } else {
+        completeColor = green;
+      }
+    }
+
+    return completeColor;
   }
 
   React.useEffect(() => {
@@ -198,19 +136,13 @@ function NewCategoryView({ navigation, route }) {
               onPress={() => {
                 handleComplete();
               }}
-              disabled={name == '' || selectedColor == '' || selectedIcon == '' || deleteLoading}
+              disabled={name === '' || selectedColor === '' || selectedIcon === '' || deleteLoading}
               style={{ width: scale(35), alignItems: 'flex-end' }}
             >
               <Ionicons
                 name="checkmark-done-sharp"
                 size={scale(22)}
-                color={
-                  deleteLoading
-                    ? backgroundColor
-                    : name == '' || selectedColor == '' || selectedIcon == ''
-                      ? 'gray'
-                      : green
-                }
+                color={handleCompleteColor()}
               />
             </TouchableOpacity>
           )}
@@ -240,13 +172,23 @@ function NewCategoryView({ navigation, route }) {
 
         <Text style={globalStyles.subHeader('white')}>Choose a Color</Text>
 
-        <ColorList />
+        <ColorList
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+          loading={loading}
+          deleteLoading={deleteLoading}
+        />
 
         {/* Icon List */}
 
         <Text style={globalStyles.subHeader('white')}>Choose an Icon</Text>
 
-        <IconList />
+        <IconList
+          selectedIcon={selectedIcon}
+          setSelectedIcon={setSelectedIcon}
+          loading={loading}
+          deleteLoading={deleteLoading}
+        />
 
         {/* Delete Category Button ** FIX THIS ** */}
 
