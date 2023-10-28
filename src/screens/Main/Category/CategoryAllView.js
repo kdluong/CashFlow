@@ -54,12 +54,6 @@ function CategoryAllView({ navigation }) {
     return sortChoice;
   }
 
-  // function handleSwitch(){
-  //   handlePress={(value) => {
-  //     value !== selectedGraph && setSelectedGraph(value);
-  //   }}
-  // };
-
   const renderHeader = () => (
     <View style={{ gap: scale(20) }}>
       {/* Header */}

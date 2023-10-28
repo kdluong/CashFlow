@@ -17,6 +17,26 @@ function SpendingDistributionChart({ categories, total }) {
     </View>
   );
 
+  function handleData() {
+    let count = 0;
+
+    for (let index = 0; index < copiedArray?.length; index += 1) {
+      if (copiedArray[index]?.value > 0) {
+        count += 1;
+      }
+    }
+
+    if (total === '0.00') {
+      return ([{ value: 1, color: 'white' }]);
+    }
+    else if (count === 1) {
+      return ([{ value: 1, color: copiedArray[0]?.color }]);
+    }
+
+    return copiedArray;
+
+  };
+
   return (
     <View
       style={{
@@ -36,7 +56,7 @@ function SpendingDistributionChart({ categories, total }) {
       <Text style={{ ...globalStyles.subHeader('white') }}>Spending Distribution</Text>
 
       <PieChart
-        data={total === '0.00' ? [{ value: 1, color: 'white' }] : copiedArray}
+        data={handleData()}
         radius={scale(60)}
         innerRadius={scale(42)}
         strokeWidth={scale(1)}
