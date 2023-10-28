@@ -56,105 +56,6 @@ function ViewModel(props) {
     }
   }
 
-  // User
-
-  async function getUser() {
-    try {
-      if (!session?.user) throw new Error('No user on the session!');
-
-      const { data, error, status } = await supabase
-        .from('users')
-        .select()
-        .eq('user_id', session?.user.id)
-        .single();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        setUser(data);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        Alert.alert(error.message);
-      }
-    }
-  }
-
-  async function updateUser(first_name, last_name, image) {
-    try {
-      if (!session?.user) throw new Error('No user on the session!');
-
-      const userImage = user?.image;
-      let url;
-
-      // update profile picture in storage (!og & new || og & new)
-
-      if (image != userImage) {
-        // delete existing (og exists)
-
-        if (userImage != null) {
-          const key = userImage.substring(userImage.lastIndexOf('profiles/') + 9);
-          url = null;
-
-          const { data, error } = await supabase.storage.from('profiles').remove([key]);
-
-          if (error) {
-            console.log(error.message);
-            throw error;
-          }
-        }
-
-        // save new image (photo was taken)
-
-        if (image != null) {
-          const ext = image.substring(image.lastIndexOf('.') + 1);
-          const fileName = image.substring(image.lastIndexOf('/') + 1, image.lastIndexOf('.'));
-          url = `https://tbgxebebapqscbpmpecp.supabase.co/storage/v1/object/public/profiles/${user.user_id}/${fileName}`;
-
-          const formData = new FormData();
-
-          formData.append('files', {
-            uri: image,
-            name: fileName,
-            type: `image/${ext}`,
-          });
-
-          const { uploadError } = await supabase.storage
-            .from('profiles')
-            .upload(`${user.user_id}/${fileName}`, formData);
-
-          if (uploadError) {
-            throw error;
-          }
-        }
-      } else {
-        url = userImage;
-      }
-
-      // update user info
-
-      const update = {
-        first_name,
-        last_name,
-        image: url,
-      };
-
-      let { error } = await supabase.from('users').update(update).eq('user_id', user?.user_id);
-
-      if (error) {
-        throw error;
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        Alert.alert(error.message);
-      }
-    } finally {
-      getUser();
-    }
-  }
-
   // Transactions
 
   // fetch and return transactions w/o modifying existing transactions
@@ -597,6 +498,105 @@ function ViewModel(props) {
       return categories[index];
     }
     return null;
+  }
+
+  // User
+
+  async function getUser() {
+    try {
+      if (!session?.user) throw new Error('No user on the session!');
+
+      const { data, error, status } = await supabase
+        .from('users')
+        .select()
+        .eq('user_id', session?.user.id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        setUser(data);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message);
+      }
+    }
+  }
+
+  async function updateUser(first_name, last_name, image) {
+    try {
+      if (!session?.user) throw new Error('No user on the session!');
+
+      const userImage = user?.image;
+      let url;
+
+      // update profile picture in storage (!og & new || og & new)
+
+      if (image != userImage) {
+        // delete existing (og exists)
+
+        if (userImage != null) {
+          const key = userImage.substring(userImage.lastIndexOf('profiles/') + 9);
+          url = null;
+
+          const { data, error } = await supabase.storage.from('profiles').remove([key]);
+
+          if (error) {
+            console.log(error.message);
+            throw error;
+          }
+        }
+
+        // save new image (photo was taken)
+
+        if (image != null) {
+          const ext = image.substring(image.lastIndexOf('.') + 1);
+          const fileName = image.substring(image.lastIndexOf('/') + 1, image.lastIndexOf('.'));
+          url = `https://tbgxebebapqscbpmpecp.supabase.co/storage/v1/object/public/profiles/${user.user_id}/${fileName}`;
+
+          const formData = new FormData();
+
+          formData.append('files', {
+            uri: image,
+            name: fileName,
+            type: `image/${ext}`,
+          });
+
+          const { uploadError } = await supabase.storage
+            .from('profiles')
+            .upload(`${user.user_id}/${fileName}`, formData);
+
+          if (uploadError) {
+            throw error;
+          }
+        }
+      } else {
+        url = userImage;
+      }
+
+      // update user info
+
+      const update = {
+        first_name,
+        last_name,
+        image: url,
+      };
+
+      let { error } = await supabase.from('users').update(update).eq('user_id', user?.user_id);
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message);
+      }
+    } finally {
+      getUser();
+    }
   }
 
   return (

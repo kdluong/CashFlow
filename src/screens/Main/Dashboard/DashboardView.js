@@ -27,6 +27,7 @@ import flow from '../../../../assets/flow.gif';
 import blankProfilePicture from '../../../../assets/blankProfilePicture.png';
 import TransactionList from '../../../components/TransactionList/TransactionList';
 import MonthlyOverview from '../../../components/MonthlyOverview/MonthlyOverview';
+import LoadingScreen from '../../Loading/LoadingScreen';
 
 function DashboardView({ navigation }) {
   const {
@@ -73,41 +74,7 @@ function DashboardView({ navigation }) {
     // Loading Screen
 
     return (
-      <View
-        style={{
-          alignItems: 'center',
-          flex: 1,
-          backgroundColor,
-          justifyContent: 'center',
-        }}
-      >
-        {/* Logo */}
-
-        <View style={{ alignItems: 'center', flexDirection: 'row' }}>
-          <Text style={globalStyles.logo}>CASHFLOW</Text>
-          <Image
-            style={{
-              height: scale(40),
-              width: scale(40),
-              marginLeft: scale(5),
-              marginBottom: scale(10),
-            }}
-            source={logo}
-          />
-        </View>
-
-        {/* Slogan */}
-
-        <Text style={globalStyles.body('white')}>Money management, redefined.</Text>
-
-        {/* gif */}
-
-        <Image
-          style={{ height: scale(250), width: scale(250), position: 'absolute' }}
-          source={flow}
-        />
-
-      </View>
+      <LoadingScreen />
     );
   }
   return (

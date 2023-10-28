@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, Alert } from 'react-native';
 import { Image } from 'expo-image';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
@@ -10,9 +10,14 @@ import { monthNames, backgroundColor, accentColor } from '../../../constants/con
 import blankProfilePicture from '../../../../assets/blankProfilePicture.png';
 
 function SettingsView({ navigation }) {
-  const { user, session } = React.useContext(UserContext);
+  const { user, session, deleteUser } = React.useContext(UserContext);
   const startDate = new Date(session.user.email_confirmed_at);
 
+  if (loading) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
     <CustomView
       backgroundColor={backgroundColor}
@@ -74,6 +79,9 @@ function SettingsView({ navigation }) {
         {/* Options */}
 
         <View style={{ gap: scale(10) }}>
+
+          {/* Edit Profile */}
+
           <TouchableOpacity
             onPress={() => navigation.navigate('EditProfileView')}
             style={{
@@ -86,6 +94,8 @@ function SettingsView({ navigation }) {
           >
             <Text style={globalStyles.subHeader('white')}>Edit Profile</Text>
           </TouchableOpacity>
+
+          {/* Edit Email */}
 
           <TouchableOpacity
             onPress={() => navigation.navigate('EditAccountView', { option: 'email' })}
@@ -100,6 +110,8 @@ function SettingsView({ navigation }) {
             <Text style={globalStyles.subHeader('white')}>Change Email</Text>
           </TouchableOpacity>
 
+          {/* Edit Password */}
+
           <TouchableOpacity
             onPress={() => navigation.navigate('EditAccountView', { option: 'password' })}
             style={{
@@ -113,8 +125,6 @@ function SettingsView({ navigation }) {
             <Text style={globalStyles.subHeader('white')}>Change Password</Text>
           </TouchableOpacity>
         </View>
-
-        <View />
       </View>
     </CustomView>
   );
