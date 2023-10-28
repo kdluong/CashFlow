@@ -11,57 +11,96 @@ import CustomPasswordInput from '../../../components/TextInputs/CustomPasswordIn
 import BackButton from '../../../components/Buttons/BackButton';
 import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKeyboardAvoidingView';
 import { backgroundColor, green } from '../../../constants/constants';
+import { emailRegex, passRegex } from '../../../constants/constants';
 
 function EditAccountView({ navigation, route }) {
   const [newValue, setNewValue] = React.useState('');
-  const [confirmEmail, setConfirmEmail] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [confirmValue, setConfirmValue] = React.useState('');
+
   const [loading, setLoading] = React.useState(false);
   const { option } = route.params;
 
+  const [validValue, setValidValue] = React.useState(true);
+  const [validConfirm, setValidConfirm] = React.useState(true);
+
+  let tempValidValue = true;
+  let tempValidConfirm = true;
+
   async function handleComplete() {
 
-    setLoading(true);
-
     if (option === 'email') {
+      // Email Validation
+      if (!emailRegex.test(newValue)) {
+        tempValidValue = false;
+        setValidValue(tempValidValue);
+      } else {
+        tempValidValue = true;
+        setValidValue(tempValidValue);
+      }
 
-      Alert.alert(
-        'Change Email Confirmation',
-        '\nAre you sure you want to change your email?',
-        [
-          { text: "Cancel", onPress: () => { } },
-          { text: "Confirm", onPress: async () => { await changeEmail(newValue) } },
-        ]
-      )
+      // Confirm Validation
+      if (!emailRegex.test(confirmValue)) {
+        tempValidConfirm = false;
+        setValidConfirm(tempValidConfirm);
+      } else {
+        tempValidConfirm = true;
+        setValidConfirm(tempValidConfirm);
+      }
+    }
+    else {
+      // Password Validation
+      if (!passRegex.test(newValue)) {
+        tempValidValue = false;
+        setValidValue(tempValidValue);
+      } else {
+        tempValidValue = true;
+        setValidValue(tempValidValue);
+      }
 
-    } else {
-
-      Alert.alert(
-        'Change Password Confirmation',
-        '\nAre you sure you want to change your password?',
-        [
-          { text: "Cancel", onPress: () => { } },
-          { text: "Confirm", onPress: async () => { await changePassword(newValue) } },
-        ]
-      )
-
+      // Confirm Validation
+      if (!emailRegex.test(confirmValue)) {
+        tempValidConfirm = false;
+        setValidConfirm(tempValidConfirm);
+      } else {
+        tempValidConfirm = true;
+        setValidConfirm(tempValidConfirm);
+      }
     }
 
-    setLoading(false);
+    if (tempValidValue && tempValidConfirm) {
+
+      setLoading(true);
+
+      if (option === 'email') {
+
+        Alert.alert(
+          'Change Email Confirmation',
+          '\nAre you sure you want to change your email?',
+          [
+            { text: "Cancel", onPress: () => { } },
+            { text: "Confirm", onPress: async () => { await changeEmail(newValue) } },
+          ]
+        )
+
+      } else {
+
+        Alert.alert(
+          'Change Password Confirmation',
+          '\nAre you sure you want to change your password?',
+          [
+            { text: "Cancel", onPress: () => { } },
+            { text: "Confirm", onPress: async () => { await changePassword(newValue) } },
+          ]
+        )
+
+      }
+
+      setLoading(false);
+    }
   }
 
   function isValid() {
-    let valid = false;
-
-    if (newValue.length < 8) {
-      valid = false;
-    } else if (option !== 'password' && newValue === confirmEmail) {
-      valid = true;
-    } else if (newValue === confirmPassword) {
-      valid = true;
-    }
-
-    return valid;
+    return newValue.length >= 8 && newValue === confirmValue;
   }
 
   return (
@@ -118,15 +157,19 @@ function EditAccountView({ navigation, route }) {
                 loading={loading}
                 autoCapitalize={false}
                 autoCorrect={false}
+                valid={validValue}
+                dark={false}
               />
 
               <CustomTextInput
-                value={confirmEmail}
-                onChangeText={setConfirmEmail}
+                value={confirmValue}
+                onChangeText={setConfirmValue}
                 placeholder="Confirm new email address"
                 loading={loading}
                 autoCapitalize={false}
                 autoCorrect={false}
+                valid={validConfirm}
+                dark={false}
               />
             </View>
             :
@@ -137,13 +180,17 @@ function EditAccountView({ navigation, route }) {
                 onChangeText={setNewValue}
                 placeholder={'Enter a new password'}
                 loading={loading}
+                valid={validValue}
+                dark={false}
               />
 
               <CustomPasswordInput
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
+                value={confirmValue}
+                onChangeText={setConfirmValue}
                 placeholder="Confirm new password"
                 loading={loading}
+                valid={validConfirm}
+                dark={false}
               />
             </View>
         }

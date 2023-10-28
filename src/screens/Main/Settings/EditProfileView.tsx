@@ -13,6 +13,7 @@ import BackButton from '../../../components/Buttons/BackButton';
 import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKeyboardAvoidingView';
 import { backgroundColor, green } from '../../../constants/constants';
 import { Camera } from 'expo-camera';
+import { nameRegex } from '../../../constants/constants';
 
 const EditProfileView = ({ navigation }: { navigation: any }) => {
   const { user, updateUser } = React.useContext(UserContext);
@@ -24,13 +25,18 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
   const [lastName, setLastName] = React.useState('');
   const [picture, setPicture] = React.useState<any>(null);
 
+  const [validFirst, setValidFirst] = React.useState(true);
+  const [validLast, setValidLast] = React.useState(true);
+
   const [hasCameraPermission, setHasCameraPermission] = React.useState<boolean | undefined>(undefined);
+  let tempValidFirst = true;
+  let tempValidLast = true;
 
   function isValid() {
     return (
       (user.first_name != firstName || user.last_name != lastName || picture != user.image) &&
-      firstName.length != 0 &&
-      lastName.length != 0
+      firstName.length >= 2 &&
+      lastName.length >= 2
     );
   }
 
@@ -78,11 +84,32 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
   }
 
   async function handleComplete() {
-    setLoading(true);
-    await updateUser(firstName, lastName, picture);
-    setLoading(false);
 
-    navigation.goBack();
+    // First Name Validation
+    if (!nameRegex.test(firstName)) {
+      tempValidFirst = false;
+      setValidFirst(tempValidFirst);
+    }
+    else {
+      tempValidFirst = true;
+      setValidFirst(tempValidFirst);
+    }
+
+    // Last Name Validation
+    if (!nameRegex.test(lastName)) {
+      tempValidLast = false;
+      setValidLast(tempValidLast);
+    } else {
+      tempValidLast = true;
+      setValidLast(tempValidLast);
+    }
+
+    if (tempValidFirst && tempValidLast) {
+      setLoading(true);
+      await updateUser(firstName, lastName, picture);
+      setLoading(false);
+      navigation.goBack();
+    }
   }
 
   React.useEffect(() => {
@@ -216,6 +243,8 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
               loading={loading}
               autoCapitalize={true}
               autoCorrect={false}
+              valid={validFirst}
+              dark={false}
             />
 
             <CustomTextInput
@@ -226,6 +255,8 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
               loading={loading}
               autoCapitalize={true}
               autoCorrect={false}
+              valid={validLast}
+              dark={false}
             />
           </View>
 

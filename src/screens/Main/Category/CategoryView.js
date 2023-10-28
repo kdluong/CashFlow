@@ -167,6 +167,7 @@ function CategoryView({ navigation, route }) {
           option="transaction"
           border
           size="small"
+          dark={true}
         />
       </View>
     </View>

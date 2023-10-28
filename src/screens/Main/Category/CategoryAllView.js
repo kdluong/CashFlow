@@ -126,6 +126,7 @@ function CategoryAllView({ navigation }) {
           setSort={setSort}
           option="category"
           border={undefined}
+          dark={false}
         />
       </View>
     </View>

@@ -78,6 +78,8 @@ function LogInView({ navigation }) {
             loading={loading}
             autoCapitalize={false}
             autoCorrect={false}
+            valid={true}
+            dark={false}
           />
 
           <CustomPasswordInput
@@ -85,6 +87,7 @@ function LogInView({ navigation }) {
             onChangeText={setPassword}
             placeholder="Password"
             loading={loading}
+            valid={true}
           />
 
           <TouchableOpacity

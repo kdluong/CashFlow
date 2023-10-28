@@ -106,3 +106,8 @@ export const icons = [
 export const green = '#32d584';
 export const backgroundColor = '#1a1a1a';
 export const accentColor = '#282828';
+
+export const nameRegex = /^(?!.*--)[A-Za-z][A-Za-z-]{1,29}$/;
+export const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+export const passRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+export const validRegex = /^(?![ ]+$)[\s\S]{1,29}$/

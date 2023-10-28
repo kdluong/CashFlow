@@ -16,7 +16,7 @@ import IconLarge from '../../../../components/Icons/IconLarge';
 import { backgroundColor, green } from '../../../../constants/constants';
 import globalStyles from '../../../../styles/styles';
 import { Camera } from 'expo-camera';
-
+import { validRegex } from '../../../../constants/constants';
 
 const NewTransactionFinishView = ({ navigation, route }: { navigation: any; route: any }) => {
   const { transaction_id, category_id, total, returnScreen } = route.params;
@@ -36,6 +36,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
 
   const [hasCameraPermission, setHasCameraPermission] = React.useState<boolean | undefined>(undefined);
 
+  const [validName, setValidName] = React.useState(true);
+  let tempValidName = true;
 
   async function handleComplete() {
     var imageUri = null;
@@ -44,48 +46,61 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
       imageUri = images;
     }
 
-    // create/update transaction
-
-    setLoading(true);
-
-    if (transaction_id != null) {
-      // update transaction
-
-      if (
-        transaction?.category_id != category?.id ||
-        transaction?.name != name ||
-        transaction?.total != total ||
-        transaction?.image != imageUri
-      ) {
-        await updateTransaction(transaction_id, category?.id, name, total, imageUri);
-      }
-    } else {
-      // create new transaction
-
-      await createTransaction(category?.id, name, total, imageUri);
+    // Name Validation
+    if (!validRegex.test(name)) {
+      tempValidName = false;
+      setValidName(tempValidName);
+    }
+    else {
+      tempValidName = true;
+      setValidName(tempValidName);
     }
 
-    setLoading(false);
+    if (tempValidName) {
 
-    // handle return
+      // create/update transaction
 
-    if (returnScreen == 'DashboardView') {
-      navigation.navigate('DashboardStack', {
-        screen: returnScreen,
-      });
-    } else if (returnScreen == 'TransactionAllView') {
-      navigation.navigate('TransactionStack', {
-        screen: returnScreen,
-      });
-    } else if (returnScreen == 'CategoryView') {
-      navigation.navigate('CategoryStack', {
-        screen: returnScreen,
-        params: {
-          category_id: category_id,
-        },
-      });
-    } else {
-      navigation.pop(2);
+      setLoading(true);
+
+      if (transaction_id != null) {
+        // update transaction
+
+        if (
+          transaction?.category_id != category?.id ||
+          transaction?.name != name ||
+          transaction?.total != total ||
+          transaction?.image != imageUri
+        ) {
+          await updateTransaction(transaction_id, category?.id, name, total, imageUri);
+        }
+      } else {
+        // create new transaction
+
+        await createTransaction(category?.id, name, total, imageUri);
+      }
+
+      setLoading(false);
+
+      // handle return
+
+      if (returnScreen == 'DashboardView') {
+        navigation.navigate('DashboardStack', {
+          screen: returnScreen,
+        });
+      } else if (returnScreen == 'TransactionAllView') {
+        navigation.navigate('TransactionStack', {
+          screen: returnScreen,
+        });
+      } else if (returnScreen == 'CategoryView') {
+        navigation.navigate('CategoryStack', {
+          screen: returnScreen,
+          params: {
+            category_id: category_id,
+          },
+        });
+      } else {
+        navigation.pop(2);
+      }
     }
   }
 
@@ -200,6 +215,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
           loading={loading}
           autoCapitalize={true}
           autoCorrect={true}
+          valid={validName}
+          dark={false}
         />
 
         {/* Transaction Card */}

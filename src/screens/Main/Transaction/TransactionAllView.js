@@ -98,6 +98,7 @@ function TransactionAllView({ navigation }) {
         setSort={setSort}
         option="transaction"
         border={undefined}
+        dark={false}
       />
     </View>
   );

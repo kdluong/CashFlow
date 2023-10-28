@@ -15,6 +15,7 @@ import CustomScrollView from '../../../../components/CustomViews/CustomScrollVie
 import globalStyles from '../../../../styles/styles.ts';
 import IconList from '../../../../components/Icons/IconList';
 import ColorList from '../../../../components/Icons/ColorList';
+import { validRegex } from '../../../../constants/constants';
 
 function NewCategoryView({ navigation, route }) {
   const { category_id } = route.params;
@@ -31,6 +32,9 @@ function NewCategoryView({ navigation, route }) {
 
   const [loading, setLoading] = React.useState(false);
   const [deleteLoading, setDeleteLoading] = React.useState(false);
+
+  const [validName, setValidName] = React.useState(true);
+  let tempValidName = true;
 
   async function handleComplete() {
     if (
@@ -54,17 +58,31 @@ function NewCategoryView({ navigation, route }) {
       }
 
       if (!exists) {
-        setLoading(true);
 
-        if (isUpdate) {
-          await updateCategory(category_id, name, selectedColor, selectedIcon);
-        } else {
-          await createCategory(name, selectedColor, selectedIcon);
+        // Name Validation
+        if (!validRegex.test(name)) {
+          tempValidName = false;
+          setValidName(tempValidName);
+        }
+        else {
+          tempValidName = true;
+          setValidName(tempValidName);
         }
 
-        setLoading(false);
+        if (tempValidName) {
 
-        navigation.goBack();
+          setLoading(true);
+
+          if (isUpdate) {
+            await updateCategory(category_id, name, selectedColor, selectedIcon);
+          } else {
+            await createCategory(name, selectedColor, selectedIcon);
+          }
+
+          setLoading(false);
+
+          navigation.goBack();
+        }
       }
     }
   }
@@ -168,6 +186,8 @@ function NewCategoryView({ navigation, route }) {
           loading={loading || deleteLoading}
           autoCapitalize={true}
           autoCorrect={true}
+          valid={validName}
+          dark={false}
         />
 
         {/* Color List */}

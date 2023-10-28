@@ -13,11 +13,6 @@ function SettingsView({ navigation }) {
   const { user, session, deleteUser } = React.useContext(UserContext);
   const startDate = new Date(session.user.email_confirmed_at);
 
-  if (loading) {
-    return (
-      <LoadingScreen />
-    );
-  }
   return (
     <CustomView
       backgroundColor={backgroundColor}
