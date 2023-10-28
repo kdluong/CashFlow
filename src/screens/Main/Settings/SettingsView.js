@@ -1,4 +1,6 @@
-import { Text, TouchableOpacity, View, Alert } from 'react-native';
+import {
+  Text, TouchableOpacity, View,
+} from 'react-native';
 import { Image } from 'expo-image';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
@@ -10,7 +12,7 @@ import { monthNames, backgroundColor, accentColor } from '../../../constants/con
 import blankProfilePicture from '../../../../assets/blankProfilePicture.png';
 
 function SettingsView({ navigation }) {
-  const { user, session, deleteUser } = React.useContext(UserContext);
+  const { user, session } = React.useContext(UserContext);
   const startDate = new Date(session.user.email_confirmed_at);
 
   return (

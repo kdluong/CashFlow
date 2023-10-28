@@ -8,6 +8,7 @@ import { UserContext } from '../../../../supabase/ViewModel';
 import {
   backgroundColor,
   green,
+  validRegex,
 } from '../../../../constants/constants';
 import CustomTextInput from '../../../../components/TextInputs/CustomTextInput';
 import BackButton from '../../../../components/Buttons/BackButton';
@@ -15,7 +16,6 @@ import CustomScrollView from '../../../../components/CustomViews/CustomScrollVie
 import globalStyles from '../../../../styles/styles.ts';
 import IconList from '../../../../components/Icons/IconList';
 import ColorList from '../../../../components/Icons/ColorList';
-import { validRegex } from '../../../../constants/constants';
 
 function NewCategoryView({ navigation, route }) {
   const { category_id } = route.params;
@@ -58,19 +58,16 @@ function NewCategoryView({ navigation, route }) {
       }
 
       if (!exists) {
-
         // Name Validation
         if (!validRegex.test(name)) {
           tempValidName = false;
           setValidName(tempValidName);
-        }
-        else {
+        } else {
           tempValidName = true;
           setValidName(tempValidName);
         }
 
         if (tempValidName) {
-
           setLoading(true);
 
           if (isUpdate) {
@@ -184,8 +181,8 @@ function NewCategoryView({ navigation, route }) {
           onChangeText={setName}
           placeholder="Enter category name"
           loading={loading || deleteLoading}
-          autoCapitalize={true}
-          autoCorrect={true}
+          autoCapitalize
+          autoCorrect
           valid={validName}
           dark={false}
         />

@@ -4,14 +4,14 @@ export function getDate(transactionDate) {
   const formattedDate = new Date(transactionDate);
 
   return `${formattedDate.getMonth() + 1}/${formattedDate.getDate()}/${formattedDate.getFullYear() % 100
-    }`;
+  }`;
 }
 
 export function getDateLong(transactionDate) {
   const formattedDate = new Date(transactionDate);
 
   return `${monthNamesShort[formattedDate.getMonth()]
-    } ${formattedDate.getDate()}, ${formattedDate.getFullYear()}`;
+  } ${formattedDate.getDate()}, ${formattedDate.getFullYear()}`;
 }
 
 export function getTime(transactionDate) {
@@ -20,8 +20,13 @@ export function getTime(transactionDate) {
   return formattedDate.toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
 }
 
-export function calculateSpendingDistribution(myTransactions, myCategories, session, setChartData, setSpendingDistribution) {
-  const startDate = new Date(session.user.email_confirmed_at);
+export function calculateSpendingDistribution(
+  myTransactions,
+  myCategories,
+  session,
+  setChartData,
+  setSpendingDistribution,
+) {
   const currentDate = new Date();
   const tempDate = currentDate.getDate() - 7;
   let transactionDate;
@@ -39,12 +44,11 @@ export function calculateSpendingDistribution(myTransactions, myCategories, sess
   let allTotal = 0;
 
   let index = -1;
-  let tempCategory;
 
-  function getWeekTransactions(transaction, category) {
+  function getWeekTransactions(transaction) {
     // update category
 
-    index = weekCategories?.findIndex((item) => item.id == transaction.category_id);
+    index = weekCategories?.findIndex((item) => item.id === transaction.category_id);
 
     if (index > -1) {
       weekCategories[index].value += transaction.total;
@@ -55,10 +59,10 @@ export function calculateSpendingDistribution(myTransactions, myCategories, sess
     weekTotal += transaction.total;
   }
 
-  function getMonthTransactions(transaction, category) {
+  function getMonthTransactions(transaction) {
     // update category
 
-    index = monthCategories.findIndex((item) => item.id == transaction.category_id);
+    index = monthCategories.findIndex((item) => item.id === transaction.category_id);
 
     if (index > -1) {
       monthCategories[index].value += transaction.total;
@@ -69,14 +73,14 @@ export function calculateSpendingDistribution(myTransactions, myCategories, sess
     monthTotal += transaction.total;
   }
 
-  function getYearTransactions(transaction, category) {
+  function getYearTransactions(transaction) {
     // update graph data
 
     tempChartData[transactionDate.getMonth()].value += transaction.total;
 
     // update category
 
-    index = yearCategories.findIndex((item) => item.id == transaction.category_id);
+    index = yearCategories.findIndex((item) => item.id === transaction.category_id);
 
     if (index > -1) {
       yearCategories[index].value += transaction.total;
@@ -87,10 +91,10 @@ export function calculateSpendingDistribution(myTransactions, myCategories, sess
     yearTotal += transaction.total;
   }
 
-  function getAllTransactions(transaction, category) {
+  function getAllTransactions(transaction) {
     // update categories
 
-    index = allCategories.findIndex((item) => item.id == transaction.category_id);
+    index = allCategories.findIndex((item) => item.id === transaction.category_id);
 
     if (index > -1) {
       allCategories[index].value += transaction.total;
@@ -103,8 +107,8 @@ export function calculateSpendingDistribution(myTransactions, myCategories, sess
 
   // initialize week categories
 
-  if (weekCategories.length == 0) {
-    for (let index = 0; index < myCategories?.length; index++) {
+  if (weekCategories.length === 0) {
+    for (let index = 0; index < myCategories?.length; index += 1) {
       weekCategories.push({
         id: myCategories[index]?.id,
         name: myCategories[index]?.name,
@@ -116,8 +120,8 @@ export function calculateSpendingDistribution(myTransactions, myCategories, sess
 
   // initialize month categories
 
-  if (monthCategories.length == 0) {
-    for (let index = 0; index < myCategories?.length; index++) {
+  if (monthCategories.length === 0) {
+    for (let index = 0; index < myCategories?.length; index += 1) {
       monthCategories.push({
         id: myCategories[index]?.id,
         name: myCategories[index]?.name,
@@ -129,12 +133,12 @@ export function calculateSpendingDistribution(myTransactions, myCategories, sess
 
   // initialize year graph & categories
 
-  if (tempChartData.length == 0 && yearCategories.length == 0) {
-    for (let month = 0; month <= currentDate.getMonth(); month++) {
+  if (tempChartData.length === 0 && yearCategories.length === 0) {
+    for (let month = 0; month <= currentDate.getMonth(); month += 1) {
       tempChartData.push({ value: 0, label: monthNamesShort[month] });
     }
 
-    for (let index = 0; index < myCategories?.length; index++) {
+    for (let index = 0; index < myCategories?.length; index += 1) {
       yearCategories.push({
         id: myCategories[index]?.id,
         name: myCategories[index]?.name,
@@ -146,8 +150,8 @@ export function calculateSpendingDistribution(myTransactions, myCategories, sess
 
   // initialize all categories
 
-  if (allCategories.length == 0) {
-    for (let index = 0; index < myCategories?.length; index++) {
+  if (allCategories.length === 0) {
+    for (let index = 0; index < myCategories?.length; index += 1) {
       allCategories.push({
         id: myCategories[index]?.id,
         name: myCategories[index]?.name,
@@ -157,34 +161,33 @@ export function calculateSpendingDistribution(myTransactions, myCategories, sess
     }
   }
 
-  myTransactions?.map((transaction) => {
-    transactionDate = new Date(transaction.date);
+  for (let i = 0; i < myTransactions.length; i += 1) {
+    transactionDate = new Date(myTransactions[i].date);
+
     index = myCategories?.findIndex(
-      (currCategoory) => currCategoory.id == transaction.category_id,
+      (currCategory) => currCategory.id === myTransactions[i].category_id,
     );
 
     if (index > -1) {
-      tempCategory = myCategories[index];
-
-      if (transactionDate.getFullYear() == currentDate.getFullYear()) {
-        if (transactionDate.getMonth() == currentDate.getMonth()) {
+      if (transactionDate.getFullYear() === currentDate.getFullYear()) {
+        if (transactionDate.getMonth() === currentDate.getMonth()) {
           if (
             tempDate < 0
             || (transactionDate.getDate() > tempDate
               && transactionDate.getDate() <= currentDate.getDate())
           ) {
-            getWeekTransactions(transaction, tempCategory);
+            getWeekTransactions(myTransactions[i]);
           }
 
-          getMonthTransactions(transaction, tempCategory);
+          getMonthTransactions(myTransactions[i]);
         }
 
-        getYearTransactions(transaction, tempCategory);
+        getYearTransactions(myTransactions[i]);
       }
 
-      getAllTransactions(transaction, tempCategory);
+      getAllTransactions(myTransactions[i]);
     }
-  });
+  }
 
   setChartData(tempChartData);
 
@@ -213,12 +216,12 @@ export function calculateCategoryDistribution(category_id, transactions) {
 
   // find category transactions
 
-  for (let index = 0; index < transactions?.length; index++) {
-    if (transactions[index]?.category_id == category_id) {
+  for (let index = 0; index < transactions?.length; index += 1) {
+    if (transactions[index]?.category_id === category_id) {
       transactionDate = new Date(transactions[index]?.date);
 
-      if (transactionDate.getFullYear() == currentDate.getFullYear()) {
-        if (transactionDate.getMonth() == currentDate.getMonth()) {
+      if (transactionDate.getFullYear() === currentDate.getFullYear()) {
+        if (transactionDate.getMonth() === currentDate.getMonth()) {
           if (
             tempDate < 0
             || (transactionDate.getDate() > tempDate
@@ -227,25 +230,33 @@ export function calculateCategoryDistribution(category_id, transactions) {
             // week
 
             weekTransactions.push(transactions[index]);
-            weekTotal += transactions[index]?.total;
+            if (transactions[index]) {
+              weekTotal += transactions[index].total;
+            }
           }
 
           // month
 
           monthTransactions.push(transactions[index]);
-          monthTotal += transactions[index]?.total;
+          if (transactions[index]) {
+            monthTotal += transactions[index].total;
+          }
         }
 
         // year
 
         yearTransactions.push(transactions[index]);
-        yearTotal += transactions[index]?.total;
+        if (transactions[index]) {
+          yearTotal += transactions[index].total;
+        }
       }
 
       // all
 
       allTransactions.push(transactions[index]);
-      allTotal += transactions[index]?.total;
+      if (transactions[index]) {
+        allTotal += transactions[index].total;
+      }
     }
   }
 

@@ -23,7 +23,6 @@ import {
 import OpenDrawerButton from '../../../components/Buttons/OpenDrawerButton';
 import CustomScrollView from '../../../components/CustomViews/CustomScrollView';
 import logo from '../../../../assets/logoClear.png';
-import flow from '../../../../assets/flow.gif';
 import blankProfilePicture from '../../../../assets/blankProfilePicture.png';
 import TransactionList from '../../../components/TransactionList/TransactionList';
 import MonthlyOverview from '../../../components/MonthlyOverview/MonthlyOverview';

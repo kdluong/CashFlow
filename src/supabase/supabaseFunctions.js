@@ -26,11 +26,13 @@ export async function signUpWithEmail(email, password, first, last) {
 
     Alert.alert(
       'Sign Up Successful',
-      '\nPlease check your email and click the confirmation link to verify your email address.'
+      '\nPlease check your email and click the confirmation link to verify your email address.',
     );
 
     return true;
   }
+
+  return false;
 
   // setLoading(false)
 }

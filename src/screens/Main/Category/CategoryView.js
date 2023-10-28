@@ -167,7 +167,7 @@ function CategoryView({ navigation, route }) {
           option="transaction"
           border
           size="small"
-          dark={true}
+          dark
         />
       </View>
     </View>
@@ -207,8 +207,7 @@ function CategoryView({ navigation, route }) {
   const renderFooter = () => <View style={{ height: '200%', backgroundColor: 'white' }} />;
 
   React.useEffect(() => {
-
-    let tempCategory = fetchCategory(category_id);
+    const tempCategory = fetchCategory(category_id);
 
     if (tempCategory == null) {
       navigation.goBack();

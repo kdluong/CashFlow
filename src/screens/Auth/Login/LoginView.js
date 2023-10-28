@@ -1,4 +1,6 @@
-import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  Text, View, TouchableOpacity, ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 import { Image } from 'expo-image';
 import { scale } from 'react-native-size-matters';
@@ -26,7 +28,7 @@ function LogInView({ navigation }) {
       await signInWithEmail(email, password);
       setLoading(false);
     }
-  };
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor }}>
@@ -78,7 +80,7 @@ function LogInView({ navigation }) {
             loading={loading}
             autoCapitalize={false}
             autoCorrect={false}
-            valid={true}
+            valid
             dark={false}
           />
 
@@ -87,7 +89,7 @@ function LogInView({ navigation }) {
             onChangeText={setPassword}
             placeholder="Password"
             loading={loading}
-            valid={true}
+            valid
           />
 
           <TouchableOpacity
@@ -125,7 +127,7 @@ function LogInView({ navigation }) {
       >
         {
           loading
-            ? <ActivityIndicator size={'small'} color={'black'} />
+            ? <ActivityIndicator size="small" color="black" />
             : <Text style={globalStyles.subHeader('black')}>Log In</Text>
         }
 

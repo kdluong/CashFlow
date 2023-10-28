@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 
 function CustomPasswordInput({
-  value, onChangeText, placeholder, loading, valid
+  value, onChangeText, placeholder, loading, valid,
 }) {
   const [showPass, setShowPass] = React.useState(false);
 
@@ -35,12 +35,12 @@ function CustomPasswordInput({
           fontFamily: 'BebasReg',
           color: 'black',
           fontSize: scale(15),
-          width: '90%'
+          width: '90%',
         }}
         editable={!loading}
         selectTextOnFocus={!loading}
-        textContentType='oneTimeCode'
-        autoComplete='off'
+        textContentType="oneTimeCode"
+        autoComplete="off"
       />
 
       <TouchableOpacity

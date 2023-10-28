@@ -1,11 +1,10 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
-  SafeAreaView, TouchableOpacity, View, Text
+  TouchableOpacity, View,
 } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import { scale } from 'react-native-size-matters';
-import globalStyles from '../../../../styles/styles.ts';
 
 function CameraView({ bottomSheetRef, setPicture, showCamera }) {
   const cameraRef = React.useRef();
@@ -13,7 +12,6 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
   const [type, setType] = React.useState(CameraType.back);
 
   const [disableCaptureButton, setDisableCaptureButton] = React.useState();
-  const [hasCameraPermission, setHasCameraPermission] = React.useState(null);
 
   function toggleCameraType() {
     setFlashMode('off');

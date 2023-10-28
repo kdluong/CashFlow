@@ -12,7 +12,7 @@ import {
 import CustomTextInput from './CustomTextInput';
 
 function SearchPicker({
-  setFilter, setSort, option, size, dark
+  setFilter, setSort, option, size, dark,
 }) {
   let placeholder = '';
   let sortOption = [];
@@ -43,8 +43,8 @@ function SearchPicker({
           placeholder={placeholder}
           loading={null}
           autoCapitalize={false}
-          autoCorrect={true}
-          valid={true}
+          autoCorrect
+          valid
           dark={dark}
         />
       </View>

@@ -29,13 +29,12 @@ function SpendingDistributionChart({ categories, total }) {
     if (total === '0.00') {
       return ([{ value: 1, color: 'white' }]);
     }
-    else if (count === 1) {
+    if (count === 1) {
       return ([{ value: 1, color: copiedArray[0]?.color }]);
     }
 
     return copiedArray;
-
-  };
+  }
 
   return (
     <View

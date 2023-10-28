@@ -195,7 +195,6 @@ function CategoryAllView({ navigation }) {
     }
 
     setCategories(copiedArray);
-
   }, [categories, selectedGraph, spendingDistribution]);
 
   return (

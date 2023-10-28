@@ -1,4 +1,6 @@
-import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  Text, View, TouchableOpacity, ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
 import { Image } from 'expo-image';
@@ -8,9 +10,10 @@ import CustomTextInput from '../../../components/TextInputs/CustomTextInput';
 import CustomPasswordInput from '../../../components/TextInputs/CustomPasswordInput';
 import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKeyboardAvoidingView';
 import BackButton from '../../../components/Buttons/BackButton';
-import { backgroundColor, green } from '../../../constants/constants';
+import {
+  backgroundColor, green, nameRegex, emailRegex, passRegex,
+} from '../../../constants/constants';
 import logo from '../../../../assets/logoClear.png';
-import { nameRegex, emailRegex, passRegex } from '../../../constants/constants';
 
 function RegisterView({ navigation }) {
   const [first, setFirst] = React.useState('');
@@ -41,13 +44,11 @@ function RegisterView({ navigation }) {
   let signUpResult = false;
 
   async function handleSignUp() {
-
     // First Name Validation
     if (!nameRegex.test(first)) {
       tempValidFirst = false;
       setValidFirst(tempValidFirst);
-    }
-    else {
+    } else {
       tempValidFirst = true;
       setValidFirst(tempValidFirst);
     }
@@ -88,10 +89,9 @@ function RegisterView({ navigation }) {
       setValidConfirmPass(tempValidConfirmPass);
     }
 
-    if (tempValidFirst && tempValidLast &&
-      tempValidEmail && tempValidPass &&
-      tempValidConfirmPass && password === confirmPass) {
-
+    if (tempValidFirst && tempValidLast
+      && tempValidEmail && tempValidPass
+      && tempValidConfirmPass && password === confirmPass) {
       setLoading(true);
       signUpResult = await signUpWithEmail(email, password, first, last);
       setLoading(false);
@@ -100,7 +100,7 @@ function RegisterView({ navigation }) {
         navigation.goBack();
       }
     }
-  };
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor }}>
@@ -150,7 +150,7 @@ function RegisterView({ navigation }) {
             onChangeText={setFirst}
             placeholder="First Name"
             loading={loading}
-            autoCapitalize={true}
+            autoCapitalize
             autoCorrect={false}
             valid={validFirst}
             dark={false}
@@ -161,7 +161,7 @@ function RegisterView({ navigation }) {
             onChangeText={setLast}
             placeholder="Last Name"
             loading={loading}
-            autoCapitalize={true}
+            autoCapitalize
             autoCorrect={false}
             valid={validLast}
             dark={false}
@@ -194,18 +194,20 @@ function RegisterView({ navigation }) {
             valid={validConfirmPass}
           />
 
-          <Text style={globalStyles.body('white')}> At least one special character (e.g., @, #, $).
-            {'\n'} At least one uppercase letter (A-Z).
-            {'\n'} At least one number (0-9).
-            {'\n'} At least 8 characters long.
+          <Text style={globalStyles.body('white')}>
+            {' '}
+            At least one special character (e.g., @, #, $).
+            {'\n'}
+            {' '}
+            At least one uppercase letter (A-Z).
+            {'\n'}
+            {' '}
+            At least one number (0-9).
+            {'\n'}
+            {' '}
+            At least 8 characters long.
           </Text>
 
-          {/* <TouchableOpacity disabled={loading} style={{ alignSelf: 'center' }} onPress={() => navigation.goBack()}>
-            <Text style={globalStyles.body('white')}>
-              Already have an account?
-              <Text style={globalStyles.body(green)}> Sign in.</Text>
-            </Text>
-          </TouchableOpacity> */}
         </View>
 
         <View />
@@ -229,11 +231,8 @@ function RegisterView({ navigation }) {
         onPress={() => handleSignUp()}
       >
         {loading
-          ?
-          <ActivityIndicator size={'small'} color={'black'} />
-          :
-          <Text style={globalStyles.subHeader('black')}>Sign Up</Text>
-        }
+          ? <ActivityIndicator size="small" color="black" />
+          : <Text style={globalStyles.subHeader('black')}>Sign Up</Text>}
 
       </TouchableOpacity>
     </View>
