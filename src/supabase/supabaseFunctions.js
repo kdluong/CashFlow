@@ -15,27 +15,33 @@ export async function signUpWithEmail(email, password, first, last) {
         user_id: data.user.id,
         first_name: first,
         last_name: last,
-        picture: null,
+        image: null,
       },
     ]);
 
-    if (error) Alert.alert(error.message);
+    if (error) {
+      Alert.alert(error.message);
+      return false;
+    }
+
+    Alert.alert(
+      'Sign Up Successful',
+      '\nPlease check your email and click the confirmation link to verify your email address.'
+    );
+
+    return true;
   }
 
   // setLoading(false)
 }
 
 export async function signInWithEmail(email, password) {
-  // setLoading(true)
-
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) Alert.alert(error.message);
-
-  // setLoading(false);
 }
 
 export async function signOut() {

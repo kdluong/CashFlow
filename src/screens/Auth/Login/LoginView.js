@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { Image } from 'expo-image';
 import { scale } from 'react-native-size-matters';
@@ -12,12 +12,21 @@ import { backgroundColor, green } from '../../../constants/constants';
 import logo from '../../../../assets/logoClear.png';
 
 function LogInView({ navigation }) {
-  // const [email, setEmail] = React.useState('');
-  // const [password, setPassword] = React.useState('');
+  // const [email, setEmail] = React.useState('kluong264@gmail.com');
+  // const [password, setPassword] = React.useState('Incorect94544!');
 
-  const [email, setEmail] = React.useState('kluong264@gmail.com');
-  const [password, setPassword] = React.useState('Incorect94544!');
-  // const logo = require('../../../../assets/logoClear.png');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const [loading, setLoading] = React.useState(false);
+
+  async function handleSignIn() {
+    if (email !== '' && password !== '') {
+      setLoading(true);
+      await signInWithEmail(email, password);
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor }}>
@@ -26,7 +35,11 @@ function LogInView({ navigation }) {
       <CustomKeyboardAvoidingView style={{ flex: 1, justifyContent: 'space-between' }}>
         {/* Header */}
 
-        <TouchableOpacity style={{ alignSelf: 'baseline' }} onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          disabled={loading}
+          style={{ alignSelf: 'baseline' }}
+          onPress={() => navigation.goBack()}
+        >
           <BackButton />
         </TouchableOpacity>
 
@@ -62,19 +75,21 @@ function LogInView({ navigation }) {
             value={email}
             onChangeText={setEmail}
             placeholder="Email"
-            loading={null}
+            loading={loading}
+            autoCapitalize={false}
           />
 
           <CustomPasswordInput
             value={password}
             onChangeText={setPassword}
             placeholder="Password"
-            loading={null}
+            loading={loading}
           />
 
           <TouchableOpacity
             style={{ alignSelf: 'center' }}
             onPress={() => navigation.navigate('Register')}
+            disabled={loading}
           >
             <Text style={globalStyles.body('white')}>
               Don&apos;t have an account?
@@ -101,9 +116,15 @@ function LogInView({ navigation }) {
           bottom: 0,
           marginBottom: scale(40),
         }}
-        onPress={() => signInWithEmail(email, password)}
+        onPress={() => handleSignIn()}
+        disabled={loading}
       >
-        <Text style={globalStyles.subHeader('black')}>Log In</Text>
+        {
+          loading
+            ? <ActivityIndicator size={'small'} color={'black'} />
+            : <Text style={globalStyles.subHeader('black')}>Log In</Text>
+        }
+
       </TouchableOpacity>
     </View>
   );

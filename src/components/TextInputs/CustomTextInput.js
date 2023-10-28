@@ -3,7 +3,7 @@ import { TextInput } from 'react-native';
 import { scale } from 'react-native-size-matters';
 
 function CustomTextInput({
-  value, onChangeText, placeholder, loading, border,
+  value, onChangeText, placeholder, loading, border, autoCapitalize
 }) {
   return (
     <TextInput
@@ -25,10 +25,12 @@ function CustomTextInput({
       }}
       onChangeText={onChangeText}
       clearButtonMode="while-editing"
-      autoCapitalize="words"
+      autoCapitalize={autoCapitalize !== undefined ? 'none' : 'words'}
       keyboardAppearance="dark"
       editable={!loading}
       selectTextOnFocus={!loading}
+      textContentType='oneTimeCode'
+      autoComplete='off'
     />
   );
 }

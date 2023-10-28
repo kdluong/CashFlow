@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { scale } from 'react-native-size-matters';
 import { Image } from 'expo-image';
@@ -20,9 +20,25 @@ function RegisterView({ navigation }) {
 
   // const [first, setFirst] = React.useState('Kevin');
   // const [last, setLast] = React.useState('Luong');
-  // const [email, setEmail] = React.useState('kluong264@gmail.com');
+  // const [email, setEmail] = React.useState('ctrlnote10@ymail.com');
   // const [password, setPassword] = React.useState('Incorect94544!');
   // const [confirmPass, setConfirmPass] = React.useState('Incorect94544!');
+
+  const [loading, setLoading] = React.useState(false);
+  let signUpResult = false;
+
+  async function handleSignUp() {
+
+    if (email !== '' && password !== '' && password === confirmPass) {
+      setLoading(true);
+      signUpResult = await signUpWithEmail(email, password);
+      setLoading(false);
+
+      if (signUpResult) {
+        navigation.goBack();
+      }
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor }}>
@@ -36,7 +52,7 @@ function RegisterView({ navigation }) {
         >
           {/* Back Button */}
 
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity disabled={loading} onPress={() => navigation.goBack()}>
             <BackButton />
           </TouchableOpacity>
 
@@ -71,38 +87,39 @@ function RegisterView({ navigation }) {
             value={first}
             onChangeText={setFirst}
             placeholder="First Name"
-            loading={null}
+            loading={loading}
           />
 
           <CustomTextInput
             value={last}
             onChangeText={setLast}
             placeholder="Last Name"
-            loading={null}
+            loading={loading}
           />
 
           <CustomTextInput
             value={email}
             onChangeText={setEmail}
             placeholder="Email"
-            loading={null}
+            loading={loading}
+            autoCapitalize={false}
           />
 
           <CustomPasswordInput
             value={password}
             onChangeText={setPassword}
             placeholder="Password"
-            loading={null}
+            loading={loading}
           />
 
           <CustomPasswordInput
             value={confirmPass}
             onChangeText={setConfirmPass}
             placeholder="Confirm password"
-            loading={null}
+            loading={loading}
           />
 
-          <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => navigation.goBack()}>
+          <TouchableOpacity disabled={loading} style={{ alignSelf: 'center' }} onPress={() => navigation.goBack()}>
             <Text style={globalStyles.body('white')}>
               Already have an account?
               <Text style={globalStyles.body(green)}> Sign in.</Text>
@@ -126,9 +143,16 @@ function RegisterView({ navigation }) {
           bottom: 0,
           marginBottom: scale(40),
         }}
-        onPress={() => signUpWithEmail(email, password)}
+        disabled={loading}
+        onPress={() => handleSignUp()}
       >
-        <Text style={globalStyles.subHeader('black')}>Sign Up</Text>
+        {loading
+          ?
+          <ActivityIndicator size={'small'} color={'black'} />
+          :
+          <Text style={globalStyles.subHeader('black')}>Sign Up</Text>
+        }
+
       </TouchableOpacity>
     </View>
   );

@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 
 function CustomPasswordInput({
-  value, onChangeText, placeholder, loading,
+  value, onChangeText, placeholder, loading
 }) {
   const [showPass, setShowPass] = React.useState(false);
 
@@ -37,12 +37,15 @@ function CustomPasswordInput({
         }}
         editable={!loading}
         selectTextOnFocus={!loading}
+        textContentType='oneTimeCode'
+        autoComplete='off'
       />
 
       <TouchableOpacity
         onPress={() => {
           setShowPass(!showPass);
         }}
+        disabled={loading}
       >
         <Ionicons
           name={showPass ? 'eye-outline' : 'eye-off-outline'}
