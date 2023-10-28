@@ -88,6 +88,8 @@ function RegisterView({ navigation }) {
             onChangeText={setFirst}
             placeholder="First Name"
             loading={loading}
+            autoCapitalize={true}
+            autoCorrect={false}
           />
 
           <CustomTextInput
@@ -95,6 +97,8 @@ function RegisterView({ navigation }) {
             onChangeText={setLast}
             placeholder="Last Name"
             loading={loading}
+            autoCapitalize={true}
+            autoCorrect={false}
           />
 
           <CustomTextInput
@@ -103,6 +107,7 @@ function RegisterView({ navigation }) {
             placeholder="Email"
             loading={loading}
             autoCapitalize={false}
+            autoCorrect={false}
           />
 
           <CustomPasswordInput

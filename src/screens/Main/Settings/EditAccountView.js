@@ -30,7 +30,7 @@ function EditAccountView({ navigation, route }) {
         '\nAre you sure you want to change your email?',
         [
           { text: "Cancel", onPress: () => { } },
-          { text: "Confirm", onPress: async () => {await changeEmail(newValue)} },
+          { text: "Confirm", onPress: async () => { await changeEmail(newValue) } },
         ]
       )
 
@@ -41,7 +41,7 @@ function EditAccountView({ navigation, route }) {
         '\nAre you sure you want to change your password?',
         [
           { text: "Cancel", onPress: () => { } },
-          { text: "Confirm", onPress: async () => {await changePassword(newValue)} },
+          { text: "Confirm", onPress: async () => { await changePassword(newValue) } },
         ]
       )
 
@@ -117,6 +117,7 @@ function EditAccountView({ navigation, route }) {
                 placeholder={'Enter a new email address'}
                 loading={loading}
                 autoCapitalize={false}
+                autoCorrect={false}
               />
 
               <CustomTextInput
@@ -125,6 +126,7 @@ function EditAccountView({ navigation, route }) {
                 placeholder="Confirm new email address"
                 loading={loading}
                 autoCapitalize={false}
+                autoCorrect={false}
               />
             </View>
             :

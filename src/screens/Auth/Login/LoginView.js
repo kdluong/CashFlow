@@ -77,6 +77,7 @@ function LogInView({ navigation }) {
             placeholder="Email"
             loading={loading}
             autoCapitalize={false}
+            autoCorrect={false}
           />
 
           <CustomPasswordInput

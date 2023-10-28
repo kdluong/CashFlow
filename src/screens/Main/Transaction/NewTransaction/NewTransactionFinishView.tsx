@@ -198,8 +198,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
           onChangeText={setName}
           placeholder={'Enter transaction name'}
           loading={loading}
-          autoCorrect={false}
-          autoCapitalize={undefined}
+          autoCapitalize={true}
+          autoCorrect={true}
         />
 
         {/* Transaction Card */}

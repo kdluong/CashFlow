@@ -214,8 +214,8 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
               onChangeText={setFirstName}
               placeholder={'Enter a first name'}
               loading={loading}
-              autoCapitalize={undefined}
-              autoCorrect={undefined}
+              autoCapitalize={true}
+              autoCorrect={false}
             />
 
             <CustomTextInput
@@ -224,8 +224,8 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
               onChangeText={setLastName}
               placeholder={'Enter a last name'}
               loading={loading}
-              autoCapitalize={undefined}
-              autoCorrect={undefined}
+              autoCapitalize={true}
+              autoCorrect={false}
             />
           </View>
 

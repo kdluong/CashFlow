@@ -25,13 +25,13 @@ function CustomTextInput({
       }}
       onChangeText={onChangeText}
       clearButtonMode="while-editing"
-      autoCapitalize={autoCapitalize !== undefined ? 'none' : 'words'}
       keyboardAppearance="dark"
       editable={!loading}
       selectTextOnFocus={!loading}
       textContentType='oneTimeCode'
       autoComplete='off'
-      autoCorrect={autoCorrect !== undefined ? true : false}
+      autoCapitalize={autoCapitalize ? 'words' : 'none'}
+      autoCorrect={autoCorrect}
     />
   );
 }
