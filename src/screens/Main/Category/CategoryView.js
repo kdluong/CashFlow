@@ -200,15 +200,22 @@ function CategoryView({ navigation, route }) {
   );
 
   const renderRefresh = () => (
-    <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh} tintColor="white" />
+    <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh()} tintColor="white" />
   );
 
   const renderFooter = () => <View style={{ height: '200%', backgroundColor: 'white' }} />;
 
   React.useEffect(() => {
-    const data = calculateCategoryDistribution(category_id, transactions);
 
-    setCategory(fetchCategory(category_id));
+    let tempCategory = fetchCategory(category_id);
+
+    if (tempCategory == null) {
+      navigation.goBack();
+    }
+
+    setCategory(tempCategory);
+
+    const data = calculateCategoryDistribution(category_id, transactions);
 
     switch (selectedGraph) {
       case '1W':

@@ -115,7 +115,7 @@ function ChooseCategoryView({ navigation, route }) {
   );
 
   const renderRefresh = () => (
-    <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh} tintColor="white" />
+    <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh()} tintColor="white" />
   );
 
   React.useEffect(() => {

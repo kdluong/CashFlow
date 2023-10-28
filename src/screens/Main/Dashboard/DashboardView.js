@@ -107,7 +107,7 @@ function DashboardView({ navigation }) {
 
       <CustomScrollView
         refreshControl={
-          <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh} tintColor="white" />
+          <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh()} tintColor="white" />
         }
       >
         {/* Header */}

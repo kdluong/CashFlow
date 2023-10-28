@@ -18,12 +18,12 @@ import SpendingDistributionChart from '../../../components/SpendingDistributionC
 import TopCategoriesChart from '../../../components/TopCategoriesChart/TopCategoriesChart';
 
 function CategoryAllView({ navigation }) {
-  const { spendingDistribution, getAll } = React.useContext(UserContext);
+  const { categories, spendingDistribution, getAll } = React.useContext(UserContext);
   const [sort, setSort] = React.useState();
   const [filter, setFilter] = React.useState('');
   const [selectedGraph, setSelectedGraph] = React.useState('1Y');
   const [total, setTotal] = React.useState('0.00');
-  const [categories, setCategories] = React.useState([]);
+  const [myCategories, setCategories] = React.useState([]);
   const [refresh, setRefresh] = React.useState(false);
 
   async function handleRefresh() {
@@ -109,14 +109,14 @@ function CategoryAllView({ navigation }) {
         {/* Spending Distribution */}
 
         <SpendingDistributionChart
-          categories={categories}
+          categories={myCategories}
           total={total}
         />
 
         {/* Top Categories */}
 
         <TopCategoriesChart
-          categories={categories}
+          categories={myCategories}
           total={total}
           selectedGraph={selectedGraph}
           navigation={navigation}
@@ -156,7 +156,7 @@ function CategoryAllView({ navigation }) {
   );
 
   const renderRefresh = () => (
-    <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh} tintColor="white" />
+    <RefreshControl refreshing={refresh} onRefresh={() => handleRefresh()} tintColor="white" />
   );
 
   React.useEffect(() => {
@@ -169,7 +169,6 @@ function CategoryAllView({ navigation }) {
           copiedArray = [...spendingDistribution.week.categories];
           copiedArray.sort((a, b) => (a.value > b.value ? -1 : 1));
         }
-        setCategories(copiedArray);
         setTotal(spendingDistribution?.week?.total);
 
         break;
@@ -178,7 +177,6 @@ function CategoryAllView({ navigation }) {
         if (spendingDistribution?.month?.categories !== undefined) {
           copiedArray = [...spendingDistribution.month.categories];
           copiedArray.sort((a, b) => (a.value > b.value ? -1 : 1));
-          setCategories(copiedArray);
           setTotal(spendingDistribution?.month?.total);
         }
 
@@ -188,7 +186,6 @@ function CategoryAllView({ navigation }) {
         if (spendingDistribution?.year?.categories !== undefined) {
           copiedArray = [...spendingDistribution.year.categories];
           copiedArray.sort((a, b) => (a.value > b.value ? -1 : 1));
-          setCategories(copiedArray);
           setTotal(spendingDistribution?.year?.total);
         }
 
@@ -198,17 +195,19 @@ function CategoryAllView({ navigation }) {
         if (spendingDistribution?.all?.categories !== undefined) {
           copiedArray = [...spendingDistribution.all.categories];
           copiedArray.sort((a, b) => (a.value > b.value ? -1 : 1));
-          setCategories(copiedArray);
           setTotal(spendingDistribution?.all?.total);
         }
     }
-  }, [selectedGraph, spendingDistribution]);
+
+    setCategories(copiedArray);
+
+  }, [categories, selectedGraph, spendingDistribution]);
 
   return (
     <CustomFlatListView
       ListHeaderComponentStyle={{ paddingBottom: scale(15), zIndex: 1 }}
       columnWrapperStyle={{ justifyContent: 'space-between' }}
-      data={categories
+      data={myCategories
         ?.filter((category) => category?.name?.toUpperCase()?.includes(filter?.toUpperCase()))
         .sort((a, b) => (handleSort(a, b) ? -1 : 1))}
       keyExtractor={(item) => item.id}
