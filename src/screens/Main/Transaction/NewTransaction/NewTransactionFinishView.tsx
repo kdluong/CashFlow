@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, Dimensions, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { Image } from 'expo-image';
@@ -15,6 +15,8 @@ import CustomView from '../../../../components/CustomViews/CustomView';
 import IconLarge from '../../../../components/Icons/IconLarge';
 import { backgroundColor, green } from '../../../../constants/constants';
 import globalStyles from '../../../../styles/styles';
+import { Camera } from 'expo-camera';
+
 
 const NewTransactionFinishView = ({ navigation, route }: { navigation: any; route: any }) => {
   const { transaction_id, category_id, total, returnScreen } = route.params;
@@ -31,6 +33,9 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
   const bottomSheetRef = React.useRef<BottomSheet>(null);
   const [showCamera, setShowCamera] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+
+  const [hasCameraPermission, setHasCameraPermission] = React.useState<boolean | undefined>(undefined);
+
 
   async function handleComplete() {
     var imageUri = null;
@@ -98,8 +103,27 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
   }
 
   function openCamera() {
-    setShowCamera(true);
-    bottomSheetRef.current?.expand();
+
+    if (hasCameraPermission == undefined) {
+
+      // ask for camera permission
+
+      (async () => {
+        const cameraStatus = await Camera.requestCameraPermissionsAsync();
+        setHasCameraPermission(cameraStatus.granted);
+    
+        setShowCamera(true);
+        bottomSheetRef.current?.expand();
+      })();
+
+    }
+    else if(hasCameraPermission){
+      setShowCamera(true);
+      bottomSheetRef.current?.expand();
+    }
+    else{
+      Alert.alert("Camera Permission Required", "\nPlease grant the camera permission in order to use this feature.");
+    }
   }
 
   React.useEffect(() => {

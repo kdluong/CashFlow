@@ -38,26 +38,6 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
     handleClose();
   }
 
-  React.useEffect(() => {
-    // check for permissions
-
-    (async () => {
-      const cameraStatus = await Camera.requestCameraPermissionsAsync();
-      setHasCameraPermission(cameraStatus.granted === 'granted');
-    })();
-  }, []);
-
-  if (!hasCameraPermission) {
-    return (
-      <SafeAreaView style={{
-        alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor: 'black',
-      }}
-      >
-        <Text style={globalStyles.body('white')}>No camera permission.</Text>
-      </SafeAreaView>
-    );
-  }
-
   return (
     <View>
       {/* Camera View */}
