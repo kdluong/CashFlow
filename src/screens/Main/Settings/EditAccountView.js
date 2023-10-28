@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-  View, TouchableOpacity, Text, ActivityIndicator,
+  View, TouchableOpacity, Text, ActivityIndicator, Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 import globalStyles from '../../../styles/styles.ts';
 import { changeEmail, changePassword } from '../../../supabase/supabaseFunctions';
 import CustomTextInput from '../../../components/TextInputs/CustomTextInput';
+import CustomPasswordInput from '../../../components/TextInputs/CustomPasswordInput.js';
 import BackButton from '../../../components/Buttons/BackButton';
 import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKeyboardAvoidingView';
 import { backgroundColor, green } from '../../../constants/constants';
@@ -19,17 +20,34 @@ function EditAccountView({ navigation, route }) {
   const { option } = route.params;
 
   async function handleComplete() {
+
     setLoading(true);
 
     if (option === 'email') {
-      await changeEmail(newValue);
+
+      Alert.alert(
+        'Change Email Confirmation',
+        '\nAre you sure you want to change your email?',
+        [
+          { text: "Cancel", onPress: () => { } },
+          { text: "Confirm", onPress: async () => {await changeEmail(newValue)} },
+        ]
+      )
+
     } else {
-      await changePassword(newValue);
+
+      Alert.alert(
+        'Change Password Confirmation',
+        '\nAre you sure you want to change your password?',
+        [
+          { text: "Cancel", onPress: () => { } },
+          { text: "Confirm", onPress: async () => {await changePassword(newValue)} },
+        ]
+      )
+
     }
 
     setLoading(false);
-
-    navigation.goBack();
   }
 
   function isValid() {
@@ -89,32 +107,44 @@ function EditAccountView({ navigation, route }) {
 
         {/* Text Input */}
 
-        <View style={{ gap: scale(10) }}>
-          <CustomTextInput
-            value={newValue}
-            onChangeText={setNewValue}
-            placeholder={option === 'email' ? 'Enter a new email address' : 'Enter a new password'}
-            loading={loading}
-          />
+        {
+          option !== 'password'
+            ?
+            <View style={{ gap: scale(10) }}>
+              <CustomTextInput
+                value={newValue}
+                onChangeText={setNewValue}
+                placeholder={'Enter a new email address'}
+                loading={loading}
+                autoCapitalize={false}
+              />
 
-          {option !== 'password' && (
-            <CustomTextInput
-              value={confirmEmail}
-              onChangeText={setConfirmEmail}
-              placeholder="Confirm new email address"
-              loading={loading}
-            />
-          )}
+              <CustomTextInput
+                value={confirmEmail}
+                onChangeText={setConfirmEmail}
+                placeholder="Confirm new email address"
+                loading={loading}
+                autoCapitalize={false}
+              />
+            </View>
+            :
+            <View style={{ gap: scale(10) }}>
 
-          {option === 'password' && (
-            <CustomTextInput
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              placeholder="Confirm new password"
-              loading={loading}
-            />
-          )}
-        </View>
+              <CustomPasswordInput
+                value={newValue}
+                onChangeText={setNewValue}
+                placeholder={'Enter a new password'}
+                loading={loading}
+              />
+
+              <CustomPasswordInput
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                placeholder="Confirm new password"
+                loading={loading}
+              />
+            </View>
+        }
 
         {/* Spacer */}
 

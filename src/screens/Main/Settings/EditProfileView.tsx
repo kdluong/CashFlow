@@ -104,31 +104,22 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
           {/* Profile Picture & Options */}
 
           <View style={{ gap: scale(15) }}>
-            {picture == null ? (
-              <Image
-                source={require('../../../../assets/blankProfilePicture.png')}
-                style={{
-                  height: scale(130),
-                  width: scale(130),
-                  borderRadius: 100,
-                  borderWidth: scale(3),
-                  borderColor: 'white',
-                  alignSelf: 'center',
-                }}
-              />
-            ) : (
-              <Image
-                source={picture}
-                style={{
-                  height: scale(130),
-                  width: scale(130),
-                  borderRadius: 100,
-                  borderWidth: scale(3),
-                  borderColor: 'white',
-                  alignSelf: 'center',
-                }}
-              />
-            )}
+
+            <Image
+              source={
+                picture == null
+                  ? require('../../../../assets/blankProfilePicture.png')
+                  : picture
+              }
+              style={{
+                height: scale(130),
+                width: scale(130),
+                borderRadius: 100,
+                borderWidth: scale(3),
+                borderColor: 'white',
+                alignSelf: 'center',
+              }}
+            />
 
             {/* Picture Options */}
 
@@ -195,6 +186,7 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
               onChangeText={setFirstName}
               placeholder={'Enter a first name'}
               loading={loading}
+              autoCapitalize={undefined}
             />
 
             <CustomTextInput
@@ -203,6 +195,7 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
               onChangeText={setLastName}
               placeholder={'Enter a last name'}
               loading={loading}
+              autoCapitalize={undefined}
             />
           </View>
 

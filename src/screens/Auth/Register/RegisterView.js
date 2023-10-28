@@ -31,7 +31,7 @@ function RegisterView({ navigation }) {
 
     if (email !== '' && password !== '' && password === confirmPass) {
       setLoading(true);
-      signUpResult = await signUpWithEmail(email, password);
+      signUpResult = await signUpWithEmail(email, password, first, last);
       setLoading(false);
 
       if (signUpResult) {

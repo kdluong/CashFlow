@@ -63,6 +63,7 @@ function SettingsView({ navigation }) {
             </Text>
             <Text style={globalStyles.body('#d3d3d3')}>
               Member since
+              {' '}
               {monthNames[startDate.getMonth()]}
               {' '}
               {startDate.getFullYear()}
