@@ -42,6 +42,8 @@ function SearchPicker({
           onChangeText={setFilter}
           placeholder={placeholder}
           loading={null}
+          autoCapitalize={false}
+          autoCorrect={true}
         />
       </View>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
-  SafeAreaView, TouchableOpacity, View, Text,
+  SafeAreaView, TouchableOpacity, View, Text
 } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
 import { scale } from 'react-native-size-matters';

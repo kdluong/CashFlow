@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ActivityIndicator, Dimensions, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, Dimensions, Alert, Keyboard } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { Image } from 'expo-image';
@@ -90,6 +90,9 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
   }
 
   async function openImagePicker() {
+
+    Keyboard.dismiss();
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -104,6 +107,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
 
   function openCamera() {
 
+    Keyboard.dismiss();
+
     if (hasCameraPermission == undefined) {
 
       // ask for camera permission
@@ -111,17 +116,17 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
       (async () => {
         const cameraStatus = await Camera.requestCameraPermissionsAsync();
         setHasCameraPermission(cameraStatus.granted);
-    
+
         setShowCamera(true);
         bottomSheetRef.current?.expand();
       })();
 
     }
-    else if(hasCameraPermission){
+    else if (hasCameraPermission) {
       setShowCamera(true);
       bottomSheetRef.current?.expand();
     }
-    else{
+    else {
       Alert.alert("Camera Permission Required", "\nPlease grant the camera permission in order to use this feature.");
     }
   }
@@ -193,6 +198,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
           onChangeText={setName}
           placeholder={'Enter transaction name'}
           loading={loading}
+          autoCorrect={false}
+          autoCapitalize={undefined}
         />
 
         {/* Transaction Card */}

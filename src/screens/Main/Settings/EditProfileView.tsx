@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, ActivityIndicator, SafeAreaView } from 'react-native';
+import { View, TouchableOpacity, Text, ActivityIndicator, SafeAreaView, Keyboard, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import globalStyles from '../../../styles/styles';
 import { UserContext } from '../../../supabase/ViewModel';
@@ -12,6 +12,7 @@ import { scale } from 'react-native-size-matters';
 import BackButton from '../../../components/Buttons/BackButton';
 import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKeyboardAvoidingView';
 import { backgroundColor, green } from '../../../constants/constants';
+import { Camera } from 'expo-camera';
 
 const EditProfileView = ({ navigation }: { navigation: any }) => {
   const { user, updateUser } = React.useContext(UserContext);
@@ -23,6 +24,8 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
   const [lastName, setLastName] = React.useState('');
   const [picture, setPicture] = React.useState<any>(null);
 
+  const [hasCameraPermission, setHasCameraPermission] = React.useState<boolean | undefined>(undefined);
+
   function isValid() {
     return (
       (user.first_name != firstName || user.last_name != lastName || picture != user.image) &&
@@ -32,6 +35,9 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
   }
 
   async function openPicker() {
+
+    Keyboard.dismiss();
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -45,8 +51,30 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
   }
 
   function openCamera() {
-    setShowCamera(true);
-    bottomSheetRef.current?.expand();
+
+    Keyboard.dismiss();
+
+    if (hasCameraPermission == undefined) {
+
+      // ask for camera permission
+
+      (async () => {
+        const cameraStatus = await Camera.requestCameraPermissionsAsync();
+        setHasCameraPermission(cameraStatus.granted);
+
+        setShowCamera(true);
+        bottomSheetRef.current?.expand();
+      })();
+
+    }
+    else if (hasCameraPermission) {
+      setShowCamera(true);
+      bottomSheetRef.current?.expand();
+    }
+    else {
+      Alert.alert("Camera Permission Required", "\nPlease grant the camera permission in order to use this feature.");
+    }
+
   }
 
   async function handleComplete() {
@@ -187,6 +215,7 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
               placeholder={'Enter a first name'}
               loading={loading}
               autoCapitalize={undefined}
+              autoCorrect={undefined}
             />
 
             <CustomTextInput
@@ -196,6 +225,7 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
               placeholder={'Enter a last name'}
               loading={loading}
               autoCapitalize={undefined}
+              autoCorrect={undefined}
             />
           </View>
 

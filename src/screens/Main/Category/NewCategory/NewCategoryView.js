@@ -166,6 +166,7 @@ function NewCategoryView({ navigation, route }) {
           onChangeText={setName}
           placeholder="Enter category name"
           loading={loading || deleteLoading}
+          autoCorrect={false}
         />
 
         {/* Color List */}
