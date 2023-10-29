@@ -57,7 +57,7 @@ function SettingsView({ navigation }) {
             }}
           />
 
-          <View style={{ alignItems: 'center', gap: scale(5) }}>
+          <View style={{ alignItems: 'center' }}>
             <Text style={globalStyles.header('white')}>
               {user?.first_name}
               {' '}
