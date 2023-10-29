@@ -506,11 +506,11 @@ function ViewModel(props) {
 
       // delete category's transactions
 
-      for (let index = 0; index < transactions.length; index += 1) {
-        if (transactions[index].category_id === category_id) {
-          await deleteTransaction(transactions[index].id, false);
-        }
-      }
+      const transactionsToDelete = transactions
+        .filter((transaction) => transaction.category_id === category_id)
+        .map((transaction) => deleteTransaction(transaction.id, false));
+
+      await Promise.allSettled(transactionsToDelete);
     } catch (error) {
       if (error instanceof Error) {
         Alert.alert(error.message);
@@ -617,6 +617,8 @@ function ViewModel(props) {
       getUser();
     }
   }
+
+  /* eslint-disable */
 
   return (
     <UserContext.Provider
