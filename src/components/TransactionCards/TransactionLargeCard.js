@@ -74,7 +74,7 @@ function TransactionLargeCard({ transaction_id, children }) {
 
           {/* Total & Date */}
 
-          <View style={{ alignItems: 'flex-end' }}>
+          <View style={{ alignItems: 'flex-end', position: 'absolute', right: 0, paddingRight: scale(15) }}>
             <Text style={globalStyles.subHeader('black')}>
               - $
               {transaction?.total?.toFixed(2)}
