@@ -4,6 +4,7 @@ CashFlow is your ultimate personal finance companion, dedicated to simplifying t
 
 ![Alt Text](assets/README_Images/mainPhoto.png)
 ![Alt Text](assets/README_Images/secondPhoto.png)
+![Alt Text](assets/flow.gif)
 
 ## Features
 
