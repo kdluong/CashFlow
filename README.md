@@ -7,25 +7,25 @@ CashFlow is your ultimate personal finance companion, dedicated to simplifying t
 
 ## Features
 
-- __Seamless Transaction Logging__: 
+- __Seamless Transaction Logging__
 
 <blockquote>
 Effortlessly capture your income and expenses with an intuitive and user-friendly interface. Stay informed about your financial inflow and outflow with real-time precision.
 </blockquote>
 
-- __Smart Categorization__: 
+- __Smart Categorization__
 
 <blockquote>
 Harness the power of categorization to streamline your financial insights. Organize transactions according to your unique preferences, making it a breeze to pinpoint areas for potential savings.
 </blockquote>
  
-- __Deep Analytics__: 
+- __Deep Analytics__
  
 <blockquote>
 Gain a profound understanding of your financial habits through comprehensive analytics. Visualize your spending patterns across weeks, months, and years with dynamic pie charts and bar graphs.
 </blockquote>
 
-- __Receipt Management__: 
+- __Receipt Management__
 
 <blockquote>
 Banish the hassle of lost receipts. With CashFlow, you can conveniently store and manage transaction-related receipts and vital documents, creating a digital archive of your financial history.
