@@ -1,4 +1,4 @@
 # CashFlow
 
-![Alt Text](assets/mainPhoto.png)
-![Alt Text](assets/secondPhoto.png)
+![Alt Text](assets/README_Images/mainPhoto.png)
+![Alt Text](assets/README_Images/secondPhoto.png)
