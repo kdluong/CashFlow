@@ -22,12 +22,6 @@ function RegisterView({ navigation }) {
   const [password, setPassword] = React.useState('');
   const [confirmPass, setConfirmPass] = React.useState('');
 
-  // const [first, setFirst] = React.useState('Kevin');
-  // const [last, setLast] = React.useState('Luong');
-  // const [email, setEmail] = React.useState('ctrlnote10@ymail.com');
-  // const [password, setPassword] = React.useState('Incorect94544!');
-  // const [confirmPass, setConfirmPass] = React.useState('Incorect94544!');
-
   const [loading, setLoading] = React.useState(false);
 
   const [validFirst, setValidFirst] = React.useState(true);

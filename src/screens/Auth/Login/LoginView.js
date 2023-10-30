@@ -14,11 +14,8 @@ import { backgroundColor, green } from '../../../constants/constants';
 import logo from '../../../../assets/logoClear.png';
 
 function LogInView({ navigation }) {
-  const [email, setEmail] = React.useState('kluong264@gmail.com');
-  const [password, setPassword] = React.useState('Incorect94544!');
-
-  // const [email, setEmail] = React.useState('');
-  // const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   const [loading, setLoading] = React.useState(false);
 
