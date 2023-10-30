@@ -138,6 +138,14 @@ function CategoryAllView({ navigation }) {
         category_id: item?.id,
         startGraph: switchOptions.findIndex((graph) => graph?.label === selectedGraph),
       })}
+      onLongPress={() => {
+        navigation.navigate('SharedStack', {
+          screen: 'NewCategoryView',
+          params: {
+            category_id: item?.id,
+          },
+        });
+      }}
       key={item?.id}
     >
       <CategoryMediumCard category_id={item?.id} total={item?.value} />

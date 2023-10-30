@@ -208,7 +208,6 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
         {/* Text Input */}
 
         <CustomTextInput
-          border={undefined}
           value={name}
           onChangeText={setName}
           placeholder={'Enter transaction name'}
