@@ -1,4 +1,4 @@
-# CashFlow
+# CashFlow - Personal Finance Tracking App
 
 ![Alt Text](assets/README_Images/mainPhoto.png)
 ![Alt Text](assets/README_Images/secondPhoto.png)
