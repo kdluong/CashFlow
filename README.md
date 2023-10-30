@@ -1,3 +1,3 @@
 # CashFlow
 
-!(./src/assets/logoClear.png)
+![](./src/assets/logoClear.png)
