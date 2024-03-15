@@ -5,6 +5,11 @@ CashFlow is your ultimate personal finance companion, dedicated to simplifying t
 ![Alt Text](assets/README_Images/mainPhoto.png)
 ![Alt Text](assets/README_Images/secondPhoto.png)
 
+### Built With
+
+1. React Native
+2. PostgreSQL
+
 ## Features
 
 - __Seamless Transaction Logging__
@@ -31,7 +36,9 @@ Gain a profound understanding of your financial habits through comprehensive ana
 Banish the hassle of lost receipts. With CashFlow, you can conveniently store and manage transaction-related receipts and vital documents, creating a digital archive of your financial history.
 </blockquote>
 
-## App Installation
+## Getting Started
+
+### App Installation
 
 1. Clone this repository.
 2. Navigate to the root of the repository and run `npm install` which will install all the dependencies.
@@ -40,14 +47,14 @@ Banish the hassle of lost receipts. With CashFlow, you can conveniently store an
 Otherwise, you have to install the Expo Go app on your phone and scan the QR code from the terminal with your camera
 to run the app on your phone in Expo Go. Make sure your phone and laptop are connected to the same wifi network to use the latter option.
 
-## Environment Setup
+### Environment Setup
 
 1. Install Node
 https://nodejs.org/en/download/
 2. Install Yarn
 https://classic.yarnpkg.com/lang/en/docs/install/
 
-## Commands
+### Commands
 
 - `npx expo start` to begin the development server
 - `npx expo start ios` to run IOS simulator
@@ -56,3 +63,13 @@ https://classic.yarnpkg.com/lang/en/docs/install/
 - `yarn lint` to lint code
 - `yarn lint --fix` to fix simple linting errors
 - `yarn format` to format code according to style guide
+
+## Contributing
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
