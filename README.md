@@ -42,7 +42,7 @@ Banish the hassle of lost receipts. With CashFlow, you can conveniently store an
 
 1. Clone this repository.
 2. Navigate to the root of the repository and run `npm install` which will install all the dependencies.
-3. Running `npm expo start` will begin the development server.
+3. Running `npx expo start` will begin the development server.
 4. If you have XCode installed and an iPhone simulator, you can press `i` which will open the simulator and run the app.
 Otherwise, you have to install the Expo Go app on your phone and scan the QR code from the terminal with your camera
 to run the app on your phone in Expo Go. Make sure your phone and laptop are connected to the same wifi network to use the latter option.
