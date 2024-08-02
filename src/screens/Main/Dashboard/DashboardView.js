@@ -205,7 +205,10 @@ function DashboardView({ navigation }) {
               elevation: 24,
             }}
           >
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+            {/* Current Month */}
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: scale(15) }}>
               <Text style={globalStyles.header('black')}>Overview</Text>
 
               <MonthlyOverview
@@ -217,21 +220,23 @@ function DashboardView({ navigation }) {
 
             </View>
 
+            {/* Bar Chart */}
+
             <View
               style={{
                 paddingTop: scale(10),
                 paddingBottom: scale(10),
-                marginLeft: scale(-3),
                 marginBottom: scale(-10),
-                marginRight: scale(-9),
+                marginHorizontal: scale(-3),
+                width: '100%'
               }}
             >
               <BarChart
                 data={chartData}
                 height={scale(70)}
+                width={scale(226)}
                 barWidth={scale(15)}
                 spacing={scale(10.8)}
-                hideRules
                 frontColor={green}
                 barBorderRadius={scale(5)}
                 noOfSections={2}
