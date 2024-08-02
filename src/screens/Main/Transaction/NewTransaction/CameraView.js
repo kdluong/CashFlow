@@ -13,8 +13,7 @@ function MyCameraView({ bottomSheetRef, setPicture, showCamera }) {
   const cameraRef = React.useRef();
   const [flashMode, setFlashMode] = React.useState('off');
   const [facing, setFacing] = React.useState('back');
-
-  const [disableCaptureButton, setDisableCaptureButton] = React.useState();
+  const [cameraReady, setCameraReady] = React.useState(false);
 
   function toggleCameraType() {
     setFlashMode('off');
@@ -27,16 +26,16 @@ function MyCameraView({ bottomSheetRef, setPicture, showCamera }) {
 
   function handleClose() {
     setFlashMode('off')
+    setCameraReady(false)
     bottomSheetRef.current.forceClose();
   }
 
   async function takePicture() {
-    setDisableCaptureButton(true); // hide buttons
+    setCameraReady(false)
 
     const photo = await cameraRef.current.takePictureAsync(); // take & save photo
     setPicture(photo.uri);
 
-    setDisableCaptureButton(false);
     handleClose();
   }
 
@@ -46,16 +45,17 @@ function MyCameraView({ bottomSheetRef, setPicture, showCamera }) {
 
       {showCamera && (
         <CameraView
-          style={{ height: '100%', width: '100%' }}
+          style={{ height: '100%', backgroundColor: 'red', marginTop: scale(10), borderTopLeftRadius: scale(25), borderTopRightRadius: scale(25), overflow: 'hidden' }}
           facing={facing}
           flash={flashMode}
           ref={cameraRef}
+          onCameraReady={() => { setCameraReady(true) }}
         />
       )}
 
       {/* Camera Buttons */}
 
-      {!disableCaptureButton && (
+      {cameraReady && (
         <View
           style={{
             position: 'absolute',
@@ -96,30 +96,9 @@ function MyCameraView({ bottomSheetRef, setPicture, showCamera }) {
 
             {/* Capture */}
 
-            <View
-              style={{
-                height: scale(65),
-                width: scale(65),
-                backgroundColor: 'black',
-                borderRadius: 100,
-                borderColor: 'white',
-                borderWidth: scale(2),
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  height: scale(55),
-                  width: scale(55),
-                  backgroundColor: 'white',
-                  borderRadius: 100,
-                }}
-                onPress={() => {
-                  takePicture();
-                }}
-              />
-            </View>
+            <TouchableOpacity onPress={() => { takePicture() }}>
+              <Ionicons name="ellipse-outline" size={scale(80)} color="white" />
+            </TouchableOpacity>
 
             {/* Flip Camera */}
 
