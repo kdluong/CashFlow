@@ -1,22 +1,22 @@
-import { View, Text, TouchableOpacity, ActivityIndicator, Dimensions, Alert, Keyboard } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
-import { Image } from 'expo-image';
+import { View, Text, TouchableOpacity, ActivityIndicator, Dimensions, Alert, Keyboard } from 'react-native';
 import { UserContext } from '../../../../supabase/ViewModel';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import CustomTextInput from '../../../../components/TextInputs/CustomTextInput';
-import MyCameraView from './CameraView';
+import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
+import { Camera } from 'expo-camera';
+import CameraComponent from '../../../../components/Camera/CameraComponent';
 import { scale } from 'react-native-size-matters';
 import { getDateLong, getTime } from '../../../../functions/functions';
-import BackButton from '../../../../components/Buttons/BackButton';
-import CustomView from '../../../../components/CustomViews/CustomView';
-import IconLarge from '../../../../components/Icons/IconLarge';
 import { backgroundColor, green } from '../../../../constants/constants';
 import globalStyles from '../../../../styles/styles';
-import { Camera } from 'expo-camera';
+import CustomTextInput from '../../../../components/TextInputs/CustomTextInput';
 import { validRegex } from '../../../../constants/constants';
+import CustomView from '../../../../components/CustomViews/CustomView';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import IconLarge from '../../../../components/Icons/IconLarge';
+import BackButton from '../../../../components/Buttons/BackButton';
 import CancelButton from '../../../../components/Buttons/CancelButton';
 
 const NewTransactionFinishView = ({ navigation, route }: { navigation: any; route: any }) => {
@@ -325,7 +325,7 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
         onClose={() => setShowCamera(false)}
         backgroundStyle={{ backgroundColor: 'black' }}
       >
-        <MyCameraView
+        <CameraComponent
           bottomSheetRef={bottomSheetRef}
           setPicture={setImages}
           showCamera={showCamera}

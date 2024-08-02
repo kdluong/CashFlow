@@ -3,17 +3,17 @@ import { View, TouchableOpacity, Text, ActivityIndicator, SafeAreaView, Keyboard
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import globalStyles from '../../../styles/styles';
 import { UserContext } from '../../../supabase/ViewModel';
+import CustomTextInput from '../../../components/TextInputs/CustomTextInput';
+import { nameRegex } from '../../../constants/constants';
+import BottomSheet from '@gorhom/bottom-sheet';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
-import CustomTextInput from '../../../components/TextInputs/CustomTextInput';
-import BottomSheet from '@gorhom/bottom-sheet';
-import CameraView from '../Transaction/NewTransaction/CameraView';
+import { Camera } from 'expo-camera';
+import CameraComponent from '../../../components/Camera/CameraComponent';
 import { scale } from 'react-native-size-matters';
 import BackButton from '../../../components/Buttons/BackButton';
 import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKeyboardAvoidingView';
 import { backgroundColor, green } from '../../../constants/constants';
-import { Camera } from 'expo-camera';
-import { nameRegex } from '../../../constants/constants';
 
 const EditProfileView = ({ navigation }: { navigation: any }) => {
   const { user, updateUser } = React.useContext(UserContext);
@@ -273,7 +273,7 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
         onClose={() => setShowCamera(false)}
         backgroundStyle={{ backgroundColor: backgroundColor }}
       >
-        <CameraView
+        <CameraComponent
           bottomSheetRef={bottomSheetRef}
           setPicture={setPicture}
           showCamera={showCamera}

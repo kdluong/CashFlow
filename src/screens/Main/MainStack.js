@@ -19,7 +19,6 @@ import SettingsView from './Settings/SettingsView';
 import NewCategoryView from './Category/NewCategory/NewCategoryView';
 import EditAccountView from './Settings/EditAccountView';
 import EditProfileView from './Settings/EditProfileView.tsx';
-import CameraView from './Transaction/NewTransaction/CameraView';
 import NewTransactionStartView from './Transaction/NewTransaction/NewTransactionStartView';
 import NewTransactionFinishView from './Transaction/NewTransaction/NewTransactionFinishView.tsx';
 import ChooseCategoryView from './Transaction/NewTransaction/ChooseCategoryView';
@@ -77,7 +76,6 @@ function SettingsStack() {
       <Stack.Screen name="SettingsView" component={SettingsView} />
       <Stack.Screen name="EditAccountView" component={EditAccountView} />
       <Stack.Screen name="EditProfileView" component={EditProfileView} />
-      <Stack.Screen name="CameraView" component={CameraView} />
     </Stack.Navigator>
   );
 }
