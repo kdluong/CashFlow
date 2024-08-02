@@ -6,7 +6,7 @@ import { UserContext } from '../../../../supabase/ViewModel';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import CustomTextInput from '../../../../components/TextInputs/CustomTextInput';
-import CameraView from './CameraView';
+import MyCameraView from './CameraView';
 import * as ImagePicker from 'expo-image-picker';
 import { scale } from 'react-native-size-matters';
 import { getDateLong, getTime } from '../../../../functions/functions';
@@ -17,6 +17,7 @@ import { backgroundColor, green } from '../../../../constants/constants';
 import globalStyles from '../../../../styles/styles';
 import { Camera } from 'expo-camera';
 import { validRegex } from '../../../../constants/constants';
+import CancelButton from '../../../../components/Buttons/CancelButton';
 
 const NewTransactionFinishView = ({ navigation, route }: { navigation: any; route: any }) => {
   const { transaction_id, category_id, total, returnScreen } = route.params;
@@ -239,8 +240,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
                 justifyContent: 'space-between',
               }}
             >
-              <TouchableOpacity onPress={() => setImages('')} disabled={loading}>
-                <Ionicons name="close-circle-sharp" color={'white'} size={scale(25)} />
+              <TouchableOpacity onPress={() => setImages('')} disabled={loading} style={{ alignSelf: 'flex-start' }}>
+                <CancelButton />
               </TouchableOpacity>
             </Image>
           ) : (
@@ -324,7 +325,7 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
         onClose={() => setShowCamera(false)}
         backgroundStyle={{ backgroundColor: 'black' }}
       >
-        <CameraView
+        <MyCameraView
           bottomSheetRef={bottomSheetRef}
           setPicture={setImages}
           showCamera={showCamera}

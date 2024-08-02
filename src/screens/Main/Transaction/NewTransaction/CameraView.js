@@ -3,26 +3,30 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   TouchableOpacity, View,
 } from 'react-native';
-import { Camera, CameraType, FlashMode } from 'expo-camera';
+import { Camera, CameraView, CameraType } from 'expo-camera';
 import { scale } from 'react-native-size-matters';
+import IconSmall from '../../../../components/Icons/IconSmall';
+import CancelButton from '../../../../components/Buttons/CancelButton';
 
-function CameraView({ bottomSheetRef, setPicture, showCamera }) {
+
+function MyCameraView({ bottomSheetRef, setPicture, showCamera }) {
   const cameraRef = React.useRef();
-  const [flashMode, setFlashMode] = React.useState(FlashMode.off);
-  const [type, setType] = React.useState(CameraType.back);
+  const [flashMode, setFlashMode] = React.useState('off');
+  const [facing, setFacing] = React.useState('back');
 
   const [disableCaptureButton, setDisableCaptureButton] = React.useState();
 
   function toggleCameraType() {
     setFlashMode('off');
-    setType((current) => (current === CameraType.back ? CameraType.front : CameraType.back));
+    setFacing((current) => (current === 'back' ? 'front' : 'back'));
   }
 
   function toggleCameraFlash() {
-    setFlashMode((current) => (current === FlashMode.off ? FlashMode.on : FlashMode.off));
+    setFlashMode((current) => (current === 'off' ? 'on' : 'off'));
   }
 
   function handleClose() {
+    setFlashMode('off')
     bottomSheetRef.current.forceClose();
   }
 
@@ -37,14 +41,14 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
   }
 
   return (
-    <View>
+    <View >
       {/* Camera View */}
 
       {showCamera && (
-        <Camera
+        <CameraView
           style={{ height: '100%', width: '100%' }}
-          type={type}
-          flashMode={flashMode}
+          facing={facing}
+          flash={flashMode}
           ref={cameraRef}
         />
       )}
@@ -58,13 +62,14 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
             justifyContent: 'space-between',
             height: '100%',
             width: '100%',
-            padding: scale(20),
+            paddingHorizontal: scale(20),
+            paddingVertical: scale(40)
           }}
         >
           {/* Close Camera */}
 
-          <TouchableOpacity onPress={() => handleClose()}>
-            <Ionicons name="close-circle-sharp" size={scale(25)} color="white" />
+          <TouchableOpacity onPress={() => handleClose()} style={{ alignSelf: 'flex-start' }}>
+            <CancelButton />
           </TouchableOpacity>
 
           {/* Flash, Capture, & Flip */}
@@ -80,12 +85,12 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
 
             <TouchableOpacity
               onPress={() => toggleCameraFlash()}
-              disabled={type !== CameraType.back}
+              disabled={facing !== 'back'}
             >
               <Ionicons
                 name={flashMode === 'off' ? 'flash-off-sharp' : 'flash-sharp'}
                 size={scale(25)}
-                color={type === CameraType.back ? 'white' : 'black'}
+                color={facing === 'back' ? 'white' : 'black'}
               />
             </TouchableOpacity>
 
@@ -128,4 +133,4 @@ function CameraView({ bottomSheetRef, setPicture, showCamera }) {
   );
 }
 
-export default CameraView;
+export default MyCameraView;

@@ -14,7 +14,10 @@
     "assetBundlePatterns": [
       "assets/*"
     ],
-    "plugins": [],
+    "plugins": [
+      "expo-font",
+      "expo-secure-store"
+    ],
     "ios": {
       "supportsTablet": true,
       "usesAppleSignIn": true
