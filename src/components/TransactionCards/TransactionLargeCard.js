@@ -84,8 +84,7 @@ function TransactionLargeCard({ transaction_id, children }) {
             </Text>
             <Text style={globalStyles.body('gray')}>
               {getDateLong(transaction?.date)}
-              {' '}
-              @
+              {' @ '}
               {getTime(transaction?.date)}
             </Text>
           </View>
