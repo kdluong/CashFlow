@@ -82,22 +82,22 @@ export const colors = [
 ];
 
 export const icons = [
-  'home-sharp',
-  'restaurant-sharp',
-  'airplane-sharp',
-  'car-sport-sharp',
-  'cart-sharp',
-  'water-sharp',
-  'flash-sharp',
-  'wifi-sharp',
-  'medkit-sharp',
-  'receipt-sharp',
-  'subway-sharp',
-  'book-sharp',
-  'school-sharp',
-  'pricetags-sharp',
-  'warning-sharp',
-  'ellipsis-horizontal-sharp',
+  'home-outline',
+  'restaurant-outline',
+  'airplane-outline',
+  'car-sport-outline',
+  'cart-outline',
+  'water-outline',
+  'flash-outline',
+  'wifi-outline',
+  'medkit-outline',
+  'receipt-outline',
+  'subway-outline',
+  'book-outline',
+  'school-outline',
+  'pricetags-outline',
+  'warning-outline',
+  'ellipsis-horizontal-outline',
 ];
 
 export const green = '#32d584';
