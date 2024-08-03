@@ -13,16 +13,14 @@ function CategoryMediumCard({ category_id, total }) {
     setCategory(fetchCategory(category_id));
   }, [categories]);
 
-  // maybe remove dependency
-
   return (
     <View
       style={{
         backgroundColor: category?.color,
-        height: scale(100),
+        height: scale(105),
         width: scale(148),
         justifyContent: 'space-between',
-        borderRadius: scale(5),
+        borderRadius: scale(10),
         padding: scale(12),
         marginBottom: scale(15),
         shadowColor: '#000',
@@ -42,21 +40,20 @@ function CategoryMediumCard({ category_id, total }) {
 
         <Text
           style={{
-            ...globalStyles.body('white'),
+            ...globalStyles.subHeader('white'),
             shadowColor: '#000',
             shadowOffset: {
               width: 0,
               height: 12,
             },
             shadowOpacity: 0.58,
-            shadowRadius: 16.0,
+            shadowRadius: 20.0,
 
             elevation: 24,
           }}
           numberOfLines={1}
         >
-          - $
-          {total.toFixed(2)}
+          ${total.toFixed(2)}
         </Text>
       </View>
 
@@ -64,15 +61,14 @@ function CategoryMediumCard({ category_id, total }) {
 
       <Text
         style={{
-          ...globalStyles.subHeader('white'),
+          ...globalStyles.body('white'),
           shadowColor: '#000',
           shadowOffset: {
             width: 0,
             height: 12,
           },
           shadowOpacity: 0.58,
-          shadowRadius: 16.0,
-
+          shadowRadius: 20.0,
           elevation: 24,
         }}
         numberOfLines={1}

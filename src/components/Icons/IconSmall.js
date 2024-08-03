@@ -23,7 +23,7 @@ function IconSmall({ name, color, backgroundColor }) {
         elevation: 1,
       }}
     >
-      <Ionicons name={name} size={scale(15)} color={color} style={{ marginLeft: scale(1) }} />
+      <Ionicons name={name} size={scale(20)} color={color} style={{ marginLeft: scale(1) }} />
     </View>
   );
 }

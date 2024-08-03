@@ -23,7 +23,7 @@ function TransactionMediumCard({ transaction_id }) {
   return (
     <View
       style={{
-        borderRadius: scale(5),
+        borderRadius: scale(10),
         overflow: 'hidden',
         backgroundColor: 'black',
         marginBottom: scale(15),

@@ -6,6 +6,7 @@ import { getDate } from '../../functions/functions';
 import globalStyles from '../../styles/styles.ts';
 import { UserContext } from '../../supabase/ViewModel';
 import IconLarge from '../Icons/IconLarge';
+import { green } from '../../constants/constants';
 
 function TransactionSmallCard({ transaction_id }) {
   const { fetchTransaction, transactions, categories } = React.useContext(UserContext);
@@ -31,16 +32,16 @@ function TransactionSmallCard({ transaction_id }) {
     >
       {/* Icon, Name, & Category */}
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(10) }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(17) }}>
         {/* Icon */}
 
-        <IconLarge name={category?.icon} color="white" backgroundColor="black" />
+        <IconLarge name={category?.icon} color={'white'} backgroundColor={category?.color} />
 
         {/* Name & Category */}
 
         <View>
           <Text style={globalStyles.subHeader('black')}>{transaction?.name}</Text>
-          <Text style={globalStyles.body('gray')}>{category?.name}</Text>
+          <Text style={globalStyles.body('#5b647d')}>{category?.name}</Text>
         </View>
       </View>
 
@@ -52,10 +53,8 @@ function TransactionSmallCard({ transaction_id }) {
             - $
             {transaction?.total?.toFixed(2)}
           </Text>
-          <Text style={globalStyles.body('gray')}>{getDate(transaction?.date)}</Text>
+          <Text style={globalStyles.body('#5b647d')}>{getDate(transaction?.date)}</Text>
         </View>
-
-        <Ionicons name="chevron-forward-sharp" size={scale(15)} color="black" />
       </View>
     </View>
   );

@@ -18,7 +18,8 @@ function IconLarge({ name, color, backgroundColor }) {
           width: 0,
           height: 1,
         },
-        shadowOpacity: 0.18,
+        // shadowOpacity: 0.18,
+        shadowOpacity: 0.05,
         shadowRadius: 1.0,
         elevation: 1,
       }}

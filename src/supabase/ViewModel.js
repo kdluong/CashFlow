@@ -169,24 +169,11 @@ function ViewModel(props) {
     try {
       if (!session?.user) throw new Error('No user on the session!');
 
-      // Create New Transaction
-
-      const updates = {
-        category_id,
-        name,
-        total,
-      };
-
-      const { data, error } = await supabase.from('transactions').upsert(updates).select();
-
-      if (error) {
-        throw error;
-      }
+      let url = null;
 
       // Upload Transaction Image (if exists)
 
       if (image != null) {
-        const transaction_id = data[0].id;
         const ext = image.substring(image.lastIndexOf('.') + 1);
         const fileName = image.substring(image.lastIndexOf('/') + 1, image.lastIndexOf('.'));
 
@@ -206,19 +193,24 @@ function ViewModel(props) {
           throw error;
         }
 
-        // update transaction w/ image
-
-        const url = `https://tbgxebebapqscbpmpecp.supabase.co/storage/v1/object/public/transactions/${user.user_id}/${fileName}`;
-
-        const { urlError } = await supabase
-          .from('transactions')
-          .update({ image: url })
-          .eq('id', transaction_id);
-
-        if (urlError) {
-          throw error;
-        }
+        url = `https://tbgxebebapqscbpmpecp.supabase.co/storage/v1/object/public/transactions/${user.user_id}/${fileName}?timestamp=${new Date().getTime()}`;
       }
+
+      // Create New Transaction
+
+      const updates = {
+        category_id,
+        name,
+        total,
+        image: url
+      };
+
+      const { data, error } = await supabase.from('transactions').upsert(updates).select();
+
+      if (error) {
+        throw error;
+      }
+
     } catch (error) {
       if (error instanceof Error) {
         Alert.alert(error.message);
@@ -234,6 +226,8 @@ function ViewModel(props) {
     try {
       if (!session?.user) throw new Error('No user on the session!');
 
+      // Fetch transaction
+
       const { transaction } = fetchTransaction(transaction_id);
 
       if (transaction == null) {
@@ -241,54 +235,71 @@ function ViewModel(props) {
       }
 
       const transactionImage = transaction?.image;
-      let url;
+      let url = null;
+      let originalImageId = null;
 
-      // update transaction picture in storage (!og & new || og & new)
+      // Get existing image's id (if exist) 
+      // Delete image from DB (if needed)
 
-      if (image !== transactionImage) {
-        // delete existing (og exists)
+      if (transactionImage != null) {
 
-        if (transactionImage != null) {
-          const key = transactionImage.substring(
-            transactionImage.lastIndexOf('transactions/') + 13,
-          );
-          url = null;
+        // Retrieve id
 
-          const { error } = await supabase.storage.from('transactions').remove([key]);
+        const startIndex = transactionImage.indexOf(`${user.user_id}/`) + 37;
+        const endIndex = transactionImage.indexOf('?');
+
+        originalImageId = transactionImage.substring(startIndex, endIndex);
+
+        // Delete image from db 
+
+        if (image == null) {
+
+          // test if it deletes
+
+          const { error } = await supabase.storage.from('transactions').remove([`${user.user_id}/${originalImageId}`]);
 
           if (error) {
             throw error;
           }
         }
+      }
 
-        // save new image (photo was taken)
+      // Upsert image in DB && update URL
 
-        if (image != null) {
+      if (image != null) {
+
+        let newImageId = image.substring(image.lastIndexOf('/') + 1, image.lastIndexOf('.'));
+
+        if (originalImageId == null || newImageId != originalImageId) {
+
+          // upsert image
+
           const ext = image.substring(image.lastIndexOf('.') + 1);
-          const fileName = image.substring(image.lastIndexOf('/') + 1, image.lastIndexOf('.'));
-          url = `https://tbgxebebapqscbpmpecp.supabase.co/storage/v1/object/public/transactions/${user.user_id}/${fileName}`;
-
           const formData = new FormData();
 
           formData.append('files', {
             uri: image,
-            name: fileName,
+            name: newImageId,
             type: `image/${ext}`,
           });
 
+          if (originalImageId != null) {
+            newImageId = originalImageId;
+          }
+
           const { uploadError } = await supabase.storage
             .from('transactions')
-            .upload(`${user.user_id}/${fileName}`, formData);
+            .upload(`${user.user_id}/${newImageId}`, formData, { upsert: true });
 
           if (uploadError) {
-            throw new Error();
+            throw uploadError;
           }
+
+          url = `https://tbgxebebapqscbpmpecp.supabase.co/storage/v1/object/public/transactions/${user.user_id}/${newImageId}?timestamp=${new Date().getTime()}`;
         }
-      } else {
-        url = transactionImage;
       }
 
-      // update transaction
+      // Update transaction
 
       const update = {
         category_id,
@@ -308,7 +319,6 @@ function ViewModel(props) {
       }
     } finally {
       getTransactions();
-      // getAll();
     }
   }
 
@@ -318,28 +328,29 @@ function ViewModel(props) {
 
       const { transaction } = fetchTransaction(transaction_id);
 
-      // delete transaction
+      // Delete image from DB (if exists)
+
+      if (transaction.image != null) {
+        // extract uuid & image key
+
+        const startIndex = transaction.image.indexOf(`${user.user_id}/`) + 37;
+        const endIndex = transaction.image.indexOf('?');
+
+        originalImageId = transaction.image.substring(startIndex, endIndex);
+
+        const { error } = await supabase.storage.from('transactions').remove([`${user.user_id}/${originalImageId}`]);
+
+        if (error) {
+          throw error;
+        }
+      }
+
+      // Delete transaction
 
       const { error } = await supabase.from('transactions').delete().eq('id', transaction_id);
 
       if (error) {
         throw error;
-      }
-
-      // delete stored image, if exists
-
-      if (transaction.image != null) {
-        // extract uuid & image key
-
-        const key = transaction.image.substring(
-          transaction.image.lastIndexOf('transactions/') + 13,
-        );
-
-        const { error } = await supabase.storage.from('transactions').remove([key]);
-
-        if (error) {
-          throw error;
-        }
       }
     } catch (error) {
       if (error instanceof Error) {
