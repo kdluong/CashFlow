@@ -19,6 +19,8 @@ import IconLarge from '../../../../components/Icons/IconLarge';
 import BackButton from '../../../../components/Buttons/BackButton';
 import CancelButton from '../../../../components/Buttons/CancelButton';
 
+
+
 const NewTransactionFinishView = ({ navigation, route }: { navigation: any; route: any }) => {
   const { transaction_id, category_id, total, returnScreen } = route.params;
   const { createTransaction, updateTransaction, fetchTransaction, fetchCategory } =
@@ -31,7 +33,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
 
   const currentDate = new Date();
 
-  const bottomSheetRef = React.useRef<BottomSheet>(null);
+  const cameraSheetRef = React.useRef<BottomSheet>(null);
+  const successSheetRef = React.useRef<BottomSheet>(null);
   const [showCamera, setShowCamera] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
@@ -40,7 +43,27 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
   const [validName, setValidName] = React.useState(true);
   let tempValidName = true;
 
-  async function handleComplete() {
+  function handleSuccess() {
+
+    if (returnScreen == 'DashboardView') {
+      navigation.navigate('DashboardStack', {
+        screen: returnScreen,
+      });
+    } else if (returnScreen == 'TransactionAllView') {
+      navigation.navigate('TransactionStack', {
+        screen: returnScreen,
+      });
+    } else {
+      navigation.navigate('CategoryStack', {
+        screen: returnScreen,
+        params: {
+          category_id: category_id,
+        },
+      });
+    }
+  }
+
+  async function processTransaction() {
     var imageUri = null;
 
     if (images != '') {
@@ -82,23 +105,8 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
 
       setLoading(false);
 
-      // handle return
-
-      if (returnScreen == 'DashboardView') {
-        navigation.navigate('DashboardStack', {
-          screen: returnScreen,
-        });
-      } else if (returnScreen == 'TransactionAllView') {
-        navigation.navigate('TransactionStack', {
-          screen: returnScreen,
-        });
-      } else if (returnScreen == 'CategoryView') {
-        navigation.navigate('CategoryStack', {
-          screen: returnScreen,
-          params: {
-            category_id: category_id,
-          },
-        });
+      if (returnScreen != null) {
+        successSheetRef.current?.expand();
       } else {
         navigation.pop(2);
       }
@@ -134,13 +142,13 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
         setHasCameraPermission(cameraStatus.granted);
 
         setShowCamera(true);
-        bottomSheetRef.current?.expand();
+        cameraSheetRef.current?.expand();
       })();
 
     }
     else if (hasCameraPermission) {
       setShowCamera(true);
-      bottomSheetRef.current?.expand();
+      cameraSheetRef.current?.expand();
     }
     else {
       Alert.alert("Camera Permission Required", "\nPlease grant the camera permission in order to use this feature.");
@@ -192,7 +200,7 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
           ) : (
             <TouchableOpacity
               onPress={() => {
-                name != '' && handleComplete();
+                name != '' && processTransaction();
               }}
               disabled={name == ''}
               style={{ width: scale(35), alignItems: 'flex-end' }}
@@ -316,20 +324,79 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
         </View>
       </CustomView>
 
-      {/* Camera */}
+      {/* Camera View*/}
 
       <BottomSheet
-        ref={bottomSheetRef}
+        ref={cameraSheetRef}
         snapPoints={['100%']}
         index={-1}
-        onClose={() => setShowCamera(false)}
         backgroundStyle={{ backgroundColor: 'black' }}
+        onClose={() => setShowCamera(false)}
       >
         <CameraComponent
-          bottomSheetRef={bottomSheetRef}
+          bottomSheetRef={cameraSheetRef}
           setPicture={setImages}
           showCamera={showCamera}
         />
+      </BottomSheet>
+
+      {/* Success View */}
+
+      <BottomSheet
+        ref={successSheetRef}
+        snapPoints={['100%']}
+        index={-1}
+        backgroundStyle={{ backgroundColor: green }}
+      >
+        <View style={{ alignItems: "center", justifyContent: 'space-between', height: '100%', paddingBottom: scale(50) }}>
+
+          <View />
+
+          {/* Success Message */}
+
+          <View style={{ alignItems: "center" }}>
+            <Ionicons name='checkmark-done-circle-sharp' size={scale(200)} color={'white'} style={{
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.22,
+              shadowRadius: 2.22,
+              elevation: 3,
+            }} />
+            <Text style={[globalStyles.logo, {}]}>Success!</Text>
+            <Text style={[globalStyles.subHeader('white'), { paddingTop: scale(0) }]}>Your transaction of ${total} was successfully processed.</Text>
+          </View>
+
+          {/* Done Button */}
+
+          <TouchableOpacity
+            onPress={() => {
+              handleSuccess()
+            }}
+            style={{
+              height: scale(43),
+              paddingHorizontal: 50,
+              borderRadius: 100,
+              backgroundColor: 'black',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.22,
+              shadowRadius: 2.22,
+              elevation: 3,
+            }}
+          >
+            <Text style={globalStyles.subHeader('white')}>Done</Text>
+          </TouchableOpacity>
+
+        </View>
       </BottomSheet>
     </GestureHandlerRootView>
   );
