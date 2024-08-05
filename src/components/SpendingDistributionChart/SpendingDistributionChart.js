@@ -56,9 +56,9 @@ function SpendingDistributionChart({ categories, total }) {
 
       <PieChart
         data={handleData()}
-        radius={scale(60)}
-        innerRadius={scale(42)}
-        strokeWidth={scale(1)}
+        radius={scale(70)}
+        innerRadius={scale(45)}
+        strokeWidth={scale(4)}
         strokeColor={accentColor}
         innerCircleColor={accentColor}
         centerLabelComponent={renderCenterComponent}

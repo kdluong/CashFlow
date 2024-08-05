@@ -4,6 +4,7 @@ import { scale } from 'react-native-size-matters';
 import globalStyles from '../../styles/styles.ts';
 import { UserContext } from '../../supabase/ViewModel';
 import IconSmall from '../Icons/IconSmall';
+import { accentColor } from '../../constants/constants.js';
 
 function CategoryMediumCard({ category_id, total }) {
   const { categories, fetchCategory } = React.useContext(UserContext);
@@ -16,7 +17,7 @@ function CategoryMediumCard({ category_id, total }) {
   return (
     <View
       style={{
-        backgroundColor: category?.color,
+        backgroundColor: accentColor,
         height: scale(105),
         width: scale(148),
         justifyContent: 'space-between',
@@ -28,7 +29,7 @@ function CategoryMediumCard({ category_id, total }) {
           width: 0,
           height: 12,
         },
-        shadowOpacity: 0.58,
+        shadowOpacity: 0.28,
         shadowRadius: 16.0,
         elevation: 24,
       }}
@@ -36,7 +37,7 @@ function CategoryMediumCard({ category_id, total }) {
       {/* Icon & Total */}
 
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <IconSmall name={category?.icon} color={category?.color} backgroundColor="white" />
+        <IconSmall name={category?.icon} color={'white'} backgroundColor={category?.color} />
 
         <Text
           style={{

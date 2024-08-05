@@ -31,6 +31,9 @@ function TopCategoriesChart({
         Top Categories
       </Text>
 
+      <View />
+
+
       <View style={{ gap: scale(8), width: scale(120) }}>
         {copiedArray
           ?.splice(0, 4)
@@ -50,7 +53,6 @@ function TopCategoriesChart({
           ))}
       </View>
 
-      {/* <View /> */}
     </View>
   );
 }
