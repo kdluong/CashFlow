@@ -18,6 +18,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import IconLarge from '../../../../components/Icons/IconLarge';
 import BackButton from '../../../../components/Buttons/BackButton';
 import CancelButton from '../../../../components/Buttons/CancelButton';
+import LoadingScreen from '../../../Loading/LoadingScreen';
 
 
 
@@ -176,161 +177,167 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <CustomView
-        backgroundColor={backgroundColor}
-        style={{ flex: 1, justifyContent: 'space-between' }}
-      >
-        {/* Header */}
 
-        <View
-          style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+      {loading
+        ?
+        <LoadingScreen />
+        :
+        <CustomView
+          backgroundColor={backgroundColor}
+          style={{ flex: 1, justifyContent: 'space-between' }}
         >
-          {/* Back Button */}
+          {/* Header */}
 
-          <TouchableOpacity disabled={loading} onPress={() => navigation.goBack()}>
-            <BackButton />
-          </TouchableOpacity>
+          <View
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+          >
+            {/* Back Button */}
 
-          <Text style={globalStyles.header('white')}>Confirm Transaction</Text>
-
-          {/* Complete & Loading */}
-
-          {loading ? (
-            <ActivityIndicator color={'white'} style={{ width: scale(35) }} />
-          ) : (
-            <TouchableOpacity
-              onPress={() => {
-                name != '' && processTransaction();
-              }}
-              disabled={name == ''}
-              style={{ width: scale(35), alignItems: 'flex-end' }}
-            >
-              <Ionicons
-                name="checkmark-done-sharp"
-                size={scale(22)}
-                color={name == '' ? 'gray' : green}
-              />
+            <TouchableOpacity disabled={loading} onPress={() => navigation.goBack()}>
+              <BackButton />
             </TouchableOpacity>
-          )}
-        </View>
 
-        {/* Text Input */}
+            <Text style={globalStyles.header('white')}>Confirm Transaction</Text>
 
-        <CustomTextInput
-          value={name}
-          onChangeText={setName}
-          placeholder={'Enter transaction name'}
-          loading={loading}
-          autoCapitalize={true}
-          autoCorrect={true}
-          valid={validName}
-          dark={false}
-        />
+            {/* Complete & Loading */}
 
-        {/* Transaction Card */}
-
-        <View
-          style={{
-            height: Dimensions.get('screen').height < 700 ? scale(395) : scale(495),
-            backgroundColor: category?.color,
-            borderRadius: scale(5),
-            overflow: 'hidden',
-            justifyContent: 'space-between',
-          }}
-        >
-          {images != '' ? (
-            <Image
-              source={images}
-              style={{
-                height: '100%',
-                flexDirection: 'row',
-                padding: scale(15),
-                justifyContent: 'space-between',
-              }}
-            >
-              <TouchableOpacity onPress={() => setImages('')} disabled={loading} style={{ alignSelf: 'flex-start' }}>
-                <CancelButton />
-              </TouchableOpacity>
-            </Image>
-          ) : (
-            <View>
-              {/* Open Camera */}
-
+            {loading ? (
+              <ActivityIndicator color={'white'} style={{ width: scale(35) }} />
+            ) : (
               <TouchableOpacity
-                onPress={() => openCamera()}
-                style={{
-                  height: '50%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                onPress={() => {
+                  name != '' && processTransaction();
                 }}
-                disabled={loading}
+                disabled={name == ''}
+                style={{ width: scale(35), alignItems: 'flex-end' }}
               >
-                <Ionicons name="camera-sharp" size={scale(25)} />
+                <Ionicons
+                  name="checkmark-done-sharp"
+                  size={scale(22)}
+                  color={name == '' ? 'gray' : green}
+                />
               </TouchableOpacity>
+            )}
+          </View>
 
-              <View style={{ backgroundColor: backgroundColor, height: scale(5) }} />
+          {/* Text Input */}
 
-              {/* Open Image Picker */}
+          <CustomTextInput
+            value={name}
+            onChangeText={setName}
+            placeholder={'Enter transaction name'}
+            loading={loading}
+            autoCapitalize={true}
+            autoCorrect={true}
+            valid={validName}
+            dark={false}
+          />
 
-              <TouchableOpacity
-                onPress={() => openImagePicker()}
+          {/* Transaction Card */}
+
+          <View
+            style={{
+              height: Dimensions.get('screen').height < 700 ? scale(395) : scale(495),
+              backgroundColor: category?.color,
+              borderRadius: scale(5),
+              overflow: 'hidden',
+              justifyContent: 'space-between',
+            }}
+          >
+            {images != '' ? (
+              <Image
+                source={images}
                 style={{
-                  height: '50%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  height: '100%',
+                  flexDirection: 'row',
+                  padding: scale(15),
+                  justifyContent: 'space-between',
                 }}
-                disabled={loading}
               >
-                <Ionicons name="image-sharp" size={scale(25)} />
-              </TouchableOpacity>
+                <TouchableOpacity onPress={() => setImages('')} disabled={loading} style={{ alignSelf: 'flex-start' }}>
+                  <CancelButton />
+                </TouchableOpacity>
+              </Image>
+            ) : (
+              <View>
+                {/* Open Camera */}
+
+                <TouchableOpacity
+                  onPress={() => openCamera()}
+                  style={{
+                    height: '50%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  disabled={loading}
+                >
+                  <Ionicons name="camera-sharp" size={scale(25)} />
+                </TouchableOpacity>
+
+                <View style={{ backgroundColor: backgroundColor, height: scale(5) }} />
+
+                {/* Open Image Picker */}
+
+                <TouchableOpacity
+                  onPress={() => openImagePicker()}
+                  style={{
+                    height: '50%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  disabled={loading}
+                >
+                  <Ionicons name="image-sharp" size={scale(25)} />
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+
+          {/* Transaction Info */}
+
+          <View
+            style={{
+              backgroundColor: 'white',
+              borderRadius: scale(10),
+              height: scale(70),
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              padding: scale(15),
+              alignItems: 'center',
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.2,
+              shadowRadius: 1.41,
+              elevation: 2,
+            }}
+          >
+            {/* Icon & Name */}
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(13) }}>
+              <IconLarge name={category?.icon} color={'white'} backgroundColor={category?.color} />
+
+              <View style={{ gap: scale(2) }}>
+                <Text style={globalStyles.subHeader('black')}>
+                  {name == '' ? 'Transaction Name' : name}
+                </Text>
+                <Text style={globalStyles.body('#5b647d')}>{category?.name}</Text>
+              </View>
             </View>
-          )}
-        </View>
 
-        {/* Transaction Info */}
+            {/* Total & Date */}
 
-        <View
-          style={{
-            backgroundColor: 'white',
-            borderRadius: scale(10),
-            height: scale(70),
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            padding: scale(15),
-            alignItems: 'center',
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 1,
-            },
-            shadowOpacity: 0.2,
-            shadowRadius: 1.41,
-            elevation: 2,
-          }}
-        >
-          {/* Icon & Name */}
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(13) }}>
-            <IconLarge name={category?.icon} color={'white'} backgroundColor={category?.color} />
-
-            <View style={{ gap: scale(2) }}>
-              <Text style={globalStyles.subHeader('black')}>
-                {name == '' ? 'Transaction Name' : name}
+            <View style={{ alignItems: 'flex-end', gap: scale(2), }}>
+              <Text style={globalStyles.subHeader('black')}>${total}</Text>
+              <Text style={globalStyles.body('#5b647d')}>
+                {getDateLong(currentDate)} @ {getTime(currentDate)}
               </Text>
-              <Text style={globalStyles.body('#5b647d')}>{category?.name}</Text>
             </View>
           </View>
-
-          {/* Total & Date */}
-
-          <View style={{ alignItems: 'flex-end', gap: scale(2), }}>
-            <Text style={globalStyles.subHeader('black')}>${total}</Text>
-            <Text style={globalStyles.body('#5b647d')}>
-              {getDateLong(currentDate)} @ {getTime(currentDate)}
-            </Text>
-          </View>
-        </View>
-      </CustomView>
+        </CustomView>
+      }
 
       {/* Camera View*/}
 
