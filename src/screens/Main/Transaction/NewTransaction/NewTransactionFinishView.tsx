@@ -292,32 +292,40 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
         <View
           style={{
             backgroundColor: 'white',
-            borderRadius: scale(5),
+            borderRadius: scale(10),
             height: scale(70),
             justifyContent: 'space-between',
             flexDirection: 'row',
             padding: scale(15),
             alignItems: 'center',
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowOpacity: 0.2,
+            shadowRadius: 1.41,
+            elevation: 2,
           }}
         >
           {/* Icon & Name */}
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(10) }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(13) }}>
             <IconLarge name={category?.icon} color={'white'} backgroundColor={category?.color} />
 
-            <View>
+            <View style={{ gap: scale(2) }}>
               <Text style={globalStyles.subHeader('black')}>
                 {name == '' ? 'Transaction Name' : name}
               </Text>
-              <Text style={globalStyles.body('gray')}>{category?.name}</Text>
+              <Text style={globalStyles.body('#5b647d')}>{category?.name}</Text>
             </View>
           </View>
 
           {/* Total & Date */}
 
-          <View style={{ alignItems: 'flex-end' }}>
-            <Text style={globalStyles.subHeader('black')}>- ${total}</Text>
-            <Text style={globalStyles.body('gray')}>
+          <View style={{ alignItems: 'flex-end', gap: scale(2), }}>
+            <Text style={globalStyles.subHeader('black')}>${total}</Text>
+            <Text style={globalStyles.body('#5b647d')}>
               {getDateLong(currentDate)} @ {getTime(currentDate)}
             </Text>
           </View>

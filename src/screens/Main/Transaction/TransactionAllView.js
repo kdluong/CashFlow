@@ -10,7 +10,8 @@ import TransactionMediumCard from '../../../components/TransactionCards/Transact
 import SearchPicker from '../../../components/TextInputs/SearchPicker';
 import OpenDrawerButton from '../../../components/Buttons/OpenDrawerButton';
 import CustomFlatListView from '../../../components/CustomViews/CustomFlatListView';
-import { green } from '../../../constants/constants';
+import { green, accentColor } from '../../../constants/constants';
+import IconSmall from '../../../components/Icons/IconSmall.js';
 
 function TransactionAllView({ navigation }) {
   const { transactions, getAll } = React.useContext(UserContext);
@@ -61,6 +62,7 @@ function TransactionAllView({ navigation }) {
 
   const renderHeader = () => (
     <View style={{ gap: scale(10) }}>
+
       {/* Header */}
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -68,27 +70,30 @@ function TransactionAllView({ navigation }) {
 
         <OpenDrawerButton onPress={() => navigation.openDrawer()} />
 
-        {/* Name & Icon */}
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(5) }}>
-          <Text style={globalStyles.header('white')}>Transactions</Text>
-          <Ionicons name="receipt" size={scale(16)} color="white" />
-        </View>
-
         {/* New Transaction */}
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate('SharedStack', {
-            screen: 'NewTransactionStartView',
-            params: {
-              transaction_id: null,
-              category_id: null,
-              returnScreen: 'TransactionAllView',
-            },
-          })}
-        >
-          <Ionicons name="add" size={scale(25)} color={green} />
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row", gap: scale(7) }}>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SharedStack', {
+              screen: 'NewTransactionStartView',
+              params: {
+                transaction_id: null,
+                category_id: null,
+                returnScreen: 'TransactionAllView',
+              },
+            })}
+          >
+            <Ionicons name="add" size={scale(25)} color={green} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Name & Icon */}
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(5) }}>
+        <Text style={{ fontFamily: 'BebasBold', color: 'white', fontSize: '50' }}>Transactions</Text>
+        <Ionicons name="receipt-outline" size={scale(27)} color="white" />
       </View>
 
       {/* Search & Filter */}
@@ -100,6 +105,7 @@ function TransactionAllView({ navigation }) {
         border={undefined}
         dark={false}
       />
+
     </View>
   );
 

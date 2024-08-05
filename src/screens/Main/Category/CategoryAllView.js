@@ -59,6 +59,7 @@ function CategoryAllView({ navigation }) {
       {/* Header */}
 
       <View style={{ gap: scale(10) }}>
+
         {/* Header */}
 
         <View
@@ -68,12 +69,6 @@ function CategoryAllView({ navigation }) {
 
           <OpenDrawerButton onPress={() => navigation.openDrawer()} />
 
-          {/* Name & Icon */}
-
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(5) }}>
-            <Text style={globalStyles.header('white')}>Categories</Text>
-            <Ionicons name="pie-chart" size={scale(16)} color="white" />
-          </View>
 
           {/* New Category */}
 
@@ -87,6 +82,11 @@ function CategoryAllView({ navigation }) {
           >
             <Ionicons name="add" size={scale(25)} color={green} />
           </TouchableOpacity>
+        </View>
+
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(5) }}>
+          <Text style={{ fontFamily: 'BebasBold', color: 'white', fontSize: '50' }}>Categories</Text>
+          <Ionicons name="pie-chart-outline" size={scale(27)} color="white" />
         </View>
 
         {/* Switch */}
