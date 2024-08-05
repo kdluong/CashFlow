@@ -234,15 +234,19 @@ function DashboardView({ navigation }) {
               <BarChart
                 data={chartData}
                 height={scale(70)}
-                width={scale(226)}
+                width={scale(235)}
                 barWidth={scale(15)}
-                spacing={scale(10.8)}
+                spacing={scale(14)}
+                endSpacing={scale(1)}
+                initialSpacing={scale(5)}
+                
+
                 frontColor={green}
                 barBorderRadius={scale(5)}
                 noOfSections={2}
-                xAxisLabelTextStyle={{ ...globalStyles.body('gray'), alignSelf: 'center' }}
+                xAxisLabelTextStyle={{ ...globalStyles.body('#5b647d'), alignSelf: 'center' }}
                 xAxisThickness={0}
-                yAxisTextStyle={{ ...globalStyles.body('gray'), alignSelf: 'center' }}
+                yAxisTextStyle={{ ...globalStyles.body('#5b647d'), alignSelf: 'center' }}
                 yAxisLabelPrefix="$"
                 yAxisThickness={0}
                 scrollToEnd
@@ -286,7 +290,7 @@ function DashboardView({ navigation }) {
                   navigation.jumpTo('TransactionStack');
                 }}
               >
-                <Text style={globalStyles.body('gray')}>More</Text>
+                <Text style={globalStyles.body('#5b647d')}>More</Text>
               </TouchableOpacity>
             </View>
 
@@ -307,9 +311,10 @@ function DashboardView({ navigation }) {
           position: 'absolute',
           bottom: 0,
           alignSelf: 'center',
-          gap: scale(5),
-          width: scale(140),
-          paddingVertical: scale(13),
+          //gap: scale(5),
+          //width: scale(140),
+          //paddingVertical: scale(13),
+          padding: scale(10),
           marginBottom: scale(40),
           shadowColor: '#000',
           shadowOffset: {
@@ -329,9 +334,9 @@ function DashboardView({ navigation }) {
           },
         })}
       >
-        <Text style={globalStyles.subHeader('black')}>New Transaction</Text>
+        {/* <Text style={globalStyles.subHeader('black')}>New Transaction</Text> */}
 
-        <Ionicons name="add-sharp" size={scale(16)} color="black" />
+        <Ionicons name="barcode-outline" size={scale(25)} color="black" />
       </TouchableOpacity>
     </View>
   );

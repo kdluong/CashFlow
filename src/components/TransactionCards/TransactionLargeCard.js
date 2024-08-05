@@ -7,6 +7,7 @@ import globalStyles from '../../styles/styles.ts';
 import { UserContext } from '../../supabase/ViewModel';
 import CustomView from '../CustomViews/CustomView';
 import IconLarge from '../Icons/IconLarge';
+import TransactionSmallCard from './TransactionSmallCard';
 
 function TransactionLargeCard({ transaction_id, children }) {
   const { fetchTransaction, transactions } = React.useContext(UserContext);
@@ -45,7 +46,7 @@ function TransactionLargeCard({ transaction_id, children }) {
         <View
           style={{
             backgroundColor: 'white',
-            borderRadius: scale(5),
+            borderRadius: scale(10),
             height: scale(70),
             justifyContent: 'space-between',
             flexDirection: 'row',
@@ -63,12 +64,12 @@ function TransactionLargeCard({ transaction_id, children }) {
         >
           {/* Icon & Name */}
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(10) }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(13) }}>
             <IconLarge name={category?.icon} color="white" backgroundColor={category?.color} />
 
-            <View>
+            <View style={{ gap: scale(2) }}>
               <Text style={globalStyles.subHeader('black')}>{transaction?.name}</Text>
-              <Text style={globalStyles.body('gray')}>{category?.name}</Text>
+              <Text style={globalStyles.body('#5b647d')}>{category?.name}</Text>
             </View>
           </View>
 
@@ -76,13 +77,14 @@ function TransactionLargeCard({ transaction_id, children }) {
 
           <View style={{
             alignItems: 'flex-end', position: 'absolute', right: 0, paddingRight: scale(15),
+            gap: scale(2),
           }}
           >
             <Text style={globalStyles.subHeader('black')}>
-              - $
+              $
               {transaction?.total?.toFixed(2)}
             </Text>
-            <Text style={globalStyles.body('gray')}>
+            <Text style={globalStyles.body('#5b647d')}>
               {getDateLong(transaction?.date)}
               {' @ '}
               {getTime(transaction?.date)}

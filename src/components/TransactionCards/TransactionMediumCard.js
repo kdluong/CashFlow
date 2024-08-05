@@ -57,7 +57,7 @@ function TransactionMediumCard({ transaction_id }) {
 
       <View
         style={{
-          padding: scale(10),
+          padding: scale(12),
           justifyContent: 'space-between',
           height: '100%',
           width: '100%',
@@ -101,7 +101,7 @@ function TransactionMediumCard({ transaction_id }) {
         <View style={{}}>
           <Text
             style={{
-              ...globalStyles.subHeader('white'),
+              ...globalStyles.body('white'),
               textShadowColor: 'black',
               textShadowOffset: { width: 0.2, height: 0.2 },
               textShadowRadius: 2,

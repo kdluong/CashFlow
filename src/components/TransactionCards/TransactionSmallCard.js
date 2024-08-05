@@ -27,7 +27,6 @@ function TransactionSmallCard({ transaction_id }) {
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
-        backgroundColor: 'white',
       }}
     >
       {/* Icon, Name, & Category */}
@@ -40,7 +39,7 @@ function TransactionSmallCard({ transaction_id }) {
         {/* Name & Category */}
 
         <View>
-          <Text style={globalStyles.subHeader('black')}>{transaction?.name}</Text>
+          <Text style={[globalStyles.subHeader('black'), { paddingBottom: scale(2) }]}>{transaction?.name}</Text>
           <Text style={globalStyles.body('#5b647d')}>{category?.name}</Text>
         </View>
       </View>
@@ -50,10 +49,10 @@ function TransactionSmallCard({ transaction_id }) {
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: scale(5) }}>
         <View style={{ alignItems: 'flex-end' }}>
           <Text style={globalStyles.subHeader('black')}>
-            - $
+            $
             {transaction?.total?.toFixed(2)}
           </Text>
-          <Text style={globalStyles.body('#5b647d')}>{getDate(transaction?.date)}</Text>
+          {/* <Text style={globalStyles.body('#5b647d')}>{getDate(transaction?.date)}</Text> */}
         </View>
       </View>
     </View>
