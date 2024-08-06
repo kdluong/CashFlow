@@ -13,6 +13,7 @@ import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKe
 import {
   backgroundColor, green, emailRegex, passRegex,
 } from '../../../constants/constants';
+import LoadingScreen from '../../Loading/LoadingScreen.js';
 
 function EditAccountView({ navigation, route }) {
   const [newValue, setNewValue] = React.useState('');
@@ -24,50 +25,45 @@ function EditAccountView({ navigation, route }) {
   const [validValue, setValidValue] = React.useState(true);
   const [validConfirm, setValidConfirm] = React.useState(true);
 
-  let tempValidValue = true;
-  let tempValidConfirm = true;
-
   async function handleComplete() {
+
+    let tempValidValue = false;
+    let tempValidConfirm = false;
+    let successFlag = null;
+
+    // Validate Email/Password
+
     if (option === 'email') {
       // Email Validation
-      if (!emailRegex.test(newValue)) {
-        tempValidValue = false;
-        setValidValue(tempValidValue);
-      } else {
+      if (emailRegex.test(newValue)) {
         tempValidValue = true;
-        setValidValue(tempValidValue);
       }
 
+      setValidValue(tempValidValue);
+
       // Confirm Validation
-      if (!emailRegex.test(confirmValue)) {
-        tempValidConfirm = false;
-        setValidConfirm(tempValidConfirm);
-      } else {
+      if (emailRegex.test(confirmValue)) {
         tempValidConfirm = true;
-        setValidConfirm(tempValidConfirm);
       }
+
+      setValidConfirm(tempValidConfirm);
     } else {
       // Password Validation
-      if (!passRegex.test(newValue)) {
-        tempValidValue = false;
-        setValidValue(tempValidValue);
-      } else {
+      if (passRegex.test(newValue)) {
         tempValidValue = true;
-        setValidValue(tempValidValue);
       }
 
+      setValidValue(tempValidValue);
+
       // Confirm Validation
-      if (!emailRegex.test(confirmValue)) {
-        tempValidConfirm = false;
-        setValidConfirm(tempValidConfirm);
-      } else {
+      if (emailRegex.test(confirmValue)) {
         tempValidConfirm = true;
-        setValidConfirm(tempValidConfirm);
       }
+
+      setValidConfirm(tempValidConfirm);
     }
 
     if (tempValidValue && tempValidConfirm) {
-      setLoading(true);
 
       if (option === 'email') {
         Alert.alert(
@@ -75,7 +71,7 @@ function EditAccountView({ navigation, route }) {
           '\nAre you sure you want to change your email?',
           [
             { text: 'Cancel', onPress: () => { } },
-            { text: 'Confirm', onPress: async () => { await changeEmail(newValue); } },
+            { text: 'Confirm', onPress: async () => { setLoading(true); successFlag = await changeEmail(newValue); } },
           ],
         );
       } else {
@@ -84,12 +80,24 @@ function EditAccountView({ navigation, route }) {
           '\nAre you sure you want to change your password?',
           [
             { text: 'Cancel', onPress: () => { } },
-            { text: 'Confirm', onPress: async () => { await changePassword(newValue); } },
+            { text: 'Confirm', onPress: async () => { setLoading(true); successFlag = await changePassword(newValue); } },
           ],
         );
       }
 
       setLoading(false);
+
+      if (successFlag == true) {
+
+        if (option === 'email') {
+          Alert.alert('Request Sent.', 'Check your email for a confirmation link.');
+        }
+        else {
+          Alert.alert('Password Successfully Changed.');
+        }
+
+        navigation.goBack();
+      }
     }
   }
 
@@ -99,102 +107,107 @@ function EditAccountView({ navigation, route }) {
 
   return (
     <View style={{ flex: 1, backgroundColor }}>
-      <CustomKeyboardAvoidingView style={{ flex: 1, justifyContent: 'space-between' }}>
-        {/* Header */}
+      {loading
+        ?
+        <LoadingScreen />
+        :
+        <CustomKeyboardAvoidingView style={{ flex: 1, justifyContent: 'space-between' }}>
+          {/* Header */}
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          {/* Back Button */}
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            {/* Back Button */}
 
-          <TouchableOpacity onPress={() => navigation.goBack()} disabled={loading}>
-            <BackButton />
-          </TouchableOpacity>
-
-          <Text style={globalStyles.header('white')}>
-            {option !== 'password' ? 'Change Email' : 'Change Password'}
-          </Text>
-
-          {/* Complete */}
-
-          {loading ? (
-            <ActivityIndicator color="white" style={{ width: scale(35) }} />
-          ) : (
-            <TouchableOpacity
-              onPress={() => handleComplete()}
-              disabled={!isValid()}
-              style={{ width: scale(35), alignItems: 'flex-end' }}
-            >
-              <Ionicons
-                name="checkmark-done-sharp"
-                size={scale(22)}
-                color={isValid() ? green : 'gray'}
-              />
+            <TouchableOpacity onPress={() => navigation.goBack()} disabled={loading}>
+              <BackButton />
             </TouchableOpacity>
-          )}
-        </View>
 
-        {/* Text Input */}
+            <Text style={globalStyles.header('white')}>
+              {option !== 'password' ? 'Change Email' : 'Change Password'}
+            </Text>
 
-        {
-          option !== 'password'
-            ? (
-              <View style={{ gap: scale(10) }}>
-                <CustomTextInput
-                  value={newValue}
-                  onChangeText={setNewValue}
-                  placeholder="Enter a new email address"
-                  loading={loading}
-                  autoCapitalize={false}
-                  autoCorrect={false}
-                  valid={validValue}
-                  dark={false}
+            {/* Complete */}
+
+            {loading ? (
+              <ActivityIndicator color="white" style={{ width: scale(35) }} />
+            ) : (
+              <TouchableOpacity
+                onPress={() => handleComplete()}
+                disabled={!isValid()}
+                style={{ width: scale(35), alignItems: 'flex-end' }}
+              >
+                <Ionicons
+                  name="checkmark-done-sharp"
+                  size={scale(22)}
+                  color={isValid() ? green : 'gray'}
                 />
+              </TouchableOpacity>
+            )}
+          </View>
 
-                <CustomTextInput
-                  value={confirmValue}
-                  onChangeText={setConfirmValue}
-                  placeholder="Confirm new email address"
-                  loading={loading}
-                  autoCapitalize={false}
-                  autoCorrect={false}
-                  valid={validConfirm}
-                  dark={false}
-                />
-              </View>
-            )
-            : (
-              <View style={{ gap: scale(10) }}>
+          {/* Text Input */}
 
-                <CustomPasswordInput
-                  value={newValue}
-                  onChangeText={setNewValue}
-                  placeholder="Enter a new password"
-                  loading={loading}
-                  valid={validValue}
-                  dark={false}
-                />
+          {
+            option !== 'password'
+              ? (
+                <View style={{ gap: scale(10) }}>
+                  <CustomTextInput
+                    value={newValue}
+                    onChangeText={setNewValue}
+                    placeholder="Enter a new email address"
+                    loading={loading}
+                    autoCapitalize={false}
+                    autoCorrect={false}
+                    valid={validValue}
+                    dark={false}
+                  />
 
-                <CustomPasswordInput
-                  value={confirmValue}
-                  onChangeText={setConfirmValue}
-                  placeholder="Confirm new password"
-                  loading={loading}
-                  valid={validConfirm}
-                  dark={false}
-                />
-              </View>
-            )
-        }
+                  <CustomTextInput
+                    value={confirmValue}
+                    onChangeText={setConfirmValue}
+                    placeholder="Confirm new email address"
+                    loading={loading}
+                    autoCapitalize={false}
+                    autoCorrect={false}
+                    valid={validConfirm}
+                    dark={false}
+                  />
+                </View>
+              )
+              : (
+                <View style={{ gap: scale(10) }}>
 
-        {/* Spacer */}
+                  <CustomPasswordInput
+                    value={newValue}
+                    onChangeText={setNewValue}
+                    placeholder="Enter a new password"
+                    loading={loading}
+                    valid={validValue}
+                    dark={false}
+                  />
 
-        <View />
-      </CustomKeyboardAvoidingView>
+                  <CustomPasswordInput
+                    value={confirmValue}
+                    onChangeText={setConfirmValue}
+                    placeholder="Confirm new password"
+                    loading={loading}
+                    valid={validConfirm}
+                    dark={false}
+                  />
+                </View>
+              )
+          }
+
+          {/* Spacer */}
+
+          <View />
+        </CustomKeyboardAvoidingView>
+      }
     </View>
   );
 }

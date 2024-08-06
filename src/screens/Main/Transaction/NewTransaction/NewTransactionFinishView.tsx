@@ -42,7 +42,7 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
   const [hasCameraPermission, setHasCameraPermission] = React.useState<boolean | undefined>(undefined);
 
   const [validName, setValidName] = React.useState(true);
-  let tempValidName = true;
+
 
   function handleSuccess() {
 
@@ -65,21 +65,22 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
   }
 
   async function processTransaction() {
-    var imageUri = null;
 
+    var imageUri = null;
+    let tempValidName = false;
+    let successFlag = false;
+
+    // Check for image
     if (images != '') {
       imageUri = images;
     }
 
     // Name Validation
-    if (!validRegex.test(name)) {
-      tempValidName = false;
-      setValidName(tempValidName);
-    }
-    else {
+    if (validRegex.test(name)) {
       tempValidName = true;
-      setValidName(tempValidName);
     }
+
+    setValidName(tempValidName);
 
     if (tempValidName) {
 
@@ -96,20 +97,24 @@ const NewTransactionFinishView = ({ navigation, route }: { navigation: any; rout
           transaction?.total != total ||
           transaction?.image != imageUri
         ) {
-          await updateTransaction(transaction_id, category?.id, name, total, imageUri);
+          successFlag = await updateTransaction(transaction_id, category?.id, name, total, imageUri);
         }
       } else {
         // create new transaction
 
-        await createTransaction(category?.id, name, total, imageUri);
+        successFlag = await createTransaction(category?.id, name, total, imageUri);
       }
 
       setLoading(false);
 
-      if (returnScreen != null) {
-        successSheetRef.current?.expand();
-      } else {
-        navigation.pop(2);
+      // Navigate if success, return if fail
+
+      if (successFlag) {
+        if (returnScreen != null) {
+          successSheetRef.current?.expand();
+        } else {
+          navigation.pop(2);
+        }
       }
     }
   }

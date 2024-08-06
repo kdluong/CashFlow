@@ -57,8 +57,9 @@ export async function changeEmail(email) {
 
   if (error) {
     Alert.alert('Error', error.message.substring(error.message.lastIndexOf(': ') + 1));
+    return false;
   } else {
-    Alert.alert('Request Sent.', 'Check your email for a confirmation link.');
+    return true;
   }
 }
 
@@ -67,7 +68,8 @@ export async function changePassword(password) {
 
   if (error) {
     Alert.alert('Error', error.message.substring(error.message.lastIndexOf(': ') + 1));
+    return false;
   } else {
-    Alert.alert('Password Successfully Changed.');
+    return true;
   }
 }

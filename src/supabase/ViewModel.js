@@ -211,14 +211,14 @@ function ViewModel(props) {
         throw error;
       }
 
-    } catch (error) {
-      if (error instanceof Error) {
-        Alert.alert(error.message);
-      }
-    } finally {
-      // update existing transactions
+      // If success, refresh transactions
 
       getTransactions();
+      return true;
+
+    } catch (error) {
+      Alert.alert('There was a problem processing your transaction.\n\nPlease try again!');
+      return false;
     }
   }
 
@@ -313,12 +313,15 @@ function ViewModel(props) {
       if (error) {
         throw error;
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        Alert.alert(error.message);
-      }
-    } finally {
+
+      // If success, refresh transactions
+
       getTransactions();
+      return true;
+
+    } catch (error) {
+      Alert.alert('There was a problem updating your transaction.\n\nPlease try again!');
+      return false;
     }
   }
 
@@ -352,14 +355,18 @@ function ViewModel(props) {
       if (error) {
         throw error;
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        Alert.alert(error.message);
-      }
-    } finally {
+
+      // if success, refresh (if needed)
+
       if (refresh) {
         getTransactions();
       }
+
+      return true;
+
+    } catch (error) {
+      Alert.alert('There was a problem deleting your transaction.\n\nPlease try again!');
+      return false;
     }
   }
 
@@ -620,12 +627,15 @@ function ViewModel(props) {
       if (error) {
         throw error;
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        Alert.alert(error.message);
-      }
-    } finally {
+
+      // If successful, refresh user
+
       getUser();
+      return true;
+
+    } catch (error) {
+      Alert.alert('There was a problem updating your profile.\n\nPlease try again!');
+      return false;
     }
   }
 

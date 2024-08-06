@@ -14,6 +14,7 @@ import { scale } from 'react-native-size-matters';
 import BackButton from '../../../components/Buttons/BackButton';
 import CustomKeyboardAvoidingView from '../../../components/CustomViews/CustomKeyboardAvoidingView';
 import { backgroundColor, green } from '../../../constants/constants';
+import LoadingScreen from '../../Loading/LoadingScreen';
 
 const EditProfileView = ({ navigation }: { navigation: any }) => {
   const { user, updateUser } = React.useContext(UserContext);
@@ -29,8 +30,6 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
   const [validLast, setValidLast] = React.useState(true);
 
   const [hasCameraPermission, setHasCameraPermission] = React.useState<boolean | undefined>(undefined);
-  let tempValidFirst = true;
-  let tempValidLast = true;
 
   function isValid() {
     return (
@@ -84,31 +83,35 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
   }
 
   async function handleComplete() {
+    let tempValidFirst = false;
+    let tempValidLast = false;
+    let successFlag = false;
 
     // First Name Validation
-    if (!nameRegex.test(firstName)) {
-      tempValidFirst = false;
-      setValidFirst(tempValidFirst);
-    }
-    else {
+    if (nameRegex.test(firstName)) {
       tempValidFirst = true;
-      setValidFirst(tempValidFirst);
     }
 
+    setValidFirst(tempValidFirst);
+
     // Last Name Validation
-    if (!nameRegex.test(lastName)) {
-      tempValidLast = false;
-      setValidLast(tempValidLast);
-    } else {
+    if (nameRegex.test(lastName)) {
       tempValidLast = true;
-      setValidLast(tempValidLast);
     }
+
+    setValidLast(tempValidLast);
 
     if (tempValidFirst && tempValidLast) {
       setLoading(true);
-      await updateUser(firstName, lastName, picture);
+      successFlag = await updateUser(firstName, lastName, picture);
       setLoading(false);
-      navigation.goBack();
+
+      if (successFlag) {
+        navigation.goBack();
+      }
+    }
+    else {
+      Alert.alert('Please enter a valid first or last name.\n\nPlease try again!');
     }
   }
 
@@ -120,149 +123,154 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor }}>
-      <CustomKeyboardAvoidingView style={{ flex: 1, justifyContent: 'space-between' }}>
-        {/* Header */}
+      {loading
+        ?
+        <LoadingScreen />
+        :
+        <CustomKeyboardAvoidingView style={{ flex: 1, justifyContent: 'space-between' }}>
+          {/* Header */}
 
-        <View
-          style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
-        >
-          {/* New Back Button */}
+          <View
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}
+          >
+            {/* New Back Button */}
 
-          <TouchableOpacity disabled={loading} onPress={() => navigation.goBack()}>
-            <BackButton />
-          </TouchableOpacity>
-
-          <Text style={globalStyles.header('white')}>Edit Profile</Text>
-
-          {/* Complete */}
-
-          {loading ? (
-            <ActivityIndicator color={'white'} style={{ width: scale(35) }} />
-          ) : (
-            <TouchableOpacity
-              onPress={() => handleComplete()}
-              style={{ width: scale(35), alignItems: 'flex-end' }}
-              disabled={!isValid()}
-            >
-              <Ionicons
-                name="checkmark-done-sharp"
-                size={scale(22)}
-                color={isValid() ? green : 'gray'}
-              />
+            <TouchableOpacity disabled={loading} onPress={() => navigation.goBack()}>
+              <BackButton />
             </TouchableOpacity>
-          )}
-        </View>
 
-        {/* Edit Profile */}
+            <Text style={globalStyles.header('white')}>Edit Profile</Text>
 
-        <View style={{ flex: 1, justifyContent: 'space-evenly' }}>
-          {/* Profile Picture & Options */}
+            {/* Complete */}
 
-          <View style={{ gap: scale(15) }}>
-
-            <Image
-              source={
-                picture == null
-                  ? require('../../../../assets/blankProfilePicture.png')
-                  : picture
-              }
-              style={{
-                height: scale(130),
-                width: scale(130),
-                borderRadius: 100,
-                borderWidth: scale(3),
-                borderColor: 'white',
-                alignSelf: 'center',
-              }}
-            />
-
-            {/* Picture Options */}
-
-            <View style={{ flexDirection: 'row', gap: scale(15), alignSelf: 'center' }}>
-              {/* Open Picker */}
-
+            {loading ? (
+              <ActivityIndicator color={'white'} style={{ width: scale(35) }} />
+            ) : (
               <TouchableOpacity
-                onPress={() => openPicker()}
-                style={{
-                  backgroundColor: 'white',
-                  height: scale(32),
-                  width: scale(32),
-                  borderRadius: scale(8),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                disabled={loading}
+                onPress={() => handleComplete()}
+                style={{ width: scale(35), alignItems: 'flex-end' }}
+                disabled={!isValid()}
               >
-                <Ionicons name="image-outline" size={scale(18)} color={'black'} />
+                <Ionicons
+                  name="checkmark-done-sharp"
+                  size={scale(22)}
+                  color={isValid() ? green : 'gray'}
+                />
               </TouchableOpacity>
+            )}
+          </View>
 
-              {/* Open Camera */}
+          {/* Edit Profile */}
 
-              <TouchableOpacity
-                onPress={() => openCamera()}
+          <View style={{ flex: 1, justifyContent: 'space-evenly' }}>
+            {/* Profile Picture & Options */}
+
+            <View style={{ gap: scale(15) }}>
+
+              <Image
+                source={
+                  picture == null
+                    ? require('../../../../assets/blankProfilePicture.png')
+                    : picture
+                }
                 style={{
-                  backgroundColor: 'white',
-                  height: scale(32),
-                  width: scale(32),
-                  borderRadius: scale(8),
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  height: scale(130),
+                  width: scale(130),
+                  borderRadius: 100,
+                  borderWidth: scale(3),
+                  borderColor: 'white',
+                  alignSelf: 'center',
                 }}
-                disabled={loading}
-              >
-                <Ionicons name="camera-outline" size={scale(18)} color={'black'} />
-              </TouchableOpacity>
+              />
 
-              {/* Remove Current Picture */}
+              {/* Picture Options */}
 
-              <TouchableOpacity
-                onPress={() => setPicture(null)}
-                style={{
-                  backgroundColor: picture == null ? 'gray' : 'red',
-                  height: scale(32),
-                  width: scale(32),
-                  borderRadius: scale(8),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                disabled={picture == null || loading}
-              >
-                <Ionicons name="trash-outline" size={scale(18)} color={'white'} />
-              </TouchableOpacity>
+              <View style={{ flexDirection: 'row', gap: scale(15), alignSelf: 'center' }}>
+                {/* Open Picker */}
+
+                <TouchableOpacity
+                  onPress={() => openPicker()}
+                  style={{
+                    backgroundColor: 'white',
+                    height: scale(32),
+                    width: scale(32),
+                    borderRadius: scale(8),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  disabled={loading}
+                >
+                  <Ionicons name="image-outline" size={scale(18)} color={'black'} />
+                </TouchableOpacity>
+
+                {/* Open Camera */}
+
+                <TouchableOpacity
+                  onPress={() => openCamera()}
+                  style={{
+                    backgroundColor: 'white',
+                    height: scale(32),
+                    width: scale(32),
+                    borderRadius: scale(8),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  disabled={loading}
+                >
+                  <Ionicons name="camera-outline" size={scale(18)} color={'black'} />
+                </TouchableOpacity>
+
+                {/* Remove Current Picture */}
+
+                <TouchableOpacity
+                  onPress={() => setPicture(null)}
+                  style={{
+                    backgroundColor: picture == null ? 'gray' : 'red',
+                    height: scale(32),
+                    width: scale(32),
+                    borderRadius: scale(8),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  disabled={picture == null || loading}
+                >
+                  <Ionicons name="trash-outline" size={scale(18)} color={'white'} />
+                </TouchableOpacity>
+              </View>
             </View>
+
+            {/* Text Inputs */}
+
+            <View style={{ gap: scale(10) }}>
+              <CustomTextInput
+                border={undefined}
+                value={firstName}
+                onChangeText={setFirstName}
+                placeholder={'Enter a first name'}
+                loading={loading}
+                autoCapitalize={true}
+                autoCorrect={false}
+                valid={validFirst}
+                dark={false}
+              />
+
+              <CustomTextInput
+                border={undefined}
+                value={lastName}
+                onChangeText={setLastName}
+                placeholder={'Enter a last name'}
+                loading={loading}
+                autoCapitalize={true}
+                autoCorrect={false}
+                valid={validLast}
+                dark={false}
+              />
+            </View>
+
+            <View />
           </View>
-
-          {/* Text Inputs */}
-
-          <View style={{ gap: scale(10) }}>
-            <CustomTextInput
-              border={undefined}
-              value={firstName}
-              onChangeText={setFirstName}
-              placeholder={'Enter a first name'}
-              loading={loading}
-              autoCapitalize={true}
-              autoCorrect={false}
-              valid={validFirst}
-              dark={false}
-            />
-
-            <CustomTextInput
-              border={undefined}
-              value={lastName}
-              onChangeText={setLastName}
-              placeholder={'Enter a last name'}
-              loading={loading}
-              autoCapitalize={true}
-              autoCorrect={false}
-              valid={validLast}
-              dark={false}
-            />
-          </View>
-
-          <View />
-        </View>
-      </CustomKeyboardAvoidingView>
+        </CustomKeyboardAvoidingView>
+      }
 
       {/* Camera */}
 
@@ -279,6 +287,7 @@ const EditProfileView = ({ navigation }: { navigation: any }) => {
           showCamera={showCamera}
         />
       </BottomSheet>
+
     </SafeAreaView>
   );
 };

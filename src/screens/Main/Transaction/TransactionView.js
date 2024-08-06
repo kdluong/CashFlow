@@ -6,6 +6,7 @@ import TransactionLargeCard from '../../../components/TransactionCards/Transacti
 import BackButton from '../../../components/Buttons/BackButton';
 import { accentColor } from '../../../constants/constants';
 import IconSmall from '../../../components/Icons/IconSmall';
+import LoadingScreen from '../../Loading/LoadingScreen';
 
 function TransactionView({ navigation, route }) {
   const { transaction_id } = route.params;
@@ -20,48 +21,60 @@ function TransactionView({ navigation, route }) {
   }, [transactions]);
 
   async function handleDelete() {
+    let successFlag = false;
+
     setDeleteLoading(true);
-    await deleteTransaction(transaction.id, true);
+    successFlag = await deleteTransaction(transaction.id, true);
     setDeleteLoading(false);
 
-    navigation.goBack();
+    if (successFlag) {
+      navigation.goBack();
+    }
   }
 
   return (
-    <TransactionLargeCard transaction_id={transaction_id}>
-      {/* Header */}
+    <View style={{ height: "100%", width: '100%' }}>
+      {deleteLoading
+        ?
+        <LoadingScreen />
+        :
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        {/* Back Button */}
+        <TransactionLargeCard transaction_id={transaction_id}>
+          {/* Header */}
 
-        <TouchableOpacity disabled={deleteLoading} onPress={() => navigation.goBack()}>
-          <BackButton />
-        </TouchableOpacity>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            {/* Back Button */}
 
-        {/* Edit & Delete Buttons */}
-
-        <View style={{ flexDirection: 'row', gap: scale(5) }}>
-          <TouchableOpacity
-            disabled={deleteLoading}
-            onPress={() => navigation.navigate('NewTransactionStartView', {
-              transaction_id: transaction?.id,
-              category_id: null,
-              returnScreen: null,
-            })}
-          >
-            <IconSmall name="create" color="white" backgroundColor={accentColor} />
-          </TouchableOpacity>
-
-          {deleteLoading ? (
-            <ActivityIndicator color="white" style={{ width: scale(35) }} />
-          ) : (
-            <TouchableOpacity disabled={deleteLoading} onPress={() => handleDelete()}>
-              <IconSmall name="trash" color="white" backgroundColor="black" />
+            <TouchableOpacity disabled={deleteLoading} onPress={() => navigation.goBack()}>
+              <BackButton />
             </TouchableOpacity>
-          )}
-        </View>
-      </View>
-    </TransactionLargeCard>
+
+            {/* Edit & Delete Buttons */}
+
+            <View style={{ flexDirection: 'row', gap: scale(5) }}>
+              <TouchableOpacity
+                disabled={deleteLoading}
+                onPress={() => navigation.navigate('NewTransactionStartView', {
+                  transaction_id: transaction?.id,
+                  category_id: null,
+                  returnScreen: null,
+                })}
+              >
+                <IconSmall name="create" color="white" backgroundColor={accentColor} />
+              </TouchableOpacity>
+
+              {deleteLoading ? (
+                <ActivityIndicator color="white" style={{ width: scale(35) }} />
+              ) : (
+                <TouchableOpacity disabled={deleteLoading} onPress={() => handleDelete()}>
+                  <IconSmall name="trash" color="white" backgroundColor="black" />
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+        </TransactionLargeCard>
+      }
+    </View>
   );
 }
 
