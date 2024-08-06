@@ -7,8 +7,8 @@ CashFlow is your ultimate personal finance companion, dedicated to simplifying t
  <img src="assets/README_Images/Demo.gif" width="400" />
 </p>
 
-![Alt Text](assets/README_Images/mainPhoto.png)
-![Alt Text](assets/README_Images/secondPhoto.png)
+![Alt Text](assets/README_Images/first.png)
+![Alt Text](assets/README_Images/second.png)
 
 ### Built With
 
