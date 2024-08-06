@@ -2,13 +2,13 @@
 
 CashFlow is your ultimate personal finance companion, dedicated to simplifying the art of managing your finances and supercharging your financial well-being. Whether you're eager to seize control of your spending, create effective budgets, or gain profound insights into your financial health, CashFlow is here to transform the way you approach your money.
 
+![Alt Text](assets/README_Images/first.png)
+![Alt Text](assets/README_Images/second.png)
+
 <p align="center" >
  <img src="assets/README_Images/Tour.gif" width="400" />
  <img src="assets/README_Images/Demo.gif" width="400" />
 </p>
-
-![Alt Text](assets/README_Images/first.png)
-![Alt Text](assets/README_Images/second.png)
 
 ### Built With
 
