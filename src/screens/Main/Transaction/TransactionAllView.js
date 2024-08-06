@@ -110,8 +110,8 @@ function TransactionAllView({ navigation }) {
   );
 
   const renderEmptyComponent = () => (
-    <View style={{ height: '250%', alignItems: 'center', justifyContent: 'flex-end' }}>
-      <Text style={globalStyles.body('white')}>No Transactions</Text>
+    <View style={{ height: '150%', alignItems: 'center', justifyContent: 'flex-end' }}>
+      <Text style={globalStyles.subHeader('white')}>No Transactions</Text>
     </View>
   );
 
