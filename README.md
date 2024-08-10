@@ -5,10 +5,16 @@ CashFlow is your ultimate personal finance companion, dedicated to simplifying t
 ![Alt Text](assets/README_Images/first.png)
 ![Alt Text](assets/README_Images/second.png)
 
-<p align="center" >
- <img src="assets/README_Images/Tour.gif" width="350" />
- <img src="assets/README_Images/Demo.gif" width="350" />
-</p>
+<table>
+    <tr>
+        <td width="400px">Tour</td width="400px">
+        <td width="400px">Demo: Adding a Transaction</td width="400px">
+    </tr>
+    <tr>
+        <td width="400px"><img src="assets/README_Images/Tour.gif" width="400px" /></td width="400px">
+        <td width="400px"><img src="assets/README_Images/Demo.gif" width="400px" /></td width="400px">
+    </tr>
+</table>
 
 ### Built With
 
